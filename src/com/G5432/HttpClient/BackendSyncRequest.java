@@ -3,11 +3,12 @@ package com.G5432.HttpClient;
 import android.util.Log;
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.*;
-import com.G5432.Enums.MissionType;
 import com.G5432.Service.*;
+import com.G5432.Utils.CommonUtil;
 import com.G5432.Utils.Constant;
 import com.G5432.Utils.UserUtil;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -27,7 +28,7 @@ public class BackendSyncRequest {
 
     private DatabaseHelper databaseHelper = null;
 
-    private Gson gson = new Gson();
+    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
     public BackendSyncRequest(DatabaseHelper helper) {
         this.databaseHelper = helper;
@@ -35,10 +36,11 @@ public class BackendSyncRequest {
 
     public void syncSystemMessages() {
         String lastUpdateTime = UserUtil.getLastUpdateTime("SystemMessageUpdateTime");
-        String url = MessageFormat.format(Constant.SYSTEM_MESSAGE_URL, lastUpdateTime);
+        String url = CommonUtil.getUrl(MessageFormat.format(Constant.SYSTEM_MESSAGE_URL, lastUpdateTime));
         httpClientHelper.get(url, null, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, String response) {
+                Log.d(this.getClass().getName(), response);
                 if (statusCode == 200 || statusCode == 204) {
                     SystemService systemService = new SystemService(databaseHelper);
                     List<SystemMessage> systemMessageList = gson.fromJson(response, new TypeToken<List<SystemMessage>>() {
@@ -48,10 +50,12 @@ public class BackendSyncRequest {
                 } else {
                     Log.e(this.getClass().getName(), response);
                 }
+                UserUtil.messageSynced = true;
             }
 
             @Override
             public void onFailure(Throwable error, String content) {
+                UserUtil.messageSynced = true;
                 Log.e(this.getClass().getName(), error.getMessage());
             }
         });
@@ -59,30 +63,26 @@ public class BackendSyncRequest {
 
     public void syncMissions() {
         String lastUpdateTime = UserUtil.getLastUpdateTime("MissionUpdateTime");
-        String url = MessageFormat.format(Constant.MISSION_URL, lastUpdateTime);
+        String url = CommonUtil.getUrl(MessageFormat.format(Constant.MISSION_URL, lastUpdateTime));
         httpClientHelper.get(url, null, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, String response) {
+                Log.d(this.getClass().getName(), response);
                 if (statusCode == 200 || statusCode == 204) {
                     MissionService missionService = new MissionService(databaseHelper);
                     List<Mission> missionList = gson.fromJson(response, new TypeToken<List<Mission>>() {
                     }.getType());
-                    for (Mission mission : missionList) {
-                        if (mission.getMissionTypeId() == MissionType.Challenge.ordinal() && mission.getChallengeId() != null) {
-                            List<MissionChallenge> missionChallengeList = gson.fromJson(mission.getMissionChallenges(), new TypeToken<List<MissionChallenge>>() {
-                            }.getType());
-                            mission.setMissionChallengesList(missionChallengeList);
-                        }
-                    }
                     missionService.saveMissionToDB(missionList);
                     UserUtil.saveLastUpdateTime("MissionUpdateTime");
                 } else {
                     Log.e(this.getClass().getName(), response);
                 }
+                UserUtil.missionSynced = true;
             }
 
             @Override
             public void onFailure(Throwable error, String content) {
+                UserUtil.missionSynced = true;
                 Log.e(this.getClass().getName(), error.getMessage());
             }
         });
@@ -90,10 +90,11 @@ public class BackendSyncRequest {
 
     public void syncRunningHistories() {
         String lastUpdateTime = UserUtil.getLastUpdateTime("RunningHistoryUpdateTime");
-        String url = MessageFormat.format(Constant.RUNNING_HISTORY_URL, UserUtil.getUserId(), lastUpdateTime);
+        String url = CommonUtil.getUrl(MessageFormat.format(Constant.RUNNING_HISTORY_URL, UserUtil.getUserId(), lastUpdateTime));
         httpClientHelper.get(url, null, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, String response) {
+                Log.d(this.getClass().getName(), response);
                 if (statusCode == 200 || statusCode == 204) {
                     RunningHistoryService runningHistoryService = new RunningHistoryService(databaseHelper);
                     List<RunningHistory> runningHistoryList = gson.fromJson(response, new TypeToken<List<RunningHistory>>() {
@@ -104,10 +105,12 @@ public class BackendSyncRequest {
                 } else {
                     Log.e(this.getClass().getName(), response);
                 }
+                UserUtil.historySynced = true;
             }
 
             @Override
             public void onFailure(Throwable error, String content) {
+                UserUtil.historySynced = true;
                 Log.e(this.getClass().getName(), error.getMessage());
             }
         });
@@ -117,16 +120,18 @@ public class BackendSyncRequest {
         RunningHistoryService runningHistoryService = new RunningHistoryService(databaseHelper);
         List<RunningHistory> runningHistoryList = runningHistoryService.fetchUnsyncedRunHistory(UserUtil.getUserId());
         if (runningHistoryList != null && runningHistoryList.size() > 0) {
-            String url = MessageFormat.format(Constant.POST_RUNNING_HISTORY_URL, UserUtil.getUserId());
+            String url = CommonUtil.getUrl(MessageFormat.format(Constant.POST_RUNNING_HISTORY_URL, UserUtil.getUserId()));
             httpClientHelper.post(url, null, gson.toJson(runningHistoryList), new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, String response) {
+                    Log.d(this.getClass().getName(), response);
                     if (statusCode == 200 || statusCode == 204) {
                         RunningHistoryService runningHistoryService = new RunningHistoryService(databaseHelper);
                         runningHistoryService.updateUnsyncedRunHistories(UserUtil.getUserId());
                     } else {
                         Log.e(this.getClass().getName(), response);
                     }
+                    syncUserInfo();
                 }
 
                 @Override
@@ -134,6 +139,39 @@ public class BackendSyncRequest {
                     Log.e(this.getClass().getName(), error.getMessage());
                 }
             });
+        } else {
+            UserUtil.userSynced = true;
+        }
+    }
+
+    public void syncUserInfo() {
+        if (UserUtil.getUserId() > 0) {
+            String url = CommonUtil.getUrl(MessageFormat.format(Constant.USER_INFO, UserUtil.getUserId()));
+            httpClientHelper.get(url, null, new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, String response) {
+                    Log.d(this.getClass().getName(), response);
+                    if (statusCode == 200 || statusCode == 204) {
+                        UserService userService = new UserService(databaseHelper);
+                        UserBase userBase = gson.fromJson(response, UserBase.class);
+                        UserInfo userInfo = gson.fromJson(response, UserInfo.class);
+                        userBase.setUserInfo(userInfo);
+                        userService.saveUserInfoToDB(userBase);
+                        UserUtil.saveUserInfoToList(userBase);
+                    } else {
+                        Log.e(this.getClass().getName(), response);
+                    }
+                    UserUtil.userSynced = true;
+                }
+
+                @Override
+                public void onFailure(Throwable error, String content) {
+                    UserUtil.userSynced = true;
+                    Log.e(this.getClass().getName(), error.getMessage());
+                }
+            });
+        } else {
+            UserUtil.userSynced = true;
         }
     }
 }

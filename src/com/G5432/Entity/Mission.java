@@ -56,16 +56,16 @@ public class Mission {
     @DatabaseField
     private Integer missionPlacePackageId;
 
-    private String missionPlacePackages;
+    //private String missionPlacePackages;
 
-    private List<MissionPlacePackage> missionPlacePackagesList;
+    private List<MissionPlacePackage> missionPlacePackages;
 
     @DatabaseField
     private Integer challengeId;
 
-    private String missionChallenges;
+    //private String missionChallenges;
 
-    private List<MissionChallenge> missionChallengesList;
+    private List<MissionChallenge> missionChallenges;
 
     @DatabaseField
     private Integer missionSteps;
@@ -257,35 +257,19 @@ public class Mission {
         this.sequence = sequence;
     }
 
-    public String getMissionPlacePackages() {
+    public List<MissionPlacePackage> getMissionPlacePackages() {
         return missionPlacePackages;
     }
 
-    public void setMissionPlacePackages(String missionPlacePackages) {
+    public void setMissionPlacePackages(List<MissionPlacePackage> missionPlacePackages) {
         this.missionPlacePackages = missionPlacePackages;
     }
 
-    public List<MissionPlacePackage> getMissionPlacePackagesList() {
-        return missionPlacePackagesList;
-    }
-
-    public void setMissionPlacePackagesList(List<MissionPlacePackage> missionPlacePackagesList) {
-        this.missionPlacePackagesList = missionPlacePackagesList;
-    }
-
-    public String getMissionChallenges() {
+    public List<MissionChallenge> getMissionChallenges() {
         return missionChallenges;
     }
 
-    public void setMissionChallenges(String missionChallenges) {
+    public void setMissionChallenges(List<MissionChallenge> missionChallenges) {
         this.missionChallenges = missionChallenges;
-    }
-
-    public List<MissionChallenge> getMissionChallengesList() {
-        return missionChallengesList;
-    }
-
-    public void setMissionChallengesList(List<MissionChallenge> missionChallengesList) {
-        this.missionChallengesList = missionChallengesList;
     }
 }

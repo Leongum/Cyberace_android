@@ -1,7 +1,7 @@
 package com.G5432.Utils;
 
-import java.io.StringWriter;
 import java.text.DateFormat;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,5 +26,16 @@ public class CommonUtil {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         return null;
+    }
+
+    public static String parseDateToString(Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return formatter.format(date);
+    }
+
+
+    public static String getUrl(String url, String... params) {
+        String newUrl = MessageFormat.format(url, params);
+        return newUrl.replace(" ", "%20");
     }
 }

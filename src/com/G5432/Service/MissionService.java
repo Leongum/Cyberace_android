@@ -44,7 +44,7 @@ public class MissionService {
                     DeleteBuilder<MissionChallenge, Void> missionChallengeDeleteBuilder = missionChallengeDao.deleteBuilder();
                     missionChallengeDeleteBuilder.where().eq("challengeId", mission.getChallengeId());
                     missionChallengeDeleteBuilder.delete();
-                    for (MissionChallenge missionChallenge : mission.getMissionChallengesList()) {
+                    for (MissionChallenge missionChallenge : mission.getMissionChallenges()) {
                         missionChallengeDao.create(missionChallenge);
                     }
                 } else if (mission.getMissionTypeId() == MissionType.Cycle.ordinal()) {
@@ -53,7 +53,7 @@ public class MissionService {
                     DeleteBuilder<MissionPlacePackage, Void> missionPlacePackageDeleteBuilder = missionPlacePackageDao.deleteBuilder();
                     missionPlacePackageDeleteBuilder.where().eq("packageId", mission.getMissionPlacePackageId());
                     missionPlacePackageDeleteBuilder.delete();
-                    for (MissionPlacePackage missionPlacePackage : mission.getMissionPlacePackagesList()) {
+                    for (MissionPlacePackage missionPlacePackage : mission.getMissionPlacePackages()) {
                         missionPlacePackageDao.create(missionPlacePackage);
                     }
                 }
@@ -103,7 +103,7 @@ public class MissionService {
                     missionChallengeQueryBuilder.where().eq("challengeId", mission.getChallengeId()).and().eq("sex", "男");
                     missionChallengeQueryBuilder.orderBy("sequence", true);
                     missionChallengeList = missionChallengeQueryBuilder.query();
-                    mission.setMissionChallengesList(missionChallengeList);
+                    mission.setMissionChallenges(missionChallengeList);
                 } else if (mission.getMissionTypeId() == MissionType.Cycle.ordinal()) {
                     //todo:: under design
                 } else if (mission.getMissionTypeId() == MissionType.Recommand.ordinal() && mission.getMissionPlacePackageId() != null) {
@@ -112,7 +112,7 @@ public class MissionService {
                     missionPlacePackageQueryBuilder.where().eq("packageId", mission.getMissionPlacePackageId());
                     missionPlacePackageQueryBuilder.orderBy("sequence", false);
                     missionPlacePackageList = missionPlacePackageQueryBuilder.query();
-                    mission.setMissionPlacePackagesList(missionPlacePackageList);
+                    mission.setMissionPlacePackages(missionPlacePackageList);
                 }
             }
         } catch (SQLException e) {
