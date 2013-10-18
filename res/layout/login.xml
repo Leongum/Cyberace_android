@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@drawable/paper_bg" android:layout_gravity="center">
+    <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/btnsubmit" android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="true" android:layout_alignParentRight="true"
+            android:layout_marginTop="6dp" android:layout_marginRight="10dp" android:background="@drawable/submit"/>
+    <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/btnReturn" android:layout_alignParentLeft="true" android:layout_marginLeft="10dp"
+            android:layout_alignParentTop="true" android:layout_marginTop="6dp" android:background="@drawable/back_bg"/>
+    <EditText
+            android:layout_width="245dp"
+            android:layout_height="30dp"
+            android:id="@+id/txtUserEmail"
+            android:layout_alignParentLeft="true" android:layout_marginLeft="38dp" android:layout_alignParentTop="true"
+            android:layout_marginTop="110dp" android:autoText="false" android:background="@drawable/textfield"
+            android:gravity="center_vertical|center_horizontal" android:textSize="14dp" android:hint="邮箱"/>
+    <EditText android:layout_width="245dp" android:layout_height="30dp" android:id="@+id/txtPassword"
+              android:autoText="false"
+              android:background="@drawable/textfield" android:gravity="center_vertical|center_horizontal"
+              android:textSize="14dp" android:hint="密码" android:layout_alignLeft="@+id/txtUserEmail"
+              android:layout_alignParentTop="false" android:layout_marginTop="20dp"
+              android:layout_below="@+id/txtUserEmail" android:clickable="false"/>
+    <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkShowPwd"
+            android:layout_alignRight="@+id/txtUserEmail" android:layout_below="@+id/txtPassword"
+            android:layout_marginTop="10dp" android:checked="false"
+            style="@style/CustomRadioBox" android:layout_marginRight="10dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="隐藏密码"
+            android:id="@+id/lblshowPassword"
+            android:layout_toLeftOf="@+id/checkShowPwd" android:layout_alignTop="@+id/checkShowPwd"
+            android:gravity="center_vertical|center_horizontal"
+            android:textColor="#7a7a7a" android:textSize="11dp" android:layout_marginRight="5dp"/>
+    <EditText
+            android:layout_width="245dp"
+            android:layout_height="30dp"
+            android:id="@+id/txtNickName" android:layout_alignLeft="@+id/txtUserEmail"
+            android:layout_below="@+id/checkShowPwd" android:layout_marginTop="30dp"
+            android:background="@drawable/textfield" android:hint="昵称" android:gravity="center_vertical|center_horizontal"
+            android:textSize="14dp"/>
+</RelativeLayout>

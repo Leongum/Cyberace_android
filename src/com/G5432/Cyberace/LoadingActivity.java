@@ -65,9 +65,14 @@ public class LoadingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             @Override
             public void run() {
                 Log.d(this.getClass().getName(), "begin time task check");
+                int time = 0;
                 // 定义一个消息传过去
                 Message msg = new Message();
                 msg.what = (UserUtil.systemSynced && UserUtil.missionSynced && UserUtil.messageSynced && UserUtil.historySynced && UserUtil.userSynced) ? 1 : 0;
+                if(time == 5){
+                    msg.what = 1;
+                }
+                time ++;
                 handler.sendMessage(msg);
             }
         };
