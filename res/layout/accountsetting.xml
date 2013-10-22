@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@drawable/paper_bg">
+    <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/accountsettingBtnReturn" android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp" android:layout_marginTop="6dp" android:background="@drawable/back_bg"/>
+    <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/accountsettingBtnLogout" android:layout_alignParentRight="true" android:layout_alignParentTop="true"
+            android:layout_marginTop="6dp" android:layout_marginRight="10dp"
+            android:background="@drawable/logout_btn_bg"/>
+</RelativeLayout>

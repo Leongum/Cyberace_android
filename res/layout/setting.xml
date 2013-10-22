@@ -38,7 +38,7 @@
         </TableRow>
         <TableRow
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/settingTblIndex2">
+                android:layout_height="wrap_content" android:id="@+id/settingTBlIndex2">
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="44dp"
@@ -52,7 +52,7 @@
         </TableRow>
         <TableRow
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/settingTblIndex2">
+                android:layout_height="wrap_content" android:id="@+id/settingTblIndex3">
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="44dp"
@@ -67,7 +67,7 @@
         </TableRow>
         <TableRow
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/settingTblIndex5">
+                android:layout_height="wrap_content" android:id="@+id/settingTblIndex4">
             <TableRow
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:layout_span="3" android:background="@null"

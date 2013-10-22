@@ -147,9 +147,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         btnRun.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, BodySettingActivity.class);
-                intent.putExtra("NewRegister", true);
-                startActivity(intent);
+                //todo:: add onclick
             }
         });
 

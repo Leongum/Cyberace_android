@@ -29,5 +29,11 @@
 
         <activity android:name=".Setting.FeedbackActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
+
+        <activity android:name=".Setting.AboutUsActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+
+        <activity android:name=".Setting.AccountSettingActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
     </application>
 </manifest>

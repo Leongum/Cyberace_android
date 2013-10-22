@@ -38,7 +38,7 @@ public class SettingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         txtNickName = (TextView) findViewById(R.id.settingTxtNickName);
         btnFeedBack = (Button) findViewById(R.id.settingBtnFeedback);
         tblRowIndex1 = (TableRow) findViewById(R.id.settingTblIndex1);
-        tblRowIndex2 = (TableRow) findViewById(R.id.settingTblIndex2);
+        tblRowIndex2 = (TableRow) findViewById(R.id.settingTBlIndex2);
         tblRowIndex5 = (TableRow) findViewById(R.id.settingTblIndex5);
         btnSpeedKMPerH = (Button) findViewById(R.id.settingBtnSpeedKMperH);
         btnSpeedMimPerKM = (Button) findViewById(R.id.settingBtnSpeedMinPerKM);
@@ -104,6 +104,14 @@ public class SettingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             }
         });
 
+        tblRowIndex1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingActivity.this, AccountSettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
         tblRowIndex2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,6 +125,14 @@ public class SettingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SettingActivity.this, FeedbackActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tblRowIndex5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingActivity.this, AboutUsActivity.class);
                 startActivity(intent);
             }
         });

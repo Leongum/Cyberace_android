@@ -187,6 +187,7 @@ public class BodySettingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     @Override
     public void onBackPressed() {
+        finish();
         if (newRegister) {
             //do nothing
         } else {

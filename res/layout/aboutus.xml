@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@drawable/paper_bg">
+    <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/aboutusBtnReturn" android:layout_alignParentLeft="true" android:layout_marginLeft="10dp"
+            android:layout_alignParentTop="true" android:layout_marginTop="6dp" android:background="@drawable/back_bg"/>
+    <ImageView
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:id="@+id/aboutusImgLogo" android:layout_alignParentLeft="true" android:layout_marginLeft="36dp"
+            android:layout_alignParentTop="true" android:layout_marginTop="100dp" android:background="@drawable/logo"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="版本"
+            android:id="@+id/aboutusTxtVersion" android:layout_alignLeft="@+id/aboutusImgLogo" android:layout_below="@+id/aboutusImgLogo"
+            android:textStyle="bold" android:textColor="#000000" android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"/>
+    <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="1.0"
+            android:id="@+id/aboutusTxtVersionNum" android:layout_toRightOf="@+id/aboutusTxtVersion"
+            android:layout_alignTop="@+id/aboutusTxtVersion" android:layout_marginLeft="60dp" android:textColor="#3a3a3a"
+            android:gravity="center_vertical|center_horizontal"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="网址"
+            android:id="@+id/aboutusTxtWebSite" android:layout_alignLeft="@+id/aboutusTxtVersion" android:layout_below="@+id/aboutusTxtVersion"
+            android:textColor="#000000" android:layout_marginTop="20dp" android:textStyle="bold"/>
+    <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="www.cyberace.cc"
+            android:id="@+id/taboutusTxtWebLink" android:layout_toRightOf="@+id/aboutusTxtVersion"
+            android:layout_alignTop="@+id/aboutusTxtWebSite" android:layout_marginLeft="60dp" android:singleLine="false"
+            android:textColor="#3A3A3A" android:gravity="center_vertical|center_horizontal"
+            android:linksClickable="true" android:autoLink="web"/>
+    <TextView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="空气质量信息来自PM25.in"
+            android:id="@+id/aboutusTxtPM25" android:layout_alignParentTop="false"
+            android:layout_alignParentLeft="false" android:layout_marginBottom="55dp" android:layout_marginLeft="35dp"
+            android:layout_alignParentBottom="true" android:textSize="9dp" android:textColor="#000000"
+            android:gravity="center_vertical|center_horizontal"/>
+</RelativeLayout>
