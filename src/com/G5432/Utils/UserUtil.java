@@ -33,6 +33,30 @@ public class UserUtil {
         return sharedPreferences.getString("uuid", "");
     }
 
+    public static String getUserNickName() {
+        return sharedPreferences.getString("nickName", "");
+    }
+
+    public static String getSyncMode() {
+        return sharedPreferences.getString("syncMode", Constant.SYNC_MODE_ALL_MODE);
+    }
+
+    public static String getSpeedFormat(){
+        return sharedPreferences.getString("speedType",Constant.SPEED_FORMAT_KM_PER_HOUR);
+    }
+
+    public static void setSpeedFormat(String format){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("speedType", format);
+        editor.commit();
+    }
+
+    public static void setSyncMode(String syncMode){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("syncMode", syncMode);
+        editor.commit();
+    }
+
     public static Date getSystemTime() {
         String dateString = sharedPreferences.getString("systemTime", "");
         return CommonUtil.parseDate(dateString);

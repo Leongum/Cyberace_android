@@ -21,7 +21,13 @@
         <activity android:name="LoginActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
 
-        <activity android:name="BodySettingActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        <activity android:name=".Setting.BodySettingActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+
+        <activity android:name=".Setting.SettingActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+
+        <activity android:name=".Setting.FeedbackActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
     </application>
 </manifest>

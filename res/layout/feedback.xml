@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@drawable/paper_bg">
+    <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/feedbackBtnReturn" android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
+            android:layout_marginTop="6dp" android:layout_marginLeft="10dp" android:background="@drawable/back_bg"/>
+    <Button android:layout_width="55dp" android:layout_height="55dp" android:id="@+id/feedbackBtnSubmit"
+            android:background="@drawable/submit" android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true" android:layout_marginTop="6dp" android:layout_marginRight="10dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="想对我们说的话"
+            android:id="@+id/feedbackTxtTitle" android:layout_alignParentLeft="true" android:layout_marginLeft="45dp"
+            android:layout_alignParentTop="true" android:layout_marginTop="100dp" android:textColor="#000000"
+            android:textSize="12dp" android:textStyle="bold"/>
+    <EditText
+            android:layout_width="230dp"
+            android:layout_height="140dp"
+            android:id="@+id/feedbackTxtContent" android:layout_alignLeft="@+id/feedbackTxtTitle" android:layout_below="@+id/feedbackTxtTitle"
+            android:background="@drawable/contactus_bg" android:layout_marginTop="5dp" android:textSize="10dp"
+            android:textColor="#000000" android:hint="bug？意见？想法？求来一发！" android:editable="false" android:gravity="top"
+            android:inputType="text|textMultiLine" android:padding="15dp" android:maxWidth="140dp"/>
+</RelativeLayout>

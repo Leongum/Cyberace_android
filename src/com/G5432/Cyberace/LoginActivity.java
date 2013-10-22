@@ -5,12 +5,11 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.*;
+import com.G5432.Cyberace.Setting.BodySettingActivity;
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.UserBase;
 import com.G5432.Entity.UserInfo;
@@ -26,7 +25,6 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import java.text.MessageFormat;
-import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.

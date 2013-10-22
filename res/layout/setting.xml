@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@drawable/paper_bg">
+    <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/settingBtnReturn" android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp" android:layout_marginTop="6dp" android:background="@drawable/back_bg"/>
+    <TableLayout
+            android:layout_width="250dp"
+            android:layout_height="wrap_content" android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true" android:layout_marginLeft="35dp" android:layout_marginTop="110dp"
+            android:layout_marginBottom="70dp" android:background="@null" android:id="@+id/tableLayout">
+        <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:background="@null" android:id="@+id/settingTblIndex1">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:text="帐号"
+                    android:id="@+id/settingTxtAccount" android:gravity="center_vertical"
+                    android:textColor="#000000" android:textSize="14dp" android:textStyle="bold"
+                    android:layout_marginLeft="20dp"/>
+            <TextView
+                    android:layout_width="160dp"
+                    android:layout_height="44dp"
+                    android:text="未登陆"
+                    android:id="@+id/settingTxtNickName" android:textSize="12dp" android:textColor="#565656"
+                    android:layout_marginLeft="15dp" android:textStyle="bold" android:gravity="center_vertical"/>
+            <Button
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:id="@+id/settingBtnDetail1" android:singleLine="false"
+                    android:background="@drawable/details"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/settingTblIndex2">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:text="身体参数"
+                    android:id="@+id/textView2" android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical" android:textColor="#000000" android:textStyle="bold"
+                    android:layout_span="2"/>
+            <Button android:layout_width="28dp" android:layout_height="28dp" android:id="@+id/settingbtnDetail2"
+                    android:singleLine="false"
+                    android:background="@drawable/details"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/settingTblIndex2">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:text="仅wifi同步"
+                    android:id="@+id/settingTxtSync" android:layout_span="2" android:gravity="center_vertical"
+                    android:layout_marginLeft="20dp" android:textColor="#000000" android:textStyle="bold"/>
+            <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:id="@+id/settingCheckSyncMode" style="@style/CustomRadioBox"
+                    android:layout_gravity="right" android:gravity="center_vertical" android:layout_marginTop="0dp"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/settingTblIndex5">
+            <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_span="3" android:background="@null"
+                    >
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="44dp"
+                        android:text="速度格式"
+                        android:id="@+id/settingTxtSpeedMode" android:gravity="center_vertical" android:textStyle="bold"
+                        android:layout_marginLeft="20dp" android:layout_span="3" android:textColor="#000000"
+                        android:textSize="14dp"/>
+                <Button
+                        android:layout_width="70dp"
+                        android:layout_height="30dp"
+                        android:text="7'41&quot;/km"
+                        android:id="@+id/settingBtnSpeedMinPerKM" android:background="@null"
+                        android:layout_gravity="center" android:layout_marginLeft="35dp" android:textColor="#000000"
+                        android:textSize="11dp"/>
+                <Button
+                        android:layout_width="70dp"
+                        android:layout_height="30dp"
+                        android:text="7.8km/h"
+                        android:id="@+id/settingBtnSpeedKMperH" android:background="@drawable/seg_selected_bg"
+                        android:layout_gravity="center" android:textColor="#000000" android:textSize="11dp"/>
+            </TableRow>
+        </TableRow>
+        <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/settingTblIndex5">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:text="关于 Cyberace"
+                    android:id="@+id/settingTxtAbout" android:layout_span="2" android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical" android:textColor="#000000" android:textStyle="bold"
+                    android:textSize="14dp"/>
+            <Button android:layout_width="28dp" android:layout_height="28dp" android:id="@+id/settingBtnSettingDetail3"
+                    android:singleLine="false" android:background="@drawable/details"/>
+        </TableRow>
+    </TableLayout>
+    <ImageView
+            android:layout_width="257dp"
+            android:layout_height="87dp"
+            android:id="@+id/settingBtncontactIcon" android:background="@drawable/contactus_bg"
+            android:layout_alignParentBottom="true" android:layout_alignParentLeft="true"
+            android:layout_marginLeft="30dp" android:layout_marginBottom="55dp"/>
+    <ImageView
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/imageView1" android:layout_alignLeft="@+id/settingBtncontactIcon"
+            android:layout_alignTop="@+id/settingBtncontactIcon" android:background="@drawable/contactus_icon"
+            android:adjustViewBounds="false" android:layout_marginLeft="-10dp" android:layout_marginTop="-10dp"/>
+    <TextView
+            android:layout_width="250dp"
+            android:layout_height="20dp"
+            android:text="新浪微博：@Cyberace_赛跑乐"
+            android:id="@+id/settingTxtWeibo" android:layout_alignLeft="@+id/settingBtncontactIcon"
+            android:layout_alignTop="@+id/settingBtncontactIcon" android:layout_marginTop="15dp" android:layout_marginLeft="3dp"
+            android:gravity="center_vertical|center_horizontal" android:textSize="10dp" android:textColor="#5a0e93"/>
+    <TextView android:layout_width="250dp" android:layout_height="20dp" android:text="微信(订阅号)：Cyberace"
+              android:id="@+id/settingTxtweixin"
+              android:gravity="center_vertical|center_horizontal" android:textSize="10dp" android:textColor="#5a0e93"
+              android:layout_alignLeft="@+id/tableLayout" android:layout_below="@+id/settingTxtWeibo"/>
+    <TextView android:layout_width="250dp" android:layout_height="20dp" android:text="contact@cyberace.cc"
+              android:id="@+id/settingTxtEmail" android:gravity="center_vertical|center_horizontal" android:textSize="10dp"
+              android:textColor="#5a0e93"
+              android:layout_alignLeft="@+id/tableLayout" android:layout_below="@+id/settingTxtweixin"/>
+    <Button
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:id="@+id/settingBtnFeedback" android:layout_alignRight="@+id/settingTxtWeibo"
+            android:layout_alignBottom="@+id/settingBtncontactIcon" android:background="@drawable/write_us"/>
+</RelativeLayout>

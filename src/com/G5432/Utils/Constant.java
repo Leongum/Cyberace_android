@@ -66,4 +66,11 @@ public class Constant {
     public static final String CANCEL_BUTTON_CANCEL = "取消";
     public static final String OK_BUTTON_OK = "确定";
 
+
+    //setting
+    public static final String SYNC_MODE_WIFI_ONLY = "Only_Wifi";
+    public static final String SYNC_MODE_ALL_MODE ="All_Mode";
+    public static final String SPEED_FORMAT_KM_PER_HOUR ="km/h";
+    public static final String SPEED_FORMAT_MIN_PER_KM = "min/km";
+
 }

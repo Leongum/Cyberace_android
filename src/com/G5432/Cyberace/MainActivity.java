@@ -9,9 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.G5432.Cyberace.Setting.BodySettingActivity;
+import com.G5432.Cyberace.Setting.SettingActivity;
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.UserBase;
 import com.G5432.Service.UserService;
@@ -169,7 +170,8 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         btnSetting.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                //todo:: add onclick
+                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+                startActivity(intent);
             }
         });
     }
