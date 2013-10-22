@@ -76,4 +76,23 @@ public class UserUtil {
         editor.commit();
     }
 
+    public static void saveBodySetting(UserBase user){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("sex", user.getSex());
+        editor.putFloat("weight", user.getWeight().floatValue());
+        editor.putFloat("height", user.getHeight().floatValue());
+        editor.commit();
+    }
+
+    public static String getUserSex() {
+        return UserUtil.sharedPreferences.getString("sex", "男");
+    }
+
+    public static float getUserHeight() {
+        return UserUtil.sharedPreferences.getFloat("height", 175);
+    }
+
+    public static float getUserWeight() {
+        return UserUtil.sharedPreferences.getFloat("weight", 65);
+    }
 }

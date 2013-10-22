@@ -1,5 +1,7 @@
 package com.G5432.HttpClient;
 
+import android.util.Log;
+import com.G5432.Utils.UserUtil;
 import com.loopj.android.http.*;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -7,6 +9,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicHeader;
 
 import java.io.UnsupportedEncodingException;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,8 +26,19 @@ public class HttpClientHelper {
 
     public static Map<String, String> defaultHeaders = new HashMap<String, String>();
 
+    public static Map<String, String> postDefaultHeaders = new HashMap<String, String>();
+
     public HttpClientHelper() {
         defaultHeaders.put("Content-Type", "application/json");
+        defaultHeaders.put("Accept-Encoding", "gzip");
+
+        postDefaultHeaders.put("Content-Type", "application/json");
+        postDefaultHeaders.put("Content-Encoding", "gzip");
+
+        String key = MessageFormat.format("{0}#{1}",UserUtil.getUserUuid(), UserUtil.getUserId());
+
+        postDefaultHeaders.put("X-CLIENT-KEY", key);
+        defaultHeaders.put("X-CLIENT-KEY", key);
     }
 
     public static HttpEntity convertHttpEntity(String entity) {

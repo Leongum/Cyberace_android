@@ -20,5 +20,8 @@
 
         <activity android:name="LoginActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
+
+        <activity android:name="BodySettingActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
     </application>
 </manifest>

@@ -35,6 +35,12 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private LocationManager lm;
     private Criteria criteria;
     private Geocoder geocoder;
+    private Button btnLogin;
+    private Button btnTraffic;
+    private Button btnRun;
+    private Button btnChallengeRun;
+    private Button btnHistory;
+    private Button btnSetting;
 
     /**
      * Called when the activity is first created.
@@ -43,7 +49,14 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        initPageData();
+        btnLogin = (Button) findViewById(R.id.mianBtnLogin);
+        btnTraffic = (Button) findViewById(R.id.mianBtnTraffic);
+        btnRun = (Button) findViewById(R.id.mianBtnRun);
+        btnChallengeRun = (Button) findViewById(R.id.mianBtnChallengeRun);
+        btnHistory = (Button) findViewById(R.id.mianBtnHistory);
+        btnSetting = (Button) findViewById(R.id.mianBtnSetting);
+
+        initPage();
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
 
@@ -63,17 +76,24 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         Location location = lm.getLastKnownLocation(provider);
         newLocalGPS(location);
 
-        LocationListener  listener= new locationListener();
+        LocationListener listener = new locationListener();
         lm.requestLocationUpdates(provider, 1000, 0, listener);
     }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        //todo::do nothing now
+    }
+
 
     private void newLocalGPS(Location location) {
         if (location != null) {
             double latitude = location.getLatitude(); //经度
             double longitude = location.getLongitude(); // 纬度
             try {
-                List<Address> addresses = geocoder.getFromLocation(latitude,longitude,10);
-                if(addresses.size() > 0){
+                List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 10);
+                if (addresses.size() > 0) {
                     Address address = addresses.get(0);
                     //todo::add weather info
                     //address.getLocality();
@@ -87,26 +107,20 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         }
     }
 
-    private void initPageData(){
-        Button btnLogin = (Button)findViewById(R.id.btnLogin);
-        ImageButton btnTraffic = (ImageButton)findViewById(R.id.btnTraffic);
-        ImageButton btnRun = (ImageButton)findViewById(R.id.btnRun);
-        ImageButton btnChallengeRun = (ImageButton)findViewById(R.id.btnChallengeRun);
-        ImageButton btnHistory = (ImageButton)findViewById(R.id.btnHistory);
-        ImageButton btnSetting = (ImageButton)findViewById(R.id.btnSetting);
+    private void initPage() {
 
-        if(UserUtil.getUserId() >= 0){
+
+        if (UserUtil.getUserId() >= 0) {
             btnLogin.setAlpha(0);
             UserService userService = new UserService(this.getHelper());
             UserBase userBase = userService.fetchUserById(UserUtil.getUserId());
-            TextView lblNickName = (TextView) findViewById(R.id.lblNickName);
+            TextView lblNickName = (TextView) findViewById(R.id.mianLblNickName);
             lblNickName.setText(userBase.getNickName());
-            TextView lblLevelNum = (TextView) findViewById(R.id.lblLevelNum);
+            TextView lblLevelNum = (TextView) findViewById(R.id.mianLblLevelNum);
             lblLevelNum.setText(userBase.getUserInfo().getLevel().toString());
-            TextView lblCoinNum = (TextView) findViewById(R.id.lblCoinNum);
+            TextView lblCoinNum = (TextView) findViewById(R.id.mianLblCoinNum);
             lblCoinNum.setText(userBase.getUserInfo().getScores().toString());
-        }
-        else{
+        } else {
             btnLogin.setAlpha(1);
             btnLogin.setOnClickListener(new OnClickListener() {
                 @Override
@@ -121,6 +135,10 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         btnTraffic.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                UserUtil.logout();
+                finish();
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
                 //todo:: add onclick
             }
         });
@@ -128,7 +146,9 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         btnRun.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                //todo:: add onclick
+                Intent intent = new Intent(MainActivity.this, BodySettingActivity.class);
+                intent.putExtra("NewRegister", true);
+                startActivity(intent);
             }
         });
 

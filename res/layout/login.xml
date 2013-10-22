@@ -7,47 +7,64 @@
     <Button
             android:layout_width="55dp"
             android:layout_height="55dp"
-            android:id="@+id/btnsubmit" android:layout_alignParentLeft="false"
+            android:id="@+id/loginBtnSubmit" android:layout_alignParentLeft="false"
             android:layout_alignParentTop="true" android:layout_alignParentRight="true"
             android:layout_marginTop="6dp" android:layout_marginRight="10dp" android:background="@drawable/submit"/>
     <Button
             android:layout_width="55dp"
             android:layout_height="55dp"
-            android:id="@+id/btnReturn" android:layout_alignParentLeft="true" android:layout_marginLeft="10dp"
+            android:id="@+id/loginBtnReturn" android:layout_alignParentLeft="true" android:layout_marginLeft="10dp"
             android:layout_alignParentTop="true" android:layout_marginTop="6dp" android:background="@drawable/back_bg"/>
     <EditText
             android:layout_width="245dp"
             android:layout_height="30dp"
-            android:id="@+id/txtUserEmail"
+            android:id="@+id/loginTxtUserEmail"
             android:layout_alignParentLeft="true" android:layout_marginLeft="38dp" android:layout_alignParentTop="true"
             android:layout_marginTop="110dp" android:autoText="false" android:background="@drawable/textfield"
-            android:gravity="center_vertical|center_horizontal" android:textSize="14dp" android:hint="邮箱"/>
-    <EditText android:layout_width="245dp" android:layout_height="30dp" android:id="@+id/txtPassword"
+            android:gravity="center_vertical|center_horizontal" android:textSize="14dp" android:hint="邮箱"
+            android:singleLine="true" android:inputType="textEmailAddress"/>
+    <EditText android:layout_width="245dp" android:layout_height="30dp" android:id="@+id/loginTxtPassword"
               android:autoText="false"
               android:background="@drawable/textfield" android:gravity="center_vertical|center_horizontal"
-              android:textSize="14dp" android:hint="密码" android:layout_alignLeft="@+id/txtUserEmail"
+              android:textSize="14dp" android:hint="密码" android:layout_alignLeft="@+id/loginTxtUserEmail"
               android:layout_alignParentTop="false" android:layout_marginTop="20dp"
-              android:layout_below="@+id/txtUserEmail" android:clickable="false"/>
-    <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkShowPwd"
-            android:layout_alignRight="@+id/txtUserEmail" android:layout_below="@+id/txtPassword"
-            android:layout_marginTop="10dp" android:checked="false"
-            style="@style/CustomRadioBox" android:layout_marginRight="10dp"/>
+              android:layout_below="@+id/loginTxtUserEmail" android:clickable="false" android:password="true"
+              android:singleLine="true" android:inputType="text|textPassword"/>
+
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:text="隐藏密码"
-            android:id="@+id/lblshowPassword"
-            android:layout_toLeftOf="@+id/checkShowPwd" android:layout_alignTop="@+id/checkShowPwd"
+            android:id="@+id/loginLblshowPassword"
+            android:layout_toLeftOf="@+id/loginCheckShowPwd"
             android:gravity="center_vertical|center_horizontal"
-            android:textColor="#7a7a7a" android:textSize="11dp" android:layout_marginRight="5dp"/>
+            android:textColor="#7a7a7a" android:textSize="11dp" android:layout_marginRight="5dp"
+            android:layout_alignTop="@+id/loginCheckShowPwd"/>
     <EditText
             android:layout_width="245dp"
             android:layout_height="30dp"
-            android:id="@+id/txtNickName" android:layout_alignLeft="@+id/txtUserEmail"
-            android:layout_below="@+id/checkShowPwd" android:layout_marginTop="30dp"
+            android:id="@+id/loginTxtNickName" android:layout_alignLeft="@+id/loginTxtUserEmail"
+            android:layout_below="@+id/loginLblshowPassword" android:layout_marginTop="30dp"
             android:background="@drawable/textfield" android:hint="昵称" android:gravity="center_vertical|center_horizontal"
-            android:textSize="14dp"/>
+            android:textSize="14dp" android:alpha="0" android:singleLine="true" android:inputType="text"/>
+    <Button
+            android:layout_width="75dp"
+            android:layout_height="30dp"
+            android:text="登陆"
+            android:id="@+id/loginBtnLogin" android:layout_alignLeft="@+id/loginTxtUserEmail"
+            android:layout_below="@+id/loginTxtNickName" android:singleLine="false"
+            android:background="@drawable/seg_selected_bg" android:layout_marginTop="50dp"
+            android:layout_marginLeft="40dp"/>
+    <Button
+            android:layout_width="75dp"
+            android:layout_height="30dp"
+            android:text="注册"
+            android:id="@+id/loginBtnResigter" android:layout_toRightOf="@+id/loginBtnLogin" android:layout_below="@+id/loginTxtNickName"
+            android:layout_marginTop="50dp" android:background="@null"/>
+    <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loginCheckShowPwd" android:layout_alignRight="@+id/loginTxtUserEmail"
+            android:layout_below="@+id/loginTxtPassword" style="@style/CustomRadioBox" android:layout_marginTop="20dp"
+            android:checked="true"/>
 </RelativeLayout>

@@ -31,6 +31,12 @@ public class UserBase {
 
     private UserInfo userInfo;
 
+    //additional for update self info
+    private Double height;
+
+    //additional for update self info
+    private Double weight;
+
     public UserBase() {
 
     }
@@ -89,5 +95,21 @@ public class UserBase {
 
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
+    }
+
+    public Double getHeight() {
+        return height;
+    }
+
+    public void setHeight(Double height) {
+        this.height = height;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
     }
 }

@@ -25,4 +25,45 @@ public class Constant {
 
     public static final String WEATHER_URL = SERVICE_HOST + "http://www.weather.com.cn/data/sk/{0}.html";
 
+
+    //Message ids;
+
+    public static final int CONNECTION_ERROR = 1;
+    public static final int LOGIN_ERROR = 2;
+    public static final int REGISTER_SUCCESS = 3;
+    public static final int REGISTER_FAIL = 4;
+    public static final int LOGIN_INPUT_CHECK = 5;
+    public static final int REGISTER_INPUT_CHECK = 6;
+    public static final int CONNECTION_ERROR_CONTENT = 7;
+    public static final int SYNC_DATA_SUCCESS = 8;
+    public static final int SYNC_DATA_FAIL = 9;
+    public static final int SYNC_MODE_ALL = 10;
+    public static final int SYNC_MODE_WIFI = 11;
+    public static final int SHARE_TO_PLATFORM_LIST = 12;
+    public static final int SNS_BIND_ERROR = 13;
+    public static final int SELECT_SHARE_PLATFORM_ERROR = 14;
+    public static final int SHARE_DEFAULT_CONTENT = 15;
+    public static final int SHARE_DEFAULT_TITLE = 16;
+    public static final int SHARE_DEFAULT_URL = 17;
+    public static final int SHARE_DEFAULT_DESCRIPTION = 18;
+    public static final int SHARE_SUBMITTED = 19;
+    public static final int NO_HISTORY = 20;
+    public static final int GPS_SETTING_ERROR = 21;
+    public static final int STATISTICS_DISTANCE_MESSAGE = 22;
+    public static final int STATISTICS_SPEED_MESSAGE = 23;
+    public static final int STATISTICS_CALORIE_MESSAGE = 24;
+
+    public static final String CANCEL_BUTTON = "知道呢！";
+    public static final String SEARCHING_LOCATION = "定位中...";
+    public static final String START_RUNNING_BUTTON = "走你";
+    public static final String CANCEL_RUNNING_BUTTON = "取消";
+    public static final String FINISH_RUNNING_BUTTON = "完成";
+    public static final String PAUSE_RUNNING_BUTTON = "歇会儿";
+    public static final String CONTINUE_RUNNING_BUTTON = "再走你";
+    public static final String ALERT_VIEW_TITLE = "提示";
+    public static final String LOGOUT_ALERT_TITLE = "注销";
+    public static final String LOGOUT_ALERT_CONTENT = "确定要注销吗？";
+    public static final String CANCEL_BUTTON_CANCEL = "取消";
+    public static final String OK_BUTTON_OK = "确定";
+
 }

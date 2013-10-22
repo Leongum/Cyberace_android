@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@drawable/paper_bg">
+    <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/bodyBtnReturn" android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
+            android:layout_marginTop="6dp" android:layout_marginLeft="10dp" android:background="@drawable/back_bg"/>
+    <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/bodyBtnSubmit"
+            android:layout_alignParentRight="true" android:layout_alignParentTop="true" android:layout_marginTop="6dp"
+            android:layout_marginRight="10dp" android:background="@drawable/submit"/>
+    <TextView
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:text="身高(cm)"
+            android:id="@+id/bodylblHeight"
+            android:layout_alignParentLeft="true" android:layout_marginLeft="50dp" android:layout_alignParentTop="true"
+            android:layout_marginTop="120dp" android:textSize="16dp" android:textColor="#000000"
+            android:gravity="center_vertical|center_horizontal"/>
+    <EditText
+            android:layout_width="140dp"
+            android:layout_height="25dp"
+            android:id="@+id/bodyTxtHeight" android:layout_toRightOf="@+id/bodylblHeight"
+            android:layout_alignTop="@+id/bodylblHeight" android:background="@drawable/textfield"
+            android:gravity="center_vertical|center_horizontal" android:layout_marginLeft="20dp"
+            android:textSize="14dp" android:textColor="#000000" android:text="175.0" android:singleLine="true"
+            android:inputType="numberDecimal"/>
+    <TextView android:layout_width="70dp" android:layout_height="25dp" android:text="体重(kg)" android:id="@+id/bodylblWeight"
+              android:textSize="16dp"
+              android:textColor="#000000" android:gravity="center_vertical|center_horizontal"
+              android:layout_alignLeft="@+id/bodylblHeight" android:layout_below="@+id/bodylblHeight"
+              android:layout_marginTop="30dp"/>
+    <EditText android:layout_width="140dp" android:layout_height="25dp" android:id="@+id/bodyTxtWeight"
+              android:background="@drawable/textfield" android:gravity="center_vertical|center_horizontal"
+              android:textSize="14dp" android:textColor="#000000"
+              android:text="65.0" android:layout_alignLeft="@+id/bodyTxtHeight" android:layout_alignTop="@+id/bodylblWeight"
+              android:singleLine="true" android:inputType="numberDecimal"/>
+    <Button
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:text="男"
+            android:id="@+id/bodyBtnMan" android:layout_alignLeft="@+id/bodylblHeight" android:layout_below="@+id/bodylblWeight"
+            android:background="@drawable/seg_selected_bg" android:layout_marginTop="35dp"
+            android:layout_marginLeft="10dp"/>
+    <Button android:layout_width="60dp" android:layout_height="20dp" android:text="很矛盾" android:id="@+id/bodyBtnUnknow"
+            android:background="@null"
+            android:layout_toRightOf="@+id/bodyBtnMan" android:layout_alignTop="@+id/bodyBtnMan"
+            android:layout_marginLeft="10dp"/>
+    <Button android:layout_width="60dp" android:layout_height="20dp" android:text="女" android:id="@+id/bodyBtnWoman"
+            android:background="@null"
+            android:layout_toRightOf="@+id/bodyBtnUnknow" android:layout_alignTop="@+id/bodyBtnMan"
+            android:layout_marginLeft="10dp"/>
+</RelativeLayout>

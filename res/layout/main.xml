@@ -6,58 +6,60 @@
         >
     <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" android:layout_gravity="center|right" android:background="@drawable/main_bg"
+            android:layout_height="fill_parent" android:layout_gravity="center|right"
+            android:background="@drawable/main_bg"
             >
-        <ImageButton
+        <Button
                 android:layout_width="100dp"
                 android:layout_height="40dp"
-                android:id="@+id/btnTraffic"
+                android:id="@+id/mianBtnTraffic"
                 android:layout_alignParentLeft="true" android:layout_alignParentTop="false"
                 android:background="@drawable/main_trafficlight_none" android:layout_marginTop="18dp"
                 android:longClickable="true" android:focusable="false"/>
-        <ImageButton
+        <Button
                 android:layout_width="140dp"
                 android:layout_height="70dp"
-                android:id="@+id/btnRun"
+                android:id="@+id/mianBtnRun"
                 android:background="@drawable/main_run_btn_bg"
                 android:layout_alignParentLeft="true" android:layout_marginLeft="90dp"
                 android:layout_alignParentTop="true" android:layout_marginTop="120dp"
                 android:focusableInTouchMode="false"/>
-        <ImageButton
+        <Button
                 android:layout_width="140dp"
                 android:layout_height="70dp"
-                android:id="@+id/btnChallengeRun"
-                android:background="@drawable/main_challenge_btn_bg" android:layout_toRightOf="@+id/btnTraffic"
+                android:id="@+id/mianBtnChallengeRun"
+                android:background="@drawable/main_challenge_btn_bg" android:layout_toRightOf="@+id/mianBtnTraffic"
                 android:layout_alignParentTop="true" android:layout_marginTop="220dp"
                 android:layout_alignParentLeft="true" android:layout_marginLeft="90dp"/>
         <ImageView
                 android:layout_width="280dp"
                 android:layout_height="190dp"
-                android:id="@+id/imgCharate" android:layout_alignLeft="@+id/btnLogin"
+                android:id="@+id/mianImgCharate" android:layout_alignLeft="@+id/mianBtnLogin"
                 android:layout_alignParentTop="false" android:background="@drawable/charactor"
                 android:layout_alignParentLeft="true" android:layout_alignParentBottom="true"
                 android:layout_marginLeft="10dp" android:layout_marginBottom="-15dp"/>
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imgWind" android:layout_alignParentLeft="true"
+                android:id="@+id/mianImgWind" android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="false" android:layout_alignParentBottom="true"
                 android:background="@drawable/running_wind" android:focusable="false"/>
-        <ImageButton
+        <Button
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:id="@+id/btnHistory" android:layout_alignLeft="@+id/imgCharate"
+                android:id="@+id/mianBtnHistory" android:layout_alignLeft="@+id/mianImgCharate"
                 android:layout_alignParentTop="false" android:background="@drawable/history"
                 android:layout_alignParentBottom="true" android:layout_alignParentLeft="true"
                 android:layout_marginLeft="20dp" android:layout_marginBottom="20dp"/>
-        <ImageButton android:layout_width="50dp" android:layout_height="50dp" android:id="@+id/btnSetting"
-                     android:background="@drawable/settings"
-                     android:layout_toRightOf="@+id/lblCoin" android:layout_alignTop="@+id/btnHistory"/>
+        <Button android:layout_width="50dp" android:layout_height="50dp" android:id="@+id/mianBtnSetting"
+                android:background="@drawable/settings"
+                android:layout_toRightOf="@+id/mianLblCoin" android:layout_alignTop="@+id/mianBtnHistory"
+                android:layout_marginLeft="15dp"/>
         <ImageView
                 android:layout_width="210dp"
                 android:layout_height="68dp"
-                android:id="@+id/imgUserInfo" android:layout_alignParentLeft="false"
-                android:layout_alignBottom="@+id/btnLogin"
+                android:id="@+id/mianImgUserInfo" android:layout_alignParentLeft="false"
+                android:layout_alignBottom="@+id/mianBtnLogin"
                 android:layout_alignParentRight="true" android:layout_alignParentTop="true"
                 android:background="@drawable/main_username_bg" android:adjustViewBounds="false"
                 android:layout_gravity="right" android:layout_marginTop="8dp"/>
@@ -65,57 +67,57 @@
                 android:layout_width="190dp"
                 android:layout_height="26dp"
                 android:text="User Name"
-                android:id="@+id/lblNickName"
+                android:id="@+id/mianLblNickName"
                 android:layout_alignParentLeft="false" android:layout_alignParentRight="false"
                 android:layout_alignParentTop="false"
                 android:textSize="16dp" android:textColor="#ffffff"
                 android:layout_gravity="center"
                 android:gravity="center_vertical|center_horizontal"
-                android:layout_alignLeft="@+id/imgUserInfo"
-                android:layout_alignRight="@+id/imgUserInfo"
+                android:layout_alignLeft="@+id/mianImgUserInfo"
+                android:layout_alignRight="@+id/mianImgUserInfo"
                 android:layout_alignParentEnd="true" android:layout_marginRight="13dp"
                 android:layout_marginTop="7dp"
-                android:layout_alignTop="@+id/imgUserInfo" android:layout_marginLeft="5dp"/>
+                android:layout_alignTop="@+id/mianImgUserInfo" android:layout_marginLeft="5dp"/>
         <TextView
                 android:layout_width="30dp"
                 android:layout_height="21dp"
                 android:text="等级"
-                android:id="@+id/lblLevel"
+                android:id="@+id/mianLblLevel"
                 android:gravity="center_vertical|center_horizontal"
                 android:textColor="#ffffff"
                 android:layout_alignParentStart="false"
                 android:layout_alignParentLeft="false"
-                android:layout_alignParentTop="false" android:layout_alignLeft="@+id/lblNickName"
-                android:layout_below="@+id/lblNickName" android:layout_marginTop="7dp" android:textSize="10dp"
+                android:layout_alignParentTop="false" android:layout_alignLeft="@+id/mianLblNickName"
+                android:layout_below="@+id/mianLblNickName" android:layout_marginTop="7dp" android:textSize="10dp"
                 />
         <TextView
                 android:layout_width="60dp"
                 android:layout_height="21dp"
                 android:text="0"
-                android:id="@+id/lblLevelNum" android:layout_toRightOf="@+id/lblLevel"
-                android:layout_below="@+id/lblNickName" android:layout_marginTop="7dp" android:textColor="#ffffff"
+                android:id="@+id/mianLblLevelNum" android:layout_toRightOf="@+id/mianLblLevel"
+                android:layout_below="@+id/mianLblNickName" android:layout_marginTop="7dp" android:textColor="#ffffff"
                 android:gravity="center_vertical|center_horizontal" android:textSize="11dp"/>
         <TextView
                 android:layout_width="30dp"
                 android:layout_height="21dp"
                 android:text="金币"
-                android:id="@+id/lblCoin" android:layout_toRightOf="@+id/lblLevelNum"
-                android:layout_below="@+id/lblNickName" android:layout_marginTop="7dp" android:textSize="11dp"
+                android:id="@+id/mianLblCoin" android:layout_toRightOf="@+id/mianLblLevelNum"
+                android:layout_below="@+id/mianLblNickName" android:layout_marginTop="7dp" android:textSize="11dp"
                 android:textColor="#ffffff" android:gravity="center_vertical|center_horizontal"/>
         <TextView
                 android:layout_width="60dp"
                 android:layout_height="21dp"
                 android:text="0"
-                android:id="@+id/lblCoinNum"
-                android:layout_toRightOf="@+id/lblCoin"
+                android:id="@+id/mianLblCoinNum"
+                android:layout_toRightOf="@+id/mianLblCoin"
                 android:layout_marginTop="7dp"
-                android:layout_below="@+id/lblNickName" android:gravity="center_vertical|center_horizontal"
+                android:layout_below="@+id/mianLblNickName" android:gravity="center_vertical|center_horizontal"
                 android:textColor="#ffffff" android:textSize="11dp"/>
         <Button
                 android:layout_width="210dp"
                 android:layout_height="68dp"
                 android:text="请登录"
-                android:id="@+id/btnLogin" android:layout_alignParentLeft="false"
+                android:id="@+id/mianBtnLogin" android:layout_alignParentLeft="false"
                 android:layout_alignParentTop="true" android:layout_marginTop="8dp"
                 android:background="@drawable/main_login_bg" android:layout_alignParentRight="true"
                 android:textColor="#FFFFFF" android:textSize="20dp" android:typeface="serif"/>
