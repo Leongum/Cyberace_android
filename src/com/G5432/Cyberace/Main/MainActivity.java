@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.G5432.Cyberace.History.RunHistoryDetailActivity;
+import com.G5432.Cyberace.History.RunHistoryTotalActivity;
 import com.G5432.Cyberace.R;
 import com.G5432.Cyberace.Run.ChallengeMainActivity;
 import com.G5432.Cyberace.Setting.SettingActivity;
@@ -160,7 +161,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         btnHistory.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, RunHistoryDetailActivity.class);
+                Intent intent = new Intent(MainActivity.this, RunHistoryTotalActivity.class);
                 startActivity(intent);
             }
         });

@@ -81,8 +81,8 @@ public class SystemService {
         if (systemMessage != null) {
             result = systemMessage.getMessage();
             if (region != null && !systemMessage.getRule().isEmpty()) {
-                String[] messageArray = systemMessage.getMessage().split("|");
-                String[] ruleArray = systemMessage.getRule().split("|");
+                String[] messageArray = systemMessage.getMessage().split("\\|");
+                String[] ruleArray = systemMessage.getRule().split("\\|");
                 if (messageArray.length == ruleArray.length && ruleArray.length > 1) {
                     for (int i = 0; i < ruleArray.length; i++) {
                         String[] ruleDetails = ruleArray[i].split(",");

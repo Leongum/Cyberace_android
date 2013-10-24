@@ -1,6 +1,7 @@
 package com.G5432.Cyberace.History;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.SimpleAdapter;
@@ -46,14 +47,17 @@ public class GroupListAdapter extends SimpleAdapter {
         if (titleTag) {
             view = LayoutInflater.from(context).inflate(R.layout.historylistgrouptitle, null);
             TextView txtTitle = (TextView) view.findViewById(R.id.historydetailListGroupTitle);
-            txtTitle.setText((String)currentData.get("title"));
-        }
-        else{
+            txtTitle.setText((String) currentData.get("title"));
+        } else {
             view = LayoutInflater.from(context).inflate(R.layout.historylistrecord, null);
-            TextView txtDistance =(TextView) view.findViewById(R.id.historydetailTxtRecordDistance);
-            txtDistance.setText((String)currentData.get("distance"));
-            TextView txtTime = (TextView)view.findViewById(R.id.historydetailTxtTime);
-            txtTime.setText((String)currentData.get("time"));
+            TextView txtDistance = (TextView) view.findViewById(R.id.historydetailTxtRecordDistance);
+            txtDistance.setText((String) currentData.get("distance"));
+            TextView txtTime = (TextView) view.findViewById(R.id.historydetailTxtTime);
+            txtTime.setText((String) currentData.get("time"));
+            if ((Integer) currentData.get("validate") == -1) {
+                txtDistance.setTextColor(Color.parseColor("#4d4d4d"));
+                txtTime.setTextColor(Color.parseColor("#4d4d4d"));
+            }
         }
         return view;
     }

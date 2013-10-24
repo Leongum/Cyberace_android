@@ -209,6 +209,7 @@ public class RunHistoryDetailActivity extends OrmLiteBaseActivity<DatabaseHelper
         for (RunningHistory runningHistory : showList) {
             HashMap<String, Object> map = new HashMap<String, Object>();
             map.put("titleTag", false);
+            map.put("validate",runningHistory.getValid());
             map.put("runUuid", runningHistory.getRunUuid());
             if (!runningHistory.getMissionDate().equals(lastDate)) {
                 HashMap<String, Object> titleMap = new HashMap<String, Object>();
@@ -218,8 +219,7 @@ public class RunHistoryDetailActivity extends OrmLiteBaseActivity<DatabaseHelper
                 lastDate = runningHistory.getMissionDate();
             }
             map.put("distance", CommonUtil.transDistanceToStandardFormat(runningHistory.getDistance()));
-            int gap = (int) ((runningHistory.getMissionEndTime().getTime() - runningHistory.getMissionStartTime().getTime()) / 1000);
-            map.put("time", CommonUtil.transSecondToStandardFormat(gap));
+            map.put("time", CommonUtil.transSecondToStandardFormat(runningHistory.getDuration()));
             listItem.add(map);
         }
 
