@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
-        <activity android:name="LoadingActivity"
+        <activity android:name=".Main.LoadingActivity"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -15,10 +15,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="MainActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        <activity android:name=".Main.MainActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
 
-        <activity android:name="LoginActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        <activity android:name=".Main.LoginActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
 
         <activity android:name=".Setting.BodySettingActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
@@ -34,6 +34,18 @@
         </activity>
 
         <activity android:name=".Setting.AccountSettingActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+
+        <activity android:name=".Run.ChallengeMainActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+
+        <activity android:name=".History.RunHistoryActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+
+        <activity android:name=".History.RunHistoryDetailActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+
+        <activity android:name=".History.RunHistoryTotalActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
     </application>
 </manifest>

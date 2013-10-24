@@ -1,4 +1,4 @@
-package com.G5432.Cyberace;
+package com.G5432.Cyberace.Main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.G5432.Cyberace.Setting.BodySettingActivity;
+import com.G5432.Cyberace.History.RunHistoryDetailActivity;
+import com.G5432.Cyberace.R;
+import com.G5432.Cyberace.Run.ChallengeMainActivity;
 import com.G5432.Cyberace.Setting.SettingActivity;
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.UserBase;
@@ -136,10 +138,6 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         btnTraffic.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserUtil.logout();
-                finish();
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(intent);
                 //todo:: add onclick
             }
         });
@@ -154,14 +152,16 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         btnChallengeRun.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                //todo:: add onclick
+                Intent intent = new Intent(MainActivity.this, ChallengeMainActivity.class);
+                startActivity(intent);
             }
         });
 
         btnHistory.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                //todo:: add onclick
+                Intent intent = new Intent(MainActivity.this, RunHistoryDetailActivity.class);
+                startActivity(intent);
             }
         });
 

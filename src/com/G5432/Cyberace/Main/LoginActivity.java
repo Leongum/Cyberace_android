@@ -1,4 +1,4 @@
-package com.G5432.Cyberace;
+package com.G5432.Cyberace.Main;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -9,10 +9,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.*;
+import com.G5432.Cyberace.R;
 import com.G5432.Cyberace.Setting.BodySettingActivity;
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.UserBase;
 import com.G5432.Entity.UserInfo;
+import com.G5432.HttpClient.BackendSyncRequest;
 import com.G5432.HttpClient.HttpClientHelper;
 import com.G5432.Service.SystemService;
 import com.G5432.Service.UserService;
@@ -160,6 +162,9 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                         userBase.setUserInfo(userInfo);
                         userService.saveUserInfoToDB(userBase);
                         UserUtil.saveUserInfoToList(userBase);
+                        BackendSyncRequest backendSyncRequest = new BackendSyncRequest(getHelper());
+                        backendSyncRequest.syncRunningHistories();
+                        backendSyncRequest.uploadRunningHistories();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                     } else {

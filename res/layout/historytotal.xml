@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@android:style/Theme.NoTitleBar.Fullscreen" android:background="@drawable/paper_bg"
+        >
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="你还没跑过耶"
+            android:id="@+id/historytotalNoRecord" android:gravity="center_vertical|center_horizontal" android:textColor="#000000"
+            android:textSize="26dp" android:textStyle="bold"
+            android:layout_marginTop="230dp" android:visibility="gone"/>
+    <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/historytotalBtnReturn" android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp" android:layout_marginTop="6dp" android:background="@drawable/back_bg"/>
+    <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/historytotalBtnFilter" android:layout_alignParentRight="true" android:layout_alignParentTop="true"
+            android:layout_marginTop="6dp" android:layout_marginRight="10dp"
+            android:background="@drawable/filter_btn_bg"/>
+    <Button
+            android:layout_width="95dp"
+            android:layout_height="22dp"
+            android:text="随便跑跑"
+            android:id="@+id/historytotalBtnFilterRun" android:layout_toLeftOf="@+id/historytotalBtnFilter" android:layout_alignTop="@+id/historytotalBtnReturn"
+            android:background="@drawable/filter_cell_bg" android:gravity="left|top" android:textSize="11dp"
+            android:textColor="#d1d1d1" android:paddingLeft="15dp" android:paddingTop="4dp"
+            android:layout_marginTop="5dp"/>
+    <Button android:layout_width="95dp" android:layout_height="22dp" android:text="专项挑战" android:id="@+id/historytotalBtnFilterChallenge"
+            android:background="@drawable/filter_cell_bg" android:gravity="left|top" android:textSize="11dp"
+            android:textColor="#d1d1d1" android:paddingLeft="15dp" android:paddingTop="4dp"
+            android:layout_toLeftOf="@+id/historytotalBtnFilter" android:layout_below="@+id/historytotalBtnFilterRun" android:singleLine="false"/>
+    <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:id="@+id/historytotalImgChallenegCheck" android:layout_toLeftOf="@+id/historytotalBtnFilter" android:layout_below="@+id/historytotalBtnFilterRun"
+            android:layout_marginRight="8dp" android:layout_marginTop="6dp" android:background="@drawable/check"/>
+    <ImageView android:layout_width="10dp" android:layout_height="10dp" android:id="@+id/historytotalImgRunCheck"
+               android:background="@drawable/check" android:layout_toLeftOf="@+id/historytotalBtnFilter"
+               android:layout_alignTop="@+id/historytotalBtnFilterRun" android:layout_marginRight="8dp" android:layout_marginTop="6dp"/>
+    <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/historytotalBtnSync"
+            android:background="@drawable/sync_apply"
+            android:layout_centerHorizontal="true" android:layout_alignTop="@+id/historytotalNoRecord"
+            android:layout_marginTop="6dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="你一共跑了"
+            android:id="@+id/historytotalTxtDistanceTitle" android:layout_alignParentLeft="true" android:layout_marginLeft="45dp"
+            android:layout_alignParentTop="true" android:layout_marginTop="100dp" android:textColor="#4d4d4d"
+            android:textSize="11dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.0 km"
+            android:id="@+id/historytotalTxtDistance"
+            android:layout_toRightOf="@+id/historytotalTxtDistanceTitle" android:layout_below="@+id/historytotalTxtDistanceTitle" android:textSize="22dp"
+            android:textColor="#000000" android:layout_marginLeft="10dp" android:layout_marginTop="5dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="嘿嘿，小菜鸟~"
+            android:id="@+id/historytotalTxtDistanceTip" android:layout_below="@+id/historytotalTxtDistance"
+            android:textColor="#4d4d4d" android:textSize="11dp" android:layout_marginTop="5dp"
+            android:layout_alignParentRight="true" android:layout_marginRight="50dp"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="你的平均速度大概是"
+              android:id="@+id/historytotalTxtSpeedTitle"
+              android:textColor="#4d4d4d"
+              android:textSize="11dp" android:layout_alignLeft="@+id/historytotalTxtDistanceTitle" android:layout_below="@+id/historytotalTxtDistanceTip"
+              android:layout_marginTop="10dp"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0.0 km"
+              android:id="@+id/historytotalTxtSpeed"
+              android:textSize="22dp" android:textColor="#000000"
+              android:layout_alignLeft="@+id/historytotalTxtDistance" android:layout_below="@+id/historytotalTxtSpeedTitle"
+              android:layout_marginTop="10dp"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="也就普通水平嘛～"
+              android:id="@+id/historytotalTxtSpeedTip"
+              android:textColor="#4d4d4d" android:textSize="11dp"
+              android:layout_below="@+id/historytotalTxtSpeed"
+              android:layout_alignRight="@+id/historytotalTxtDistanceTip" android:layout_marginTop="10dp"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="你一共祸害了这些能量"
+              android:id="@+id/historytotalTxtCarTitle" android:textColor="#4d4d4d" android:textSize="11dp"
+              android:layout_alignLeft="@+id/historytotalTxtDistanceTitle" android:layout_below="@+id/historytotalTxtSpeedTip"
+              android:layout_marginTop="10dp"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0.0 km"
+              android:id="@+id/historytotalTxtCar" android:textSize="22dp" android:textColor="#000000"
+              android:layout_alignLeft="@+id/historytotalTxtDistance" android:layout_below="@+id/historytotalTxtCarTitle"
+              android:layout_marginTop="10dp"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="目前还看不出变化哦～"
+              android:id="@+id/historytotalTxtCarTip" android:textColor="#4d4d4d" android:textSize="11dp"
+              android:layout_alignRight="@+id/historytotalTxtDistanceTip" android:layout_below="@+id/historytotalTxtCar"
+              android:layout_marginTop="10dp"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="完成挑战次数"
+              android:id="@+id/historytotalTxtChallengeTitle" android:textColor="#4d4d4d" android:textSize="15dp"
+              android:layout_alignLeft="@+id/historytotalTxtDistanceTitle" android:layout_below="@+id/historytotalTxtCarTip"
+              android:singleLine="false" android:layout_marginTop="20dp" android:textStyle="bold"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 次"
+              android:id="@+id/historytotalTxtChallenge" android:textSize="22dp" android:textColor="#000000"
+              android:layout_alignLeft="@+id/historytotalTxtDistance" android:layout_below="@+id/historytotalTxtChallengeTitle"
+              android:layout_marginTop="10dp" android:layout_marginLeft="15dp"/>
+</RelativeLayout>

@@ -2,6 +2,7 @@ package com.G5432.Service;
 
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.*;
+import com.G5432.Enums.MissionType;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
@@ -34,6 +35,19 @@ public class RunningHistoryService {
         try {
             QueryBuilder<RunningHistory, String> runningHistoryQueryBuilder = runningHistoryDao.queryBuilder();
             runningHistoryQueryBuilder.where().eq("userId", userId);
+            runningHistoryQueryBuilder.orderBy("missionEndTime", false);
+            runningHistoryList = runningHistoryQueryBuilder.query();
+        } catch (SQLException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        return runningHistoryList;
+    }
+
+    public List<RunningHistory> fetchRunHistoryByUserIdAndMissionType(Integer userId, List<Integer> missionTypeList) {
+        List<RunningHistory> runningHistoryList = null;
+        try {
+            QueryBuilder<RunningHistory, String> runningHistoryQueryBuilder = runningHistoryDao.queryBuilder();
+            runningHistoryQueryBuilder.where().eq("userId", userId).and().in("missionTypeId",missionTypeList);
             runningHistoryQueryBuilder.orderBy("missionEndTime", false);
             runningHistoryList = runningHistoryQueryBuilder.query();
         } catch (SQLException e) {
@@ -98,7 +112,7 @@ public class RunningHistoryService {
 
     public void saveRunListToDB(List<RunningHistory> runningHistoryList) {
         try {
-            for (RunningHistory runningHistory : runningHistoryList){
+            for (RunningHistory runningHistory : runningHistoryList) {
                 if (runningHistory.getRunUuid() != null) {
                     runningHistoryDao.createOrUpdate(runningHistory);
                 }

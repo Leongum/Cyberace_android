@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@drawable/paper_bg">
+    <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/challenegBtnReturn" android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
+            android:background="@drawable/back_bg" android:layout_marginLeft="10dp" android:layout_marginTop="6dp"/>
+    <FrameLayout
+            android:layout_width="230dp"
+            android:layout_height="330dp" android:layout_marginLeft="48dp" android:layout_marginTop="100dp">
+        <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/challengeListDetail" android:divider="@null"
+                android:listSelector="@android:color/transparent"/>
+    </FrameLayout>
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:background="@drawable/challenge_pop_bg"
+            android:layout_alignParentEnd="false" android:id="@+id/challengeLayoutDetail">
+        <FrameLayout
+                android:layout_width="144dp"
+                android:layout_height="230dp" android:layout_alignParentLeft="true"
+                android:layout_marginLeft="88dp" android:layout_alignParentTop="true" android:layout_marginTop="125dp"
+                >
+            <ListView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/challengeListMissionGrade" android:divider="@null" android:longClickable="false"
+                    android:listSelector="@android:color/transparent"/>
+        </FrameLayout>
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="23dp"
+                android:text="800 m"
+                android:id="@+id/challengeTxtTitle"
+                android:layout_marginLeft="0dp" android:layout_marginTop="77dp" android:textSize="10dp"
+                android:gravity="center_vertical|center_horizontal" android:textColor="#ffffff"
+                android:textStyle="bold"/>
+        <Button
+                android:layout_width="136dp"
+                android:layout_height="60dp"
+                android:text="开始"
+                android:id="@+id/challengeBtnStart" android:layout_centerHorizontal="true" android:layout_alignParentTop="true"
+                android:layout_marginTop="400dp" android:background="@drawable/main_btn_bg" android:textSize="24dp"
+                android:textStyle="bold" android:textColor="#376c9b"/>
+    </RelativeLayout>
+</RelativeLayout>
+

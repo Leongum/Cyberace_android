@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        android:layout_width="144dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="35dp" android:background="@null"
+        >
+    <TextView
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:text="S"
+            android:id="@+id/challengeTxtGradeLevel" android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true" android:gravity="center_vertical|center_horizontal" android:textIsSelectable="false"
+            android:textSize="22dp" android:textColor="#ffffff"
+            android:layout_alignParentTop="true" android:layout_marginLeft="15dp"
+            android:textStyle="bold"/>
+    <TextView
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:text="5'11&quot;"
+            android:id="@+id/challenegTxtTime" android:layout_toRightOf="@+id/challengeTxtGradeLevel"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="14dp"
+            android:textColor="#ffffff"
+            />
+</RelativeLayout>

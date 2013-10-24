@@ -1,10 +1,11 @@
-package com.G5432.Cyberace;
+package com.G5432.Cyberace.Main;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import com.G5432.Cyberace.R;
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.*;
 import com.G5432.HttpClient.BackendSyncRequest;

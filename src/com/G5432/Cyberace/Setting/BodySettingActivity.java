@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import com.G5432.Cyberace.MainActivity;
+import com.G5432.Cyberace.Main.MainActivity;
 import com.G5432.Cyberace.R;
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.UserBase;

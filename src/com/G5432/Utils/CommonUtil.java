@@ -38,6 +38,11 @@ public class CommonUtil {
         return formatter.format(date);
     }
 
+    public static String parseDateToStringOnlyDate(Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter.format(date);
+    }
+
 
     public static String getUrl(String url, String... params) {
         String newUrl = MessageFormat.format(url, params);
@@ -46,8 +51,8 @@ public class CommonUtil {
 
     public static String getMD5(String source) {
         String s = null;
-        char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-                'a', 'b', 'c', 'd', 'e', 'f' };// 用来将字节转换成16进制表示的字符
+        char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                'a', 'b', 'c', 'd', 'e', 'f'};// 用来将字节转换成16进制表示的字符
         try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
             md.update(source.getBytes());
@@ -73,9 +78,30 @@ public class CommonUtil {
         return s;
     }
 
-    public static void showMessages(Context context, String message){
-        Toast toast = Toast.makeText(context,message, Toast.LENGTH_LONG);
+    public static void showMessages(Context context, String message) {
+        Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
+    }
+
+    public static String transSecondToStandardFormat(Integer seconds) {
+        int min = 0;
+        int hour = 0;
+        min = (int) (seconds / 60);
+        int second = (int) (seconds % 60);
+        hour = (int) (min / 60);
+        min = (int) (min % 60);
+        if (hour > 0) {
+            return MessageFormat.format("{0}:{1}''{2}\"", hour, min, second);
+        } else {
+            return MessageFormat.format("{0}''{1}\"", min, second);
+        }
+    }
+
+    public static String transDistanceToStandardFormat(double distance){
+        if (distance<1000){
+            return MessageFormat.format("{0} m", String.format("%.2f", distance));
+        }
+        return MessageFormat.format("{0} km", String.format("%.2f", distance/1000));
     }
 }

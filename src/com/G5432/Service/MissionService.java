@@ -4,6 +4,7 @@ import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.*;
 import com.G5432.Enums.MissionType;
 import com.G5432.HttpClient.HttpClientHelper;
+import com.G5432.Utils.UserUtil;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -99,8 +100,11 @@ public class MissionService {
                 if (mission.getMissionTypeId() == MissionType.Challenge.ordinal() && mission.getChallengeId() != null) {
                     List<MissionChallenge> missionChallengeList = null;
                     QueryBuilder<MissionChallenge, Void> missionChallengeQueryBuilder = missionChallengeDao.queryBuilder();
-                    //todo:: need add sex
-                    missionChallengeQueryBuilder.where().eq("challengeId", mission.getChallengeId()).and().eq("sex", "男");
+                    String sex = "男";
+                    if (UserUtil.getUserSex() == "女") {
+                        sex = "女";
+                    }
+                    missionChallengeQueryBuilder.where().eq("challengeId", mission.getChallengeId()).and().eq("sex", sex);
                     missionChallengeQueryBuilder.orderBy("sequence", true);
                     missionChallengeList = missionChallengeQueryBuilder.query();
                     mission.setMissionChallenges(missionChallengeList);
