@@ -3,8 +3,8 @@
 <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
-        style="@android:style/Theme.NoTitleBar.Fullscreen" android:background="@drawable/paper_bg"
-        >
+        style="@android:style/Theme.NoTitleBar.Fullscreen" android:background="@drawable/paper"
+        android:clickable="false">
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
     <RelativeLayout
             android:layout_width="250dp"
             android:layout_height="330dp" android:layout_alignParentLeft="true" android:layout_marginLeft="35dp"
-            android:layout_alignParentTop="true" android:layout_marginTop="100dp">
+            android:layout_alignParentTop="true" android:layout_marginTop="100dp" android:clickable="false">
         <ListView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
