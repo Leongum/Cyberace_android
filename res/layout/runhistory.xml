@@ -2,10 +2,58 @@
 
 <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
-
+        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@drawable/main_bg">
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="你还没跑过耶"
+            android:id="@+id/historyTxtNoRecord" android:gravity="center_vertical|center_horizontal" android:textColor="#000000"
+            android:textSize="26dp" android:textStyle="bold"
+            android:layout_marginTop="230dp" android:visibility="gone"/>
+    <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/historyBtnReturn" android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp" android:layout_marginTop="6dp" android:background="@drawable/back_bg"/>
+    <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/historyBtnFilter" android:layout_alignParentRight="true" android:layout_alignParentTop="true"
+            android:layout_marginTop="6dp" android:layout_marginRight="10dp"
+            android:background="@drawable/filter_btn_bg"/>
+    <Button
+            android:layout_width="95dp"
+            android:layout_height="22dp"
+            android:text="随便跑跑"
+            android:id="@+id/historyBtnFilterRun" android:layout_toLeftOf="@+id/historyBtnFilter" android:layout_alignTop="@+id/historyBtnReturn"
+            android:background="@drawable/filter_cell_bg" android:gravity="left|top" android:textSize="11dp"
+            android:textColor="#d1d1d1" android:paddingLeft="15dp" android:paddingTop="4dp"
+            android:layout_marginTop="5dp"/>
+    <Button android:layout_width="95dp" android:layout_height="22dp" android:text="专项挑战" android:id="@+id/historyBtnFilterChallenge"
+            android:background="@drawable/filter_cell_bg" android:gravity="left|top" android:textSize="11dp"
+            android:textColor="#d1d1d1" android:paddingLeft="15dp" android:paddingTop="4dp"
+            android:layout_toLeftOf="@+id/historyBtnFilter" android:layout_below="@+id/historyBtnFilterRun" android:singleLine="false"/>
+    <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:id="@+id/historyImgFilterChallenge" android:layout_toLeftOf="@+id/historyBtnFilter" android:layout_below="@+id/historyBtnFilterRun"
+            android:layout_marginRight="8dp" android:layout_marginTop="6dp" android:background="@drawable/check"/>
+    <ImageView android:layout_width="10dp" android:layout_height="10dp" android:id="@+id/historyImgFilterRun"
+               android:background="@drawable/check" android:layout_toLeftOf="@+id/historyBtnFilter"
+               android:layout_alignTop="@+id/historyBtnFilterRun" android:layout_marginRight="8dp" android:layout_marginTop="6dp"/>
+    <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/historyBtnSync"
+            android:background="@drawable/sync_apply"
+            android:layout_centerHorizontal="true" android:layout_marginTop="6dp"/>
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/historyImgBg" android:background="@drawable/hand"/>
     <ViewFlipper
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/viewFlipper" android:layout_alignParentLeft="true" android:layout_alignParentTop="true"/>
+            android:id="@+id/historyrunFlipper"/>
 </RelativeLayout>

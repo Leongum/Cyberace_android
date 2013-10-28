@@ -59,7 +59,7 @@ public class RunningHistoryService {
             }
 
             GenericRawResults<String[]> rawResults = runningHistoryDao.queryRaw("select sum(distance),avg(avgSpeed),sum(spendCarlorie) " +
-                    "from RunningHistory where userid = " + userId + missionTypeQuery);
+                    "from RunningHistory where valid != -1 and userid = " + userId + missionTypeQuery);
 
             List<String[]> results = rawResults.getResults();
             Map<String, String> total = null;
@@ -69,7 +69,7 @@ public class RunningHistoryService {
                 total.put("distance", resultArray[0]);
                 total.put("speed", resultArray[1]);
                 total.put("carlorie", resultArray[2]);
-                rawResults = runningHistoryDao.queryRaw("select count(*) from RunningHistory where userid = " + userId + " and missiontypeid = 0");
+                rawResults = runningHistoryDao.queryRaw("select count(*) from RunningHistory where valid != -1 and userid = " + userId + " and missiontypeid = 0");
                 results = rawResults.getResults();
                 resultArray = results.get(0);
                 total.put("challenge", resultArray[0]);

@@ -41,11 +41,5 @@
 
         <activity android:name=".History.RunHistoryActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
-
-        <activity android:name=".History.RunHistoryDetailActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
-        </activity>
-
-        <activity android:name=".History.RunHistoryTotalActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
-        </activity>
     </application>
 </manifest>
