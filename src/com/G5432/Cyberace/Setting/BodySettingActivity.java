@@ -171,17 +171,17 @@ public class BodySettingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private void showSex(String sex) {
         final Drawable drawableBg = getResources().getDrawable(R.drawable.seg_selected_bg);
         if (sex == "男") {
-            btnWoman.setBackground(null);
-            btnUnknow.setBackground(null);
-            btnMan.setBackground(drawableBg);
+            btnWoman.setBackgroundDrawable(null);
+            btnUnknow.setBackgroundDrawable(null);
+            btnMan.setBackgroundDrawable(drawableBg);
         } else if (sex == "女") {
-            btnMan.setBackground(null);
-            btnUnknow.setBackground(null);
-            btnWoman.setBackground(drawableBg);
+            btnMan.setBackgroundDrawable(null);
+            btnUnknow.setBackgroundDrawable(null);
+            btnWoman.setBackgroundDrawable(drawableBg);
         } else {
-            btnMan.setBackground(null);
-            btnUnknow.setBackground(drawableBg);
-            btnWoman.setBackground(null);
+            btnMan.setBackgroundDrawable(null);
+            btnUnknow.setBackgroundDrawable(drawableBg);
+            btnWoman.setBackgroundDrawable(null);
         }
     }
 

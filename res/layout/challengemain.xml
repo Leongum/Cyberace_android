@@ -21,7 +21,7 @@
     <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" android:background="@drawable/challenge_pop_bg"
-            android:layout_alignParentEnd="false" android:id="@+id/challengeLayoutDetail">
+            android:id="@+id/challengeLayoutDetail">
         <FrameLayout
                 android:layout_width="144dp"
                 android:layout_height="230dp" android:layout_alignParentLeft="true"

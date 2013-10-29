@@ -73,15 +73,15 @@ public class SettingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         }
 
         if(UserUtil.getSpeedFormat() == Constant.SPEED_FORMAT_MIN_PER_KM){
-            btnSpeedMimPerKM.setBackground(drawableBg);
-            btnSpeedKMPerH.setBackground(null);
+            btnSpeedMimPerKM.setBackgroundDrawable(drawableBg);
+            btnSpeedKMPerH.setBackgroundDrawable(null);
         }
 
         btnSpeedKMPerH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnSpeedMimPerKM.setBackground(null);
-                btnSpeedKMPerH.setBackground(drawableBg);
+                btnSpeedMimPerKM.setBackgroundDrawable(null);
+                btnSpeedKMPerH.setBackgroundDrawable(drawableBg);
                 UserUtil.setSpeedFormat(Constant.SPEED_FORMAT_KM_PER_HOUR);
             }
         });
@@ -89,8 +89,8 @@ public class SettingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         btnSpeedMimPerKM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnSpeedKMPerH.setBackground(null);
-                btnSpeedMimPerKM.setBackground(drawableBg);
+                btnSpeedKMPerH.setBackgroundDrawable(null);
+                btnSpeedMimPerKM.setBackgroundDrawable(drawableBg);
                 UserUtil.setSpeedFormat(Constant.SPEED_FORMAT_MIN_PER_KM);
             }
         });

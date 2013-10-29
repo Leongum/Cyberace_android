@@ -190,8 +190,8 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             txtNickName.setAlpha(1);
             Resources resources = getResources();
             Drawable btnDrawable = resources.getDrawable(R.drawable.seg_selected_bg);
-            btnRegister.setBackground(btnDrawable);
-            btnLogin.setBackground(null);
+            btnRegister.setBackgroundDrawable(btnDrawable);
+            btnLogin.setBackgroundDrawable(null);
             btnSubmit.setOnClickListener(registerSubmitListener);
         }
     };
@@ -202,8 +202,8 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             txtNickName.setAlpha(0);
             Resources resources = getResources();
             Drawable btnDrawable = resources.getDrawable(R.drawable.seg_selected_bg);
-            btnLogin.setBackground(btnDrawable);
-            btnRegister.setBackground(null);
+            btnLogin.setBackgroundDrawable(btnDrawable);
+            btnRegister.setBackgroundDrawable(null);
             btnSubmit.setOnClickListener(loginSubmitLister);
         }
     };

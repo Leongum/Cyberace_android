@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.sharesdk.framework.ShareSDK;
 import com.G5432.Cyberace.History.RunHistoryActivity;
 import com.G5432.Cyberace.R;
 import com.G5432.Cyberace.Run.ChallengeMainActivity;
@@ -52,6 +53,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        ShareSDK.initSDK(this);
         btnLogin = (Button) findViewById(R.id.mianBtnLogin);
         btnTraffic = (Button) findViewById(R.id.mianBtnTraffic);
         btnRun = (Button) findViewById(R.id.mianBtnRun);
@@ -201,5 +203,10 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             // TODO Auto-generated method stub
 
         }
+    }
+
+    protected void onDestroy() {
+        ShareSDK.stopSDK(this);
+        super.onDestroy();
     }
 }

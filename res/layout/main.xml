@@ -75,7 +75,7 @@
                 android:gravity="center_vertical|center_horizontal"
                 android:layout_alignLeft="@+id/mianImgUserInfo"
                 android:layout_alignRight="@+id/mianImgUserInfo"
-                android:layout_alignParentEnd="true" android:layout_marginRight="13dp"
+                android:layout_marginRight="13dp"
                 android:layout_marginTop="7dp"
                 android:layout_alignTop="@+id/mianImgUserInfo" android:layout_marginLeft="5dp"/>
         <TextView
@@ -85,7 +85,6 @@
                 android:id="@+id/mianLblLevel"
                 android:gravity="center_vertical|center_horizontal"
                 android:textColor="#ffffff"
-                android:layout_alignParentStart="false"
                 android:layout_alignParentLeft="false"
                 android:layout_alignParentTop="false" android:layout_alignLeft="@+id/mianLblNickName"
                 android:layout_below="@+id/mianLblNickName" android:layout_marginTop="7dp" android:textSize="10dp"

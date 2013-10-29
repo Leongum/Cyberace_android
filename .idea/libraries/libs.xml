@@ -5,6 +5,16 @@
       <root url="jar://$PROJECT_DIR$/libs/gson-2.2.4.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/ormlite-android-4.47.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/android-async-http-1.4.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/android-support-v4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ShareSDK-Core-2.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ShareSDK-QQ-2.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ShareSDK-QZone-2.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ShareSDK-Renren-2.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ShareSDK-SinaWeibo-2.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ShareSDK-TencentWeibo-2.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ShareSDK-Wechat-2.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ShareSDK-Wechat-Core-2.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ShareSDK-Wechat-Moments-2.1.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

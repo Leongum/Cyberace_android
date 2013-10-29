@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import cn.sharesdk.framework.ShareSDK;
 import com.G5432.Cyberace.R;
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.*;
