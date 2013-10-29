@@ -46,7 +46,6 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private Button btnHistory;
     private Button btnSetting;
 
-
     /**
      * Called when the activity is first created.
      */
