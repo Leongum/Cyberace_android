@@ -47,6 +47,28 @@
             android:layout_below="@+id/loginLblshowPassword" android:layout_marginTop="30dp"
             android:background="@drawable/textfield" android:hint="昵称" android:gravity="center_vertical|center_horizontal"
             android:textSize="14dp" android:alpha="0" android:singleLine="true" android:inputType="text"/>
+    <RelativeLayout
+            android:layout_width="245dp"
+            android:layout_height="40dp" android:layout_below="@+id/loginLblshowPassword"
+            android:layout_alignLeft="@+id/loginTxtNickName" android:layout_marginTop="30dp" android:id="@+id/loginLayoutSNSs">
+        <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/loginBtnQQ" android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
+                android:background="@drawable/qq" android:layout_marginLeft="12dp"/>
+        <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/loginBtnSina" android:layout_toRightOf="@+id/loginBtnQQ" android:layout_alignTop="@+id/loginBtnQQ"
+                android:background="@drawable/weibo" android:layout_marginLeft="20dp"/>
+        <Button android:layout_width="40dp" android:layout_height="40dp" android:id="@+id/loginBtnTT"
+                android:background="@drawable/tencent_weibo" android:layout_toRightOf="@+id/loginBtnSina"
+                android:layout_alignTop="@+id/loginBtnQQ" android:layout_marginLeft="20dp"/>
+        <Button android:layout_width="40dp" android:layout_height="40dp" android:id="@+id/loginBtnRenRen"
+                android:background="@drawable/renren"
+                android:layout_toRightOf="@+id/loginBtnTT" android:layout_alignTop="@+id/loginBtnQQ"
+                android:layout_marginLeft="20dp"/>
+    </RelativeLayout>
     <Button
             android:layout_width="75dp"
             android:layout_height="30dp"
