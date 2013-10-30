@@ -185,7 +185,7 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         }
     };
 
-    public void doSNSLogin(Platform platform){
+    public void doSNSLogin(Platform platform) {
         final HttpClientHelper httpClientHelper = new HttpClientHelper();
         final String userName = platform.getDb().getUserId();
         final String password = CommonUtil.getMD5(userName);
@@ -352,8 +352,24 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     private void login(String platform) {
         Platform plat = ShareSDK.getPlatform(this, platform);
-        plat.setPlatformActionListener(platformActionListener);
-        plat.authorize();
+        if (plat.isValid()) {
+            String userName = plat.getDb().get("nickname");
+            if (userName == null || userName.length() <= 0
+                    || "null".equals(userName)) {
+                // 如果平台已经授权却没有拿到帐号名称，则自动获取用户资料，以获取名称
+                plat.setPlatformActionListener(platformActionListener);
+                plat.authorize();
+            } else {
+                Message msg = new Message();
+                msg.arg1 = 1;
+                msg.obj = plat;
+                handler.sendMessage(msg);
+            }
+        } else {
+            plat.setPlatformActionListener(platformActionListener);
+            plat.authorize();
+        }
+
     }
 
     private void initPage() {

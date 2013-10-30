@@ -15,6 +15,7 @@ import cn.sharesdk.framework.ShareSDK;
 import com.G5432.Cyberace.History.RunHistoryActivity;
 import com.G5432.Cyberace.R;
 import com.G5432.Cyberace.Run.ChallengeMainActivity;
+import com.G5432.Cyberace.Run.RunningBasic;
 import com.G5432.Cyberace.Setting.SettingActivity;
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.UserBase;
@@ -147,7 +148,8 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         btnRun.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                //todo:: add onclick
+                Intent intent = new Intent(MainActivity.this, RunningBasic.class);
+                startActivity(intent);
             }
         });
 

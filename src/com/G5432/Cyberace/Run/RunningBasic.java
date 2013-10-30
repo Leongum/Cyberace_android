@@ -6,12 +6,17 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Message;
 import android.widget.TextView;
+import cn.sharesdk.framework.Platform;
 import com.G5432.Cyberace.R;
 import com.G5432.StepCounting.SCCommon;
+import com.G5432.Utils.CommonUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 import static java.lang.String.*;
 
@@ -28,12 +33,22 @@ public class RunningBasic extends Activity implements SensorEventListener{
     private SensorEvent mySensorEvent;
     private Timer timer;
 
+    // 定义Handler
+    android.os.Handler handler = new android.os.Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            TextView textView = (TextView)findViewById(R.id.gAccReading);
+            textView.setText(msg.obj.toString());
+        }
+    };
+
     private void initSensors(){
         mySensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
     }
 
     protected void onCreate(android.os.Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.running_normal);
         initSensors();
     }
 
@@ -54,10 +69,12 @@ public class RunningBasic extends Activity implements SensorEventListener{
                 // TODO Auto-generated method stub
 //                      Message message=new Message();
 //                      message.what=i--;
-                TextView textView = (TextView)findViewById(R.id.gAccReading);
-                textView.setText(valueOf(SCCommon.calculateVectorMod(mySensorEvent.values)));
+                Message msg = new Message();
+                msg.obj =  valueOf(SCCommon.calculateVectorMod(mySensorEvent.values));
+                handler.sendMessage(msg);
+
             }
-        }, 50);
+        }, 1000,50);
     }
 
     protected void onStop() {
