@@ -40,17 +40,11 @@
             android:gravity="center_vertical|center_horizontal"
             android:textColor="#7a7a7a" android:textSize="11dp" android:layout_marginRight="5dp"
             android:layout_alignTop="@+id/loginCheckShowPwd"/>
-    <EditText
-            android:layout_width="245dp"
-            android:layout_height="30dp"
-            android:id="@+id/loginTxtNickName" android:layout_alignLeft="@+id/loginTxtUserEmail"
-            android:layout_below="@+id/loginLblshowPassword" android:layout_marginTop="30dp"
-            android:background="@drawable/textfield" android:hint="昵称" android:gravity="center_vertical|center_horizontal"
-            android:textSize="14dp" android:alpha="0" android:singleLine="true" android:inputType="text"/>
     <RelativeLayout
             android:layout_width="245dp"
             android:layout_height="40dp" android:layout_below="@+id/loginLblshowPassword"
-            android:layout_alignLeft="@+id/loginTxtNickName" android:layout_marginTop="30dp" android:id="@+id/loginLayoutSNSs">
+            android:layout_alignLeft="@+id/loginTxtNickName" android:layout_marginTop="30dp" android:id="@+id/loginLayoutSNSs"
+            >
         <Button
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -69,20 +63,29 @@
                 android:layout_toRightOf="@+id/loginBtnTT" android:layout_alignTop="@+id/loginBtnQQ"
                 android:layout_marginLeft="20dp"/>
     </RelativeLayout>
+    <EditText android:layout_width="245dp" android:layout_height="30dp" android:id="@+id/loginTxtNickName"
+              android:autoText="false" android:background="@drawable/textfield"
+              android:gravity="center_vertical|center_horizontal" android:textSize="14dp" android:hint="昵称"
+              android:clickable="false"
+              android:password="true" android:singleLine="true" android:inputType="text|textPassword"
+              android:layout_alignLeft="@+id/loginTxtUserEmail" android:layout_below="@+id/loginLblshowPassword"
+              android:layout_marginTop="20dp" android:visibility="gone"/>
     <Button
             android:layout_width="75dp"
             android:layout_height="30dp"
             android:text="登陆"
-            android:id="@+id/loginBtnLogin" android:layout_alignLeft="@+id/loginTxtUserEmail"
-            android:layout_below="@+id/loginTxtNickName" android:singleLine="false"
-            android:background="@drawable/seg_selected_bg" android:layout_marginTop="50dp"
-            android:layout_marginLeft="40dp"/>
+            android:id="@+id/loginBtnLogin"
+            android:singleLine="false"
+            android:background="@drawable/seg_selected_bg"
+            android:layout_alignLeft="@+id/loginTxtUserEmail" android:layout_below="@+id/loginLblshowPassword"
+            android:layout_marginLeft="50dp" android:layout_marginTop="120dp"/>
     <Button
             android:layout_width="75dp"
             android:layout_height="30dp"
             android:text="注册"
-            android:id="@+id/loginBtnResigter" android:layout_toRightOf="@+id/loginBtnLogin" android:layout_below="@+id/loginTxtNickName"
-            android:layout_marginTop="50dp" android:background="@null"/>
+            android:id="@+id/loginBtnResigter"
+            android:background="@null" android:layout_toRightOf="@+id/loginBtnLogin"
+            android:layout_alignTop="@+id/loginBtnLogin"/>
     <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

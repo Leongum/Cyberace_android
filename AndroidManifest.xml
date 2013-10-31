@@ -4,53 +4,55 @@
           android:versionCode="1"
           android:versionName="1.0">
     <uses-sdk android:minSdkVersion="14"/>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
         <activity android:name=".Main.LoadingActivity"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".Main.MainActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        <activity android:name=".Main.MainActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 
-        <activity android:name=".Main.LoginActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        <activity android:name=".Main.LoginActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 
-        <activity android:name=".Setting.BodySettingActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        <activity android:name=".Setting.BodySettingActivity"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 
-        <activity android:name=".Setting.SettingActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        <activity android:name=".Setting.SettingActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 
-        <activity android:name=".Setting.FeedbackActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        <activity android:name=".Setting.FeedbackActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 
-        <activity android:name=".Setting.AboutUsActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        <activity android:name=".Setting.AboutUsActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 
-        <activity android:name=".Setting.AccountSettingActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        <activity android:name=".Setting.AccountSettingActivity"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 
-        <activity android:name=".Run.ChallengeMainActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        <activity android:name=".Run.ChallengeMainActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 
-        <activity android:name=".History.RunHistoryActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        <activity android:name=".History.RunHistoryActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 
-        <activity android:name=".Run.RunningBasic" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        <activity android:name=".Run.RunningBasic" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 
         <activity
@@ -58,13 +60,16 @@
                 android:theme="@android:style/Theme.Translucent.NoTitleBar"
                 android:configChanges="keyboardHidden|orientation|screenSize"
                 android:screenOrientation="portrait"
-                android:windowSoftInputMode="stateHidden|adjustResize" />
+                android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <meta-data android:name="Adapter" android:value="com.G5432.Cyberace.ShareSNS.MySNSAdapter"/>
+        </activity>
 
         <activity
                 android:name=".ShareSNS.WXEntryActivity"
                 android:theme="@android:style/Theme.Translucent.NoTitleBar"
                 android:configChanges="keyboardHidden|orientation|screenSize"
                 android:exported="true"
-                android:screenOrientation="portrait" />
+                android:screenOrientation="portrait"/>
     </application>
 </manifest>
