@@ -1,9 +1,11 @@
 package com.G5432.Cyberace.ShareSNS;
 
+import android.content.Intent;
 import android.widget.Toast;
 import cn.sharesdk.wechat.utils.WXAppExtendObject;
 import cn.sharesdk.wechat.utils.WXMediaMessage;
 import cn.sharesdk.wechat.utils.WechatHandlerActivity;
+import com.G5432.Cyberace.Main.MainActivity;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,7 +25,9 @@ public class WXEntryActivity extends WechatHandlerActivity {
      * 做点其他的事情，包括根本不打开任何页面
      */
     public void onGetMessageFromWXReq(WXMediaMessage msg) {
-        //startActivity(new Intent(this, MainActivity.class));
+        finish();
+        Intent intent = new Intent(WXEntryActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
     /**

@@ -29,8 +29,7 @@
         <activity android:name=".Main.LoginActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 
-        <activity android:name=".Setting.BodySettingActivity"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        <activity android:name=".Setting.BodySettingActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 
         <activity android:name=".Setting.SettingActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
@@ -42,8 +41,7 @@
         <activity android:name=".Setting.AboutUsActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 
-        <activity android:name=".Setting.AccountSettingActivity"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        <activity android:name=".Setting.AccountSettingActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 
         <activity android:name=".Run.ChallengeMainActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
@@ -53,6 +51,9 @@
         </activity>
 
         <activity android:name=".Run.RunningBasic" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+
+        <activity android:name=".ShareSNS.ShareSNSActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 
         <activity

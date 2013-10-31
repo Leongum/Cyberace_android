@@ -17,6 +17,7 @@ import com.G5432.Cyberace.R;
 import com.G5432.Cyberace.Run.ChallengeMainActivity;
 import com.G5432.Cyberace.Run.RunningBasic;
 import com.G5432.Cyberace.Setting.SettingActivity;
+import com.G5432.Cyberace.ShareSNS.ShareSNSActivity;
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.UserBase;
 import com.G5432.Service.UserService;
@@ -148,7 +149,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         btnRun.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, RunningBasic.class);
+                Intent intent = new Intent(MainActivity.this, ShareSNSActivity.class);
                 startActivity(intent);
             }
         });
