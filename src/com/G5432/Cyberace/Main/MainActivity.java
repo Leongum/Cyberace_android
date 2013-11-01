@@ -1,33 +1,25 @@
 package com.G5432.Cyberace.Main;
 
-import android.content.Context;
 import android.content.Intent;
-import android.location.*;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import cn.sharesdk.framework.ShareSDK;
 import com.G5432.Cyberace.History.RunHistoryActivity;
 import com.G5432.Cyberace.R;
 import com.G5432.Cyberace.Run.ChallengeMainActivity;
-import com.G5432.Cyberace.Run.RunningBasic;
 import com.G5432.Cyberace.Setting.SettingActivity;
 import com.G5432.Cyberace.ShareSNS.ShareSNSActivity;
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.UserBase;
 import com.G5432.Service.UserService;
+import com.G5432.Utils.CommonUtil;
 import com.G5432.Utils.UserUtil;
+import com.baidu.location.*;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,9 +30,6 @@ import java.util.Locale;
  */
 public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
-    private LocationManager lm;
-    private Criteria criteria;
-    private Geocoder geocoder;
     private Button btnLogin;
     private Button btnTraffic;
     private Button btnRun;
@@ -48,11 +37,17 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private Button btnHistory;
     private Button btnSetting;
 
+    public LocationClient mLocationClient = null;
+    public GeofenceClient mGeofenceClient;
+    public MyLocationListenner myListener = new MyLocationListenner();
+    private boolean mIsStart;
+
     /**
      * Called when the activity is first created.
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        initLocation();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         ShareSDK.initSDK(this);
@@ -64,55 +59,94 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         btnSetting = (Button) findViewById(R.id.mianBtnSetting);
 
         initPage();
-        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-
-        if (!lm.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER)) {
-            Toast.makeText(this, "请开启GPS！", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(Settings.ACTION_SECURITY_SETTINGS);
-            startActivityForResult(intent, 0); //此为设置完成后返回到获取界面
-        }
-        criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_FINE);    // 设置精确度
-        criteria.setAltitudeRequired(false);                // 设置请求海拔
-        criteria.setBearingRequired(false);                // 设置请求方位
-        criteria.setCostAllowed(true);                    // 设置允许运营商收费
-        criteria.setPowerRequirement(Criteria.POWER_LOW); // 低功耗
-
-        String provider = lm.getBestProvider(criteria, true);
-        Location location = lm.getLastKnownLocation(provider);
-        newLocalGPS(location);
-
-        LocationListener listener = new locationListener();
-        lm.requestLocationUpdates(provider, 1000, 0, listener);
     }
 
-    @Override
-    public void onBackPressed() {
-        //super.onBackPressed();
-        //todo::do nothing now
+    private void initLocation() {
+        mLocationClient = new LocationClient(this);
+        /**——————————————————————————————————————————————————————————————————
+         * 这里的AK和应用签名包名绑定，如果使用在自己的工程中需要替换为自己申请的Key
+         * ——————————————————————————————————————————————————————————————————
+         */
+        mLocationClient.setAK("8877eb0e93c16e552be304c6333002eb");
+        mLocationClient.registerLocationListener(myListener);
+        mGeofenceClient = new GeofenceClient(this);
     }
 
-
-    private void newLocalGPS(Location location) {
-        if (location != null) {
-            double latitude = location.getLatitude(); //经度
-            double longitude = location.getLongitude(); // 纬度
-            try {
-                List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 10);
-                if (addresses.size() > 0) {
-                    Address address = addresses.get(0);
-                    //todo::add weather info
-                    //address.getLocality();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+    /**
+     * 监听函数，有更新位置的时候，格式化成字符串，输出到屏幕中
+     */
+    public class MyLocationListenner implements BDLocationListener {
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            if (location == null)
+                return;
+            StringBuffer sb = new StringBuffer(256);
+            sb.append("time : ");
+            sb.append(location.getTime());
+            sb.append("\nerror code : ");
+            sb.append(location.getLocType());
+            sb.append("\nlatitude : ");
+            sb.append(location.getLatitude());
+            sb.append("\nlontitude : ");
+            sb.append(location.getLongitude());
+            sb.append("\nradius : ");
+            sb.append(location.getRadius());
+            if (location.getLocType() == BDLocation.TypeGpsLocation) {
+                sb.append("\nspeed : ");
+                sb.append(location.getSpeed());
+                sb.append("\nsatellite : ");
+                sb.append(location.getSatelliteNumber());
+            } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
+                /**
+                 * 格式化显示地址信息
+                 */
+				sb.append("\n省：");
+				sb.append(location.getProvince());
+				sb.append("\n市：");
+				sb.append(location.getCity());
+				sb.append("\n区/县：");
+				sb.append(location.getDistrict());
+                sb.append("\naddr : ");
+                sb.append(location.getAddrStr());
             }
-        } else {
-            // 未获取地理信息位置
-            Log.e(this.getClass().getName(), "地理信息位置未知或正在获取地理信息位置中...");
+            sb.append("\nsdk version : ");
+            sb.append(mLocationClient.getVersion());
+            sb.append("\nisCellChangeFlag : ");
+            sb.append(location.isCellChangeFlag());
+            CommonUtil.showMessages(getApplicationContext(),sb.toString());
+            Log.i(this.getClass().getName(), sb.toString());
+        }
+
+        public void onReceivePoi(BDLocation poiLocation) {
+            if (poiLocation == null) {
+                return;
+            }
+            StringBuffer sb = new StringBuffer(256);
+            sb.append("Poi time : ");
+            sb.append(poiLocation.getTime());
+            sb.append("\nerror code : ");
+            sb.append(poiLocation.getLocType());
+            sb.append("\nlatitude : ");
+            sb.append(poiLocation.getLatitude());
+            sb.append("\nlontitude : ");
+            sb.append(poiLocation.getLongitude());
+            sb.append("\nradius : ");
+            sb.append(poiLocation.getRadius());
+            if (poiLocation.getLocType() == BDLocation.TypeNetWorkLocation) {
+                sb.append("\naddr : ");
+                sb.append(poiLocation.getAddrStr());
+            }
+            if (poiLocation.hasPoi()) {
+                sb.append("\nPoi:");
+                sb.append(poiLocation.getPoi());
+            } else {
+                sb.append("noPoi information");
+            }
+            CommonUtil.showMessages(getApplicationContext(),sb.toString());
+            Log.i(this.getClass().getName(), sb.toString());
         }
     }
+
 
     private void initPage() {
 
@@ -139,10 +173,20 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             });
         }
 
+        mIsStart = false;
         btnTraffic.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                //todo:: add onclick
+                if (!mIsStart) {
+                    setLocationOption();
+                    mLocationClient.start();
+                    mLocationClient.requestLocation();
+                    mIsStart = true;
+
+                } else {
+                    mLocationClient.stop();
+                    mIsStart = false;
+                }
             }
         });
 
@@ -179,34 +223,26 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         });
     }
 
-    public class locationListener implements LocationListener {
-        @Override
-        public void onLocationChanged(Location location) {
-            // TODO Auto-generated method stub
-            if (location.getTime() <= (new Date()).getTime() + 2000) {
-                newLocalGPS(location);
-                lm.removeUpdates(this);
-            }
-        }
+    //设置相关参数
+    private void setLocationOption() {
+        LocationClientOption option = new LocationClientOption();
+        option.setOpenGps(true);                //打开gps
 
-        @Override
-        public void onProviderDisabled(String provider) {
-            // TODO Auto-generated method stub
-            newLocalGPS(null);
-        }
+        option.setScanSpan(3000);
+        option.setPriority(LocationClientOption.GpsFirst);        //不设置，默认是gps优先
 
-        @Override
-        public void onProviderEnabled(String provider) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-            // TODO Auto-generated method stub
-
-        }
+        option.setPoiNumber(10);
+        option.disableCache(true);
+        mLocationClient.setLocOption(option);
     }
+
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        //todo::do nothing now
+    }
+
 
     protected void onDestroy() {
         ShareSDK.stopSDK(this);

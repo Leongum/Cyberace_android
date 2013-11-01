@@ -20,7 +20,6 @@ import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.moments.WechatMoments;
 import com.G5432.Cyberace.Main.MainActivity;
 import com.G5432.Cyberace.R;
-import com.G5432.Cyberace.Run.ChallengeMainActivity;
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Service.SystemService;
 import com.G5432.Utils.CommonUtil;
