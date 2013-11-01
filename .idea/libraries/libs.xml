@@ -15,6 +15,8 @@
       <root url="jar://$PROJECT_DIR$/libs/ShareSDK-Wechat-2.1.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/ShareSDK-Wechat-Core-2.1.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/ShareSDK-Wechat-Moments-2.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/baidumapapi_v2_2_0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/locSDK_4.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -314,7 +314,7 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private OnClickListener loginListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
-            txtNickName.setVisibility(View.GONE);
+            txtNickName.setVisibility(View.INVISIBLE);
             layoutSNSs.setVisibility(View.VISIBLE);
             Resources resources = getResources();
             Drawable btnDrawable = resources.getDrawable(R.drawable.seg_selected_bg);
@@ -353,12 +353,12 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private void login(String platform) {
         Platform plat = ShareSDK.getPlatform(this, platform);
         if (plat.isValid()) {
-            String userName = plat.getDb().get("nickname");
+            String userName = plat.getDb().getUserName();
             if (userName == null || userName.length() <= 0
                     || "null".equals(userName)) {
                 // 如果平台已经授权却没有拿到帐号名称，则自动获取用户资料，以获取名称
                 plat.setPlatformActionListener(platformActionListener);
-                plat.authorize();
+                plat.showUser(null);
             } else {
                 Message msg = new Message();
                 msg.arg1 = 1;
