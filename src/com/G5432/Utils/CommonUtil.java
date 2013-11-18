@@ -10,6 +10,7 @@ import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -117,5 +118,16 @@ public class CommonUtil {
             return MessageFormat.format("{0}''{1}\" km", minutes, seconds);
         }
         return MessageFormat.format("{0} km/h", String.format("%.2f", kmPerHour));
+    }
+
+    public static String getCityCode(String cityName,String districtName){
+        CityCode cityCodeClass = new CityCode();
+        Map<String, String > cityCodes = CityCode.cityCodes;
+        for(String city : cityCodes.keySet()){
+            if(districtName.contains(city)|| cityName.contains(city)){
+                return cityCodes.get(city);
+            }
+        }
+        return null;
     }
 }

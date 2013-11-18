@@ -23,7 +23,7 @@ public class Constant {
     public static final String FEEDBACK_URL = SERVICE_HOST + "/system/feedback";
     public static final String PM25_URL = SERVICE_HOST + "/weather/pm25?cityName={0}&provinceName={1}";
 
-    public static final String WEATHER_URL = SERVICE_HOST + "http://www.weather.com.cn/data/sk/{0}.html";
+    public static final String WEATHER_URL = "http://www.weather.com.cn/data/sk/{0}.html";
 
 
     //Message ids;

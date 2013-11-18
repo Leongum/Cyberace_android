@@ -3,6 +3,9 @@ package com.G5432.Utils;
 import android.content.SharedPreferences;
 import android.util.Log;
 import com.G5432.Entity.UserBase;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.json.JSONObject;
 
 import java.util.Date;
 import java.util.Map;
@@ -25,6 +28,8 @@ public class UserUtil {
     public static Boolean historySynced = true;
     public static Boolean userSynced = true;
 
+    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
     public static Integer getUserId() {
         return sharedPreferences.getInt("userId", -1);
     }
@@ -41,17 +46,17 @@ public class UserUtil {
         return sharedPreferences.getString("syncMode", Constant.SYNC_MODE_ALL_MODE);
     }
 
-    public static String getSpeedFormat(){
-        return sharedPreferences.getString("speedType",Constant.SPEED_FORMAT_KM_PER_HOUR);
+    public static String getSpeedFormat() {
+        return sharedPreferences.getString("speedType", Constant.SPEED_FORMAT_KM_PER_HOUR);
     }
 
-    public static void setSpeedFormat(String format){
+    public static void setSpeedFormat(String format) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("speedType", format);
         editor.commit();
     }
 
-    public static void setSyncMode(String syncMode){
+    public static void setSyncMode(String syncMode) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("syncMode", syncMode);
         editor.commit();
@@ -100,7 +105,7 @@ public class UserUtil {
         editor.commit();
     }
 
-    public static void saveBodySetting(UserBase user){
+    public static void saveBodySetting(UserBase user) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("sex", user.getSex());
         editor.putFloat("weight", user.getWeight().floatValue());

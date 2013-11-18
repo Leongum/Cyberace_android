@@ -50,6 +50,18 @@ public class UserInfo {
     @DatabaseField
     private Integer age;
 
+    @DatabaseField
+    private double totalDistance;
+
+    @DatabaseField
+    private double avgSpeed;
+
+    @DatabaseField
+    private double spendCarlorie;
+
+    @DatabaseField
+    private Integer totalRunTimes;
+
     public UserInfo() {
 
     }
@@ -156,5 +168,37 @@ public class UserInfo {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public double getTotalDistance() {
+        return totalDistance;
+    }
+
+    public void setTotalDistance(double totalDistance) {
+        this.totalDistance = totalDistance;
+    }
+
+    public double getAvgSpeed() {
+        return avgSpeed;
+    }
+
+    public void setAvgSpeed(double avgSpeed) {
+        this.avgSpeed = avgSpeed;
+    }
+
+    public double getSpendCarlorie() {
+        return spendCarlorie;
+    }
+
+    public void setSpendCarlorie(double spendCarlorie) {
+        this.spendCarlorie = spendCarlorie;
+    }
+
+    public Integer getTotalRunTimes() {
+        return totalRunTimes;
+    }
+
+    public void setTotalRunTimes(Integer totalRunTimes) {
+        this.totalRunTimes = totalRunTimes;
     }
 }

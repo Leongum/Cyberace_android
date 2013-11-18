@@ -85,6 +85,9 @@ public class Mission {
     @DatabaseField
     private Integer sequence;
 
+    @DatabaseField
+    private Integer planId;
+
     public Mission() {
 
     }
@@ -271,5 +274,13 @@ public class Mission {
 
     public void setMissionChallenges(List<MissionChallenge> missionChallenges) {
         this.missionChallenges = missionChallenges;
+    }
+
+    public Integer getPlanId() {
+        return planId;
+    }
+
+    public void setPlanId(Integer planId) {
+        this.planId = planId;
     }
 }

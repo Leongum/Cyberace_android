@@ -1,6 +1,7 @@
 package com.G5432.Cyberace.Main;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,11 +16,18 @@ import com.G5432.Cyberace.Setting.SettingActivity;
 import com.G5432.Cyberace.ShareSNS.ShareSNSActivity;
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.UserBase;
+import com.G5432.HttpClient.HttpClientHelper;
 import com.G5432.Service.UserService;
 import com.G5432.Utils.CommonUtil;
+import com.G5432.Utils.Constant;
 import com.G5432.Utils.UserUtil;
 import com.baidu.location.*;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.MessageFormat;
 
 /**
  * Created with IntelliJ IDEA.
@@ -39,15 +47,24 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     public LocationClient mLocationClient = null;
     public GeofenceClient mGeofenceClient;
-    public MyLocationListenner myListener = new MyLocationListenner();
+    public MyLocationListener myListener = new MyLocationListener();
     private boolean mIsStart;
+
+    private String cityName;
+    private String districtName;
+    private String weatherInformation = "天气信息获取中...";
+    private Integer temp = Integer.MIN_VALUE;
+    private String wd = "";
+    private String ws = "";
+    private Integer pm25 = Integer.MAX_VALUE;
+    private String pm25Quality = "";
+    private Integer weatherStatus = 0; //0 获取中 －1天气获取失败。
 
     /**
      * Called when the activity is first created.
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        initLocation();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         ShareSDK.initSDK(this);
@@ -57,7 +74,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         btnChallengeRun = (Button) findViewById(R.id.mianBtnChallengeRun);
         btnHistory = (Button) findViewById(R.id.mianBtnHistory);
         btnSetting = (Button) findViewById(R.id.mianBtnSetting);
-
+        initLocation();
         initPage();
     }
 
@@ -70,80 +87,99 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         mLocationClient.setAK("8877eb0e93c16e552be304c6333002eb");
         mLocationClient.registerLocationListener(myListener);
         mGeofenceClient = new GeofenceClient(this);
+        setLocationOption();
+        mLocationClient.start();
+        mLocationClient.requestLocation();
+    }
+
+    //设置相关参数
+    private void setLocationOption() {
+        LocationClientOption option = new LocationClientOption();
+        option.setOpenGps(true);                //打开gps
+        option.setAddrType("all");
+        option.setScanSpan(3000);
+        option.setPriority(LocationClientOption.NetWorkFirst);        //不设置，默认是gps优先
+        option.setPoiNumber(0);
+        option.disableCache(true);
+        mLocationClient.setLocOption(option);
     }
 
     /**
      * 监听函数，有更新位置的时候，格式化成字符串，输出到屏幕中
      */
-    public class MyLocationListenner implements BDLocationListener {
+    public class MyLocationListener implements BDLocationListener {
         @Override
         public void onReceiveLocation(BDLocation location) {
             if (location == null)
                 return;
-            StringBuffer sb = new StringBuffer(256);
-            sb.append("time : ");
-            sb.append(location.getTime());
-            sb.append("\nerror code : ");
-            sb.append(location.getLocType());
-            sb.append("\nlatitude : ");
-            sb.append(location.getLatitude());
-            sb.append("\nlontitude : ");
-            sb.append(location.getLongitude());
-            sb.append("\nradius : ");
-            sb.append(location.getRadius());
-            if (location.getLocType() == BDLocation.TypeGpsLocation) {
-                sb.append("\nspeed : ");
-                sb.append(location.getSpeed());
-                sb.append("\nsatellite : ");
-                sb.append(location.getSatelliteNumber());
-            } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
-                /**
-                 * 格式化显示地址信息
-                 */
-				sb.append("\n省：");
-				sb.append(location.getProvince());
-				sb.append("\n市：");
-				sb.append(location.getCity());
-				sb.append("\n区/县：");
-				sb.append(location.getDistrict());
-                sb.append("\naddr : ");
-                sb.append(location.getAddrStr());
+            if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
+                cityName = location.getCity();
+                districtName = location.getDistrict();
+                if (cityName != null || districtName != null) {
+                    if (mLocationClient.isStarted()) mLocationClient.stop();
+                    HttpClientHelper httpClientHelper = new HttpClientHelper();
+                    String url = MessageFormat.format(Constant.WEATHER_URL, CommonUtil.getCityCode(cityName, districtName));
+                    httpClientHelper.get(CommonUtil.getUrl(url), null, new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, String response) {
+                            Log.d(this.getClass().getName(), response);
+                            if (statusCode == 200 || statusCode == 204) {
+                                JSONObject jsonObject = null;
+                                try {
+                                    jsonObject = new JSONObject(response);
+                                    jsonObject = jsonObject.getJSONObject("weatherinfo");
+                                    temp = jsonObject.getInt("temp");
+                                    wd = jsonObject.getString("WD");
+                                    ws = jsonObject.getString("WS");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                                }
+                            } else {
+                                weatherStatus = -1;
+                                Log.e(this.getClass().getName(), response);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Throwable error, String content) {
+                            weatherStatus = -1;
+                            Log.e(this.getClass().getName(), error.getMessage() + content);
+                        }
+                    });
+                    url = MessageFormat.format(Constant.PM25_URL, districtName, cityName);
+                    httpClientHelper.get(CommonUtil.getUrl(url), null, new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, String response) {
+                            Log.d(this.getClass().getName(), response);
+                            if (statusCode == 200 || statusCode == 204) {
+                                JSONObject jsonObject = null;
+                                try {
+                                    jsonObject = new JSONObject(response);
+                                    pm25 = jsonObject.getInt("pm2_5");
+                                    pm25Quality = jsonObject.getString("quality");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                                }
+                            } else {
+                                weatherStatus = -1;
+                                Log.e(this.getClass().getName(), response);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Throwable error, String content) {
+                            weatherStatus = -1;
+                            Log.e(this.getClass().getName(), error.getMessage() + content);
+                        }
+                    });
+                }
+                //CommonUtil.showMessages(getApplicationContext(), cityName + " " + districtName);
             }
-            sb.append("\nsdk version : ");
-            sb.append(mLocationClient.getVersion());
-            sb.append("\nisCellChangeFlag : ");
-            sb.append(location.isCellChangeFlag());
-            CommonUtil.showMessages(getApplicationContext(),sb.toString());
-            Log.i(this.getClass().getName(), sb.toString());
+
         }
 
         public void onReceivePoi(BDLocation poiLocation) {
-            if (poiLocation == null) {
-                return;
-            }
-            StringBuffer sb = new StringBuffer(256);
-            sb.append("Poi time : ");
-            sb.append(poiLocation.getTime());
-            sb.append("\nerror code : ");
-            sb.append(poiLocation.getLocType());
-            sb.append("\nlatitude : ");
-            sb.append(poiLocation.getLatitude());
-            sb.append("\nlontitude : ");
-            sb.append(poiLocation.getLongitude());
-            sb.append("\nradius : ");
-            sb.append(poiLocation.getRadius());
-            if (poiLocation.getLocType() == BDLocation.TypeNetWorkLocation) {
-                sb.append("\naddr : ");
-                sb.append(poiLocation.getAddrStr());
-            }
-            if (poiLocation.hasPoi()) {
-                sb.append("\nPoi:");
-                sb.append(poiLocation.getPoi());
-            } else {
-                sb.append("noPoi information");
-            }
-            CommonUtil.showMessages(getApplicationContext(),sb.toString());
-            Log.i(this.getClass().getName(), sb.toString());
+            //do nothing
         }
     }
 
@@ -177,15 +213,30 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         btnTraffic.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!mIsStart) {
-                    setLocationOption();
-                    mLocationClient.start();
-                    mLocationClient.requestLocation();
-                    mIsStart = true;
-
+                if (weatherStatus == -1) {
+                    CommonUtil.showMessages(getApplicationContext(), "天气信息获取失败");
+                }
+                if (temp != Integer.MIN_VALUE && temp != Integer.MAX_VALUE) {
+                    int index = -1;
+                    if (temp < 38 && pm25 < 300) {
+                        index = (int) ((100 - pm25 / 3) * 0.6 + (100 - Math.abs(temp - 22) * 5) * 0.4);
+                    } else {
+                        index = 0;
+                    }
+                    weatherInformation = MessageFormat.format("{0}  {1}℃  {2}{3}  PM2.5: {4}{5}  总: {6}", districtName, temp, wd, ws, pm25, pm25Quality, index);
+                    if (index > 75) {
+                        Drawable drawableBg = getResources().getDrawable(R.drawable.main_trafficlight_green);
+                        btnTraffic.setBackgroundDrawable(drawableBg);
+                    } else if (temp < 0 || temp > 38 || pm25 > 250 || index < 50) {
+                        Drawable drawableBg = getResources().getDrawable(R.drawable.main_trafficlight_red);
+                        btnTraffic.setBackgroundDrawable(drawableBg);
+                    } else if (index <= 75 && index >= 50) {
+                        Drawable drawableBg = getResources().getDrawable(R.drawable.main_trafficlight_yellow);
+                        btnTraffic.setBackgroundDrawable(drawableBg);
+                    }
+                    CommonUtil.showMessages(getApplicationContext(), weatherInformation);
                 } else {
-                    mLocationClient.stop();
-                    mIsStart = false;
+                    CommonUtil.showMessages(getApplicationContext(), weatherInformation);
                 }
             }
         });
@@ -222,20 +273,6 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             }
         });
     }
-
-    //设置相关参数
-    private void setLocationOption() {
-        LocationClientOption option = new LocationClientOption();
-        option.setOpenGps(true);                //打开gps
-
-        option.setScanSpan(3000);
-        option.setPriority(LocationClientOption.GpsFirst);        //不设置，默认是gps优先
-
-        option.setPoiNumber(10);
-        option.disableCache(true);
-        mLocationClient.setLocOption(option);
-    }
-
 
     @Override
     public void onBackPressed() {

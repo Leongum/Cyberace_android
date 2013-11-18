@@ -38,6 +38,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, UserBase.class);
             TableUtils.createTable(connectionSource, UserInfo.class);
             TableUtils.createTable(connectionSource, VersionControl.class);
+            TableUtils.clearTable(connectionSource, Plan.class);
+            TableUtils.clearTable(connectionSource, PlanCollect.class);
+            TableUtils.clearTable(connectionSource, PlanNextMission.class);
+            TableUtils.clearTable(connectionSource, PlanRunHistory.class);
+            TableUtils.clearTable(connectionSource, PlanUserFollow.class);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Unable to create databases", e);
         }
@@ -120,4 +125,49 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return versionControlDao;
     }
 
+
+    private Dao<Plan, String> planDao;
+
+    public Dao<Plan, String> getPlanDao() throws SQLException {
+        if (planDao == null) {
+            planDao = getDao(Plan.class);
+        }
+        return planDao;
+    }
+
+    private Dao<PlanCollect, String> planCollectDao;
+
+    public Dao<PlanCollect, String> getPlanCollectDao() throws SQLException {
+        if (planCollectDao == null) {
+            planCollectDao = getDao(PlanCollect.class);
+        }
+        return planCollectDao;
+    }
+
+    private Dao<PlanNextMission, String> planNextMissionDao;
+
+    public Dao<PlanNextMission, String> getPlanNextMissionDao() throws SQLException {
+        if (planNextMissionDao == null) {
+            planNextMissionDao = getDao(PlanNextMission.class);
+        }
+        return planNextMissionDao;
+    }
+
+    private Dao<PlanRunHistory, String> planRunHistoryDao;
+
+    public Dao<PlanRunHistory, String> getPlanRunHistoryDao() throws SQLException {
+        if (planRunHistoryDao == null) {
+            planRunHistoryDao = getDao(PlanRunHistory.class);
+        }
+        return planRunHistoryDao;
+    }
+
+    private Dao<PlanUserFollow, String> planUserFollowDao;
+
+    public Dao<PlanUserFollow, String> getPlanUserFollowDao() throws SQLException {
+        if (planUserFollowDao == null) {
+            planUserFollowDao = getDao(PlanUserFollow.class);
+        }
+        return planUserFollowDao;
+    }
 }

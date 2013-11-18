@@ -84,6 +84,15 @@ public class RunningHistory {
     @DatabaseField
     private Integer valid;
 
+    @DatabaseField
+    private String planRunUuid;
+
+    @DatabaseField
+    private Integer sequence;
+
+    @DatabaseField
+    private String speedList;
+
     public RunningHistory() {
 
     }
@@ -278,5 +287,29 @@ public class RunningHistory {
 
     public void setValid(Integer valid) {
         this.valid = valid;
+    }
+
+    public String getPlanRunUuid() {
+        return planRunUuid;
+    }
+
+    public void setPlanRunUuid(String planRunUuid) {
+        this.planRunUuid = planRunUuid;
+    }
+
+    public Integer getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
+    }
+
+    public String getSpeedList() {
+        return speedList;
+    }
+
+    public void setSpeedList(String speedList) {
+        this.speedList = speedList;
     }
 }
