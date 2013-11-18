@@ -1,6 +1,5 @@
 package com.G5432.StepCounting;
 
-import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 
 /**
@@ -11,15 +10,40 @@ import android.hardware.SensorEvent;
  * To change this template use File | Settings | File Templates.
  */
 public class DeviceStatus {
-    public SensorEvent getgAccVector() {
-        return gAccVector;
+    public SCMatrix rotationMatrix;
+
+    public SCVector getRealAcc() {
+        if (realAcc==null){
+            realAcc = new SCVector();
+            doTransition();
+        }
+        return realAcc;
     }
 
-    public void setgAccVector(SensorEvent gAccVector) {
-        this.gAccVector = gAccVector;
+    private SCVector realAcc=null;
+
+    public SCVector getOriAcc() {
+        if (oriAcc ==null){
+            oriAcc = new SCVector();
+        }
+        return oriAcc;
     }
 
-    private SensorEvent gAccVector;
+    public void setOriAcc(SCVector oriAcc) {
+        this.oriAcc = oriAcc;
+    }
 
+    private SCVector oriAcc;
 
+    public DeviceStatus(SCVector acc, float rm[]){
+        rotationMatrix = new SCMatrix();
+        setOriAcc(acc);
+        for (int i=0; i<rm.length; i++) {
+            rotationMatrix.matrix[i] = rm[i];
+        }
+    }
+
+    private void doTransition(){
+        realAcc = rotationMatrix.leftMultiplyVector(oriAcc);
+    }
 }
