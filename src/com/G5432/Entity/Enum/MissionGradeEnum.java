@@ -1,13 +1,13 @@
-package com.G5432.Enums;
+package com.G5432.Entity.Enum;
 
 /**
  * Created with IntelliJ IDEA.
  * User: p
- * Date: 13-10-23
- * Time: 上午11:23
+ * Date: 13-11-18
+ * Time: 下午5:22
  * To change this template use File | Settings | File Templates.
  */
-public enum MissionGrade {
+public enum MissionGradeEnum {
 
     S,
 

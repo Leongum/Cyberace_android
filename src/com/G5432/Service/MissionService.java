@@ -2,8 +2,7 @@ package com.G5432.Service;
 
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.*;
-import com.G5432.Enums.MissionType;
-import com.G5432.HttpClient.HttpClientHelper;
+import com.G5432.Entity.Enum.MissionTypeEnum;
 import com.G5432.Utils.UserUtil;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.DeleteBuilder;
@@ -41,16 +40,16 @@ public class MissionService {
         try {
             for (Mission mission : missionList) {
                 missionDao.createOrUpdate(mission);
-                if (mission.getMissionTypeId() == MissionType.Challenge.ordinal() && mission.getChallengeId() != null) {
+                if (mission.getMissionTypeId() == MissionTypeEnum.Challenge.ordinal() && mission.getChallengeId() != null) {
                     DeleteBuilder<MissionChallenge, Void> missionChallengeDeleteBuilder = missionChallengeDao.deleteBuilder();
                     missionChallengeDeleteBuilder.where().eq("challengeId", mission.getChallengeId());
                     missionChallengeDeleteBuilder.delete();
                     for (MissionChallenge missionChallenge : mission.getMissionChallenges()) {
                         missionChallengeDao.create(missionChallenge);
                     }
-                } else if (mission.getMissionTypeId() == MissionType.Cycle.ordinal()) {
+                } else if (mission.getMissionTypeId() == MissionTypeEnum.Cycle.ordinal()) {
                     //todo:: under design
-                } else if (mission.getMissionTypeId() == MissionType.Recommand.ordinal() && mission.getMissionPlacePackageId() != null) {
+                } else if (mission.getMissionTypeId() == MissionTypeEnum.Recommend.ordinal() && mission.getMissionPlacePackageId() != null) {
                     DeleteBuilder<MissionPlacePackage, Void> missionPlacePackageDeleteBuilder = missionPlacePackageDao.deleteBuilder();
                     missionPlacePackageDeleteBuilder.where().eq("packageId", mission.getMissionPlacePackageId());
                     missionPlacePackageDeleteBuilder.delete();
@@ -76,7 +75,7 @@ public class MissionService {
         return mission;
     }
 
-    public List<Mission> fetchMissionListByType(MissionType missionType) {
+    public List<Mission> fetchMissionListByType(MissionTypeEnum missionType) {
         List<Mission> missionsList = null;
 
         try {
@@ -97,7 +96,7 @@ public class MissionService {
         try {
             if (mission != null) {
 
-                if (mission.getMissionTypeId() == MissionType.Challenge.ordinal() && mission.getChallengeId() != null) {
+                if (mission.getMissionTypeId() == MissionTypeEnum.Challenge.ordinal() && mission.getChallengeId() != null) {
                     List<MissionChallenge> missionChallengeList = null;
                     QueryBuilder<MissionChallenge, Void> missionChallengeQueryBuilder = missionChallengeDao.queryBuilder();
                     String sex = "男";
@@ -108,9 +107,9 @@ public class MissionService {
                     missionChallengeQueryBuilder.orderBy("sequence", true);
                     missionChallengeList = missionChallengeQueryBuilder.query();
                     mission.setMissionChallenges(missionChallengeList);
-                } else if (mission.getMissionTypeId() == MissionType.Cycle.ordinal()) {
+                } else if (mission.getMissionTypeId() == MissionTypeEnum.Cycle.ordinal()) {
                     //todo:: under design
-                } else if (mission.getMissionTypeId() == MissionType.Recommand.ordinal() && mission.getMissionPlacePackageId() != null) {
+                } else if (mission.getMissionTypeId() == MissionTypeEnum.Recommend.ordinal() && mission.getMissionPlacePackageId() != null) {
                     List<MissionPlacePackage> missionPlacePackageList = null;
                     QueryBuilder<MissionPlacePackage, Void> missionPlacePackageQueryBuilder = missionPlacePackageDao.queryBuilder();
                     missionPlacePackageQueryBuilder.where().eq("packageId", mission.getMissionPlacePackageId());

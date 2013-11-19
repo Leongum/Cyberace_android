@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Plan {
 
-    @DatabaseField
+    @DatabaseField(id = true)
     private Integer planId;
     @DatabaseField
     private String planName;

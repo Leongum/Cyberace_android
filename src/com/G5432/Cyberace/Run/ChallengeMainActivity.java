@@ -5,11 +5,10 @@ import android.view.View;
 import android.widget.*;
 import com.G5432.Cyberace.R;
 import com.G5432.DBUtils.DatabaseHelper;
+import com.G5432.Entity.Enum.*;
 import com.G5432.Entity.Mission;
 import com.G5432.Entity.MissionChallenge;
 import com.G5432.Entity.RunningHistory;
-import com.G5432.Enums.MissionGrade;
-import com.G5432.Enums.MissionType;
 import com.G5432.Service.MissionService;
 import com.G5432.Service.RunningHistoryService;
 import com.G5432.Utils.CommonUtil;
@@ -60,7 +59,7 @@ public class ChallengeMainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         btnStart = (Button) findViewById(R.id.challengeBtnStart);
         txtTitle = (TextView) findViewById(R.id.challengeTxtTitle);
         listGrade = (ListView) findViewById(R.id.challengeListMissionGrade);
-        missionList = missionService.fetchMissionListByType(MissionType.Challenge);
+        missionList = missionService.fetchMissionListByType(MissionTypeEnum.Challenge);
         initPage();
     }
 
@@ -78,7 +77,7 @@ public class ChallengeMainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             String grade = "?";
             if (best != null) {
                 if (best.getMissionGrade() >= 0 && best.getMissionGrade() <= 6) {
-                    grade = MissionGrade.values()[best.getMissionGrade()].toString();
+                    grade = MissionGradeEnum.values()[best.getMissionGrade()].toString();
                 }
             }
             map.put("itemLevel", grade);

@@ -13,13 +13,13 @@ import com.G5432.Cyberace.History.RunHistoryActivity;
 import com.G5432.Cyberace.R;
 import com.G5432.Cyberace.Run.ChallengeMainActivity;
 import com.G5432.Cyberace.Setting.SettingActivity;
-import com.G5432.Cyberace.ShareSNS.ShareSNSActivity;
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.UserBase;
 import com.G5432.HttpClient.HttpClientHelper;
 import com.G5432.Service.UserService;
 import com.G5432.Utils.CommonUtil;
 import com.G5432.Utils.Constant;
+import com.G5432.Utils.ToastUtil;
 import com.G5432.Utils.UserUtil;
 import com.baidu.location.*;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
@@ -214,7 +214,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             @Override
             public void onClick(View view) {
                 if (weatherStatus == -1) {
-                    CommonUtil.showMessages(getApplicationContext(), "天气信息获取失败");
+                    ToastUtil.showMessage(getApplicationContext(), "天气信息获取失败");
                 }
                 if (temp != Integer.MIN_VALUE && temp != Integer.MAX_VALUE) {
                     int index = -1;
@@ -234,9 +234,9 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                         Drawable drawableBg = getResources().getDrawable(R.drawable.main_trafficlight_yellow);
                         btnTraffic.setBackgroundDrawable(drawableBg);
                     }
-                    CommonUtil.showMessages(getApplicationContext(), weatherInformation);
+                    ToastUtil.showMessageLong(getApplicationContext(), weatherInformation);
                 } else {
-                    CommonUtil.showMessages(getApplicationContext(), weatherInformation);
+                    ToastUtil.showMessageLong(getApplicationContext(), weatherInformation);
                 }
             }
         });
@@ -244,8 +244,9 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         btnRun.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ShareSNSActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(MainActivity.this, ShareSNSActivity.class);
+                //startActivity(intent);
+                ToastUtil.showMessage(getApplicationContext(), "btnRun");
             }
         });
 

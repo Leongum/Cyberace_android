@@ -79,12 +79,6 @@ public class CommonUtil {
         return s;
     }
 
-    public static void showMessages(Context context, String message) {
-        Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
-    }
-
     public static String transSecondToStandardFormat(Integer seconds) {
         int min = 0;
         int hour = 0;

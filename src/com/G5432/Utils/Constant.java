@@ -9,7 +9,7 @@ package com.G5432.Utils;
  */
 public class Constant {
 
-    public static final String SERVICE_HOST = "http://121.199.56.231:8080/usavich/service/api";
+    public static final String SERVICE_HOST = "http://121.199.56.231:8080/usavichV2/service/api";
 
     public static final String LOGIN_URL = SERVICE_HOST + "/account/{0}/{1}";
     public static final String REGISTER_URL = SERVICE_HOST + "/account";
@@ -25,8 +25,20 @@ public class Constant {
 
     public static final String WEATHER_URL = "http://www.weather.com.cn/data/sk/{0}.html";
 
-
-    //Message ids;
+    //define version 1.2 plan new api
+    public static final String USER_FOLLOWERS_DETAIL_URL = SERVICE_HOST + "/account/follower/{0}?pageNo={1}";
+    public static final String PLAN_INFO_URL = SERVICE_HOST + "/plans/plan/{0}?lastUpdateTime={1}";
+    public static final String HOT_PLAN_URL = SERVICE_HOST + "/plans/list?pageNo={0}";
+    public static final String POST_PLAN_URL = SERVICE_HOST + "/plans/plan/post/{0}";
+    public static final String USER_LAST_UPDATE_PLAN_URL = SERVICE_HOST + "/plans/history/lastupdate/{0}";
+    public static final String USER_COLLECT_PLAN_URL = SERVICE_HOST + "/plans/collect/{0}?lastUpdateTime={1}";
+    public static final String PUT_USER_COLLECT_PLAN_URL = SERVICE_HOST + "/plans/collect/put/{0}";
+    public static final String USER_PLAN_HISTORY_URL = SERVICE_HOST + "/plans/history/{0}?lastUpdateTime={1}";
+    public static final String PUT_USER_PLAN_HISTORY_URL = SERVICE_HOST + "/plans/history/put/{0}";
+    public static final String PLAN_HISTORY_BY_PLANID_URL = SERVICE_HOST + "/plans/history/running/plan/{0}?pageNo={1}";
+    public static final String PLAN_HISTORY_BY_USERID_URL = SERVICE_HOST + "/plans/history/running/user/{0}?pageNo={1}";
+    public static final String USER_FOLLOWER_LIST_URL = SERVICE_HOST + "/plans/follow/{0}?lastUpdateTime={1}";
+    public static final String PUT_USER_FOLLOWER_LIST_URL = SERVICE_HOST + "/plans/follow/put/{0}";
 
     public static final int CONNECTION_ERROR = 1;
     public static final int LOGIN_ERROR = 2;
@@ -69,8 +81,8 @@ public class Constant {
 
     //setting
     public static final String SYNC_MODE_WIFI_ONLY = "Only_Wifi";
-    public static final String SYNC_MODE_ALL_MODE ="All_Mode";
-    public static final String SPEED_FORMAT_KM_PER_HOUR ="km/h";
+    public static final String SYNC_MODE_ALL_MODE = "All_Mode";
+    public static final String SPEED_FORMAT_KM_PER_HOUR = "km/h";
     public static final String SPEED_FORMAT_MIN_PER_KM = "min/km";
 
 }

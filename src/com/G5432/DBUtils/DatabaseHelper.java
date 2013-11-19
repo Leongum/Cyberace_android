@@ -126,27 +126,27 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
 
-    private Dao<Plan, String> planDao;
+    private Dao<Plan, Integer> planDao;
 
-    public Dao<Plan, String> getPlanDao() throws SQLException {
+    public Dao<Plan, Integer> getPlanDao() throws SQLException {
         if (planDao == null) {
             planDao = getDao(Plan.class);
         }
         return planDao;
     }
 
-    private Dao<PlanCollect, String> planCollectDao;
+    private Dao<PlanCollect, Void> planCollectDao;
 
-    public Dao<PlanCollect, String> getPlanCollectDao() throws SQLException {
+    public Dao<PlanCollect, Void> getPlanCollectDao() throws SQLException {
         if (planCollectDao == null) {
             planCollectDao = getDao(PlanCollect.class);
         }
         return planCollectDao;
     }
 
-    private Dao<PlanNextMission, String> planNextMissionDao;
+    private Dao<PlanNextMission, Void> planNextMissionDao;
 
-    public Dao<PlanNextMission, String> getPlanNextMissionDao() throws SQLException {
+    public Dao<PlanNextMission, Void> getPlanNextMissionDao() throws SQLException {
         if (planNextMissionDao == null) {
             planNextMissionDao = getDao(PlanNextMission.class);
         }
@@ -162,9 +162,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return planRunHistoryDao;
     }
 
-    private Dao<PlanUserFollow, String> planUserFollowDao;
+    private Dao<PlanUserFollow, Void> planUserFollowDao;
 
-    public Dao<PlanUserFollow, String> getPlanUserFollowDao() throws SQLException {
+    public Dao<PlanUserFollow, Void> getPlanUserFollowDao() throws SQLException {
         if (planUserFollowDao == null) {
             planUserFollowDao = getDao(PlanUserFollow.class);
         }

@@ -24,6 +24,7 @@ import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Service.SystemService;
 import com.G5432.Utils.CommonUtil;
 import com.G5432.Utils.Constant;
+import com.G5432.Utils.ToastUtil;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 import java.io.File;
@@ -130,7 +131,7 @@ public class ShareSNSActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             @Override
             public void onClick(View view) {
                 if(platforms.size() == 0){
-                    CommonUtil.showMessages(getApplicationContext(),systemService.getSystemMessage(Constant.SELECT_SHARE_PLATFORM_ERROR));
+                    ToastUtil.showMessage(getApplicationContext(), systemService.getSystemMessage(Constant.SELECT_SHARE_PLATFORM_ERROR));
                     return;
                 }
                 String shareContent = systemService.getSystemMessage(Constant.SHARE_DEFAULT_CONTENT);
@@ -157,7 +158,7 @@ public class ShareSNSActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                         filePathes.put("file", imagePath);
                         platform.customerProtocol(url, method, customerAction, values, filePathes);
                     }
-                    CommonUtil.showMessages(getApplicationContext(),systemService.getSystemMessage(Constant.SHARE_SUBMITTED));
+                    ToastUtil.showMessage(getApplicationContext(),systemService.getSystemMessage(Constant.SHARE_SUBMITTED));
                     finish();
                     Intent intent = new Intent(ShareSNSActivity.this, MainActivity.class);
                     startActivity(intent);
@@ -198,11 +199,11 @@ public class ShareSNSActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                 break;
                 case 2: {
                     // 失败
-                    CommonUtil.showMessages(getApplicationContext(), "呃。授权失败了～");
+                    ToastUtil.showMessage(getApplicationContext(), "呃。授权失败了～");
                 }
                 case 3: {
                     // 取消
-                    CommonUtil.showMessages(getApplicationContext(), "取消了授权？");
+                    ToastUtil.showMessage(getApplicationContext(), "取消了授权？");
                 }
             }
         }

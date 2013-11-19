@@ -16,6 +16,7 @@ import com.G5432.HttpClient.HttpClientHelper;
 import com.G5432.Service.UserService;
 import com.G5432.Utils.CommonUtil;
 import com.G5432.Utils.Constant;
+import com.G5432.Utils.ToastUtil;
 import com.G5432.Utils.UserUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -111,13 +112,13 @@ public class BodySettingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
                 }
                 if (newWeight < 30 || newWeight > 150) {
-                    CommonUtil.showMessages(getApplicationContext(), "体重输入有问题");
+                    ToastUtil.showMessage(getApplicationContext(), "体重输入有问题");
                     txtWeight.setText(String.valueOf(weight));
                     return;
                 }
 
                 if (newHeight < 120 || newHeight > 250) {
-                    CommonUtil.showMessages(getApplicationContext(), "身高输入有问题");
+                    ToastUtil.showMessage(getApplicationContext(), "身高输入有问题");
                     return;
                 }
 

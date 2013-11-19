@@ -23,6 +23,7 @@ import com.G5432.Cyberace.Main.MainActivity;
 import com.G5432.Cyberace.R;
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Utils.CommonUtil;
+import com.G5432.Utils.ToastUtil;
 import com.G5432.Utils.UserUtil;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
@@ -187,11 +188,11 @@ public class AccountSettingActivity extends OrmLiteBaseActivity<DatabaseHelper> 
                 break;
                 case 2: {
                     // 失败
-                    CommonUtil.showMessages(getApplicationContext(), "呃。授权失败了～");
+                    ToastUtil.showMessage(getApplicationContext(), "呃。授权失败了～");
                 }
                 case 3: {
                     // 取消
-                    CommonUtil.showMessages(getApplicationContext(), "取消了授权？");
+                    ToastUtil.showMessage(getApplicationContext(), "取消了授权？");
                 }
             }
         }

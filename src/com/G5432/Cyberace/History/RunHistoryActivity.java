@@ -15,13 +15,14 @@ import android.widget.*;
 import com.G5432.Cyberace.Main.MainActivity;
 import com.G5432.Cyberace.R;
 import com.G5432.DBUtils.DatabaseHelper;
+import com.G5432.Entity.Enum.*;
 import com.G5432.Entity.RunningHistory;
-import com.G5432.Enums.MissionType;
 import com.G5432.HttpClient.BackendSyncRequest;
 import com.G5432.Service.RunningHistoryService;
 import com.G5432.Service.SystemService;
 import com.G5432.Utils.CommonUtil;
 import com.G5432.Utils.Constant;
+import com.G5432.Utils.ToastUtil;
 import com.G5432.Utils.UserUtil;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
@@ -99,10 +100,10 @@ public class RunHistoryActivity extends OrmLiteBaseActivity<DatabaseHelper> impl
     private List<RunningHistory> intiRunHistory() {
         List<Integer> filter = new ArrayList<Integer>();
         if (challengeFilter) {
-            filter.add(MissionType.Challenge.ordinal());
+            filter.add(MissionTypeEnum.Challenge.ordinal());
         }
         if (runFilter) {
-            filter.add(MissionType.NormalRun.ordinal());
+            filter.add(MissionTypeEnum.NormalRun.ordinal());
         }
         if (filter.size() > 0) {
             return runningHistoryService.fetchRunHistoryByUserIdAndMissionType(UserUtil.getUserId(), filter);
@@ -114,10 +115,10 @@ public class RunHistoryActivity extends OrmLiteBaseActivity<DatabaseHelper> impl
     private Map<String, String> initContent() {
         List<Integer> filter = new ArrayList<Integer>();
         if (challengeFilter) {
-            filter.add(MissionType.Challenge.ordinal());
+            filter.add(MissionTypeEnum.Challenge.ordinal());
         }
         if (runFilter) {
-            filter.add(MissionType.NormalRun.ordinal());
+            filter.add(MissionTypeEnum.NormalRun.ordinal());
         }
         if (filter.size() > 0) {
             return runningHistoryService.fetchTotalByUserIdAndMissionType(UserUtil.getUserId(), filter);
@@ -261,7 +262,7 @@ public class RunHistoryActivity extends OrmLiteBaseActivity<DatabaseHelper> impl
             if (msg.what == 1) {
                 timer.cancel();
                 SystemService systemService = new SystemService(getHelper());
-                CommonUtil.showMessages(getApplicationContext(), systemService.getSystemMessage(Constant.SYNC_DATA_SUCCESS));
+                ToastUtil.showMessage(getApplicationContext(), systemService.getSystemMessage(Constant.SYNC_DATA_SUCCESS));
             }
         }
     };

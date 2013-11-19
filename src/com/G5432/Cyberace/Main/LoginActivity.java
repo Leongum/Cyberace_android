@@ -29,6 +29,7 @@ import com.G5432.Service.SystemService;
 import com.G5432.Service.UserService;
 import com.G5432.Utils.CommonUtil;
 import com.G5432.Utils.Constant;
+import com.G5432.Utils.ToastUtil;
 import com.G5432.Utils.UserUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -77,11 +78,11 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                 break;
                 case 2: {
                     // 失败
-                    CommonUtil.showMessages(getApplicationContext(), "呃。授权失败了～");
+                    ToastUtil.showMessage(getApplicationContext(), "呃。授权失败了～");
                 }
                 case 3: {
                     // 取消
-                    CommonUtil.showMessages(getApplicationContext(), "取消了授权？");
+                    ToastUtil.showMessage(getApplicationContext(), "取消了授权？");
                 }
             }
         }
@@ -137,15 +138,15 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         public void onClick(View view) {
             if (txtEmail.getText().toString().isEmpty() || txtPassword.getText().toString().isEmpty() || txtNickName.getText().toString().isEmpty()) {
                 String message = systemService.getSystemMessage(Constant.REGISTER_INPUT_CHECK);
-                CommonUtil.showMessages(getApplicationContext(), message);
+                ToastUtil.showMessage(getApplicationContext(), message);
                 return;
             }
             if (!txtEmail.getText().toString().contains("@") || !txtEmail.getText().toString().contains(".")) {
-                CommonUtil.showMessages(getApplicationContext(), "请填写正确的邮箱");
+                ToastUtil.showMessage(getApplicationContext(), "请填写正确的邮箱");
                 return;
             }
             if (txtPassword.getText().toString().length() < 6) {
-                CommonUtil.showMessages(getApplicationContext(), "密码太短");
+                ToastUtil.showMessage(getApplicationContext(), "密码太短");
                 return;
             }
             HttpClientHelper httpClientHelper = new HttpClientHelper();
@@ -171,14 +172,14 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                     } else {
                         Log.e(this.getClass().getName(), response);
                         String message = systemService.getSystemMessage(Constant.REGISTER_FAIL);
-                        CommonUtil.showMessages(getApplicationContext(), message);
+                        ToastUtil.showMessage(getApplicationContext(), message);
                     }
                 }
 
                 @Override
                 public void onFailure(Throwable error, String content) {
                     String message = systemService.getSystemMessage(Constant.REGISTER_FAIL);
-                    CommonUtil.showMessages(getApplicationContext(), message);
+                    ToastUtil.showMessage(getApplicationContext(), message);
                     Log.e(this.getClass().getName(), error.getMessage() + content);
                 }
             });
@@ -211,7 +212,7 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                 } else {
                     Log.e(this.getClass().getName(), response);
                     String message = systemService.getSystemMessage(Constant.LOGIN_ERROR);
-                    CommonUtil.showMessages(getApplicationContext(), message);
+                    ToastUtil.showMessage(getApplicationContext(), message);
                 }
             }
 
@@ -239,14 +240,14 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                         } else {
                             Log.e(this.getClass().getName(), response);
                             String message = systemService.getSystemMessage(Constant.REGISTER_FAIL);
-                            CommonUtil.showMessages(getApplicationContext(), message);
+                            ToastUtil.showMessage(getApplicationContext(), message);
                         }
                     }
 
                     @Override
                     public void onFailure(Throwable error, String content) {
                         String message = systemService.getSystemMessage(Constant.REGISTER_FAIL);
-                        CommonUtil.showMessages(getApplicationContext(), message);
+                        ToastUtil.showMessage(getApplicationContext(), message);
                         Log.e(this.getClass().getName(), error.getMessage() + content);
                     }
                 });
@@ -260,7 +261,7 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         public void onClick(View view) {
             if (txtEmail.getText().toString().isEmpty() || txtPassword.getText().toString().isEmpty()) {
                 String message = systemService.getSystemMessage(Constant.LOGIN_INPUT_CHECK);
-                CommonUtil.showMessages(getApplicationContext(), message);
+                ToastUtil.showMessage(getApplicationContext(), message);
                 return;
             }
             HttpClientHelper httpClientHelper = new HttpClientHelper();
@@ -284,14 +285,14 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                     } else {
                         Log.e(this.getClass().getName(), response);
                         String message = systemService.getSystemMessage(Constant.LOGIN_ERROR);
-                        CommonUtil.showMessages(getApplicationContext(), message);
+                        ToastUtil.showMessage(getApplicationContext(), message);
                     }
                 }
 
                 @Override
                 public void onFailure(Throwable error, String content) {
                     String message = systemService.getSystemMessage(Constant.LOGIN_ERROR);
-                    CommonUtil.showMessages(getApplicationContext(), message);
+                    ToastUtil.showMessage(getApplicationContext(), message);
                     Log.e(this.getClass().getName(), error.getMessage() + content);
                 }
             });

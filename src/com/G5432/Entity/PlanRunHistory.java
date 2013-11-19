@@ -16,7 +16,7 @@ public class PlanRunHistory {
 
     @DatabaseField
     private Integer planId;
-    @DatabaseField
+    @DatabaseField(id = true)
     private String planRunUuid;
     @DatabaseField
     private Integer nextMissionId;
