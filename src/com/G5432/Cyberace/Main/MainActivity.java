@@ -203,10 +203,10 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         timer = new Timer();
 
         TimerTask timerTask = new TimerTask() {
+            int time = 0;
             @Override
             public void run() {
                 Log.d(this.getClass().getName(), "begin time task check");
-                int time = 0;
 
                 // 定义一个消息传过去
                 Message msg = new Message();

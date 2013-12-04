@@ -58,6 +58,7 @@ public class RunHistoryFinishedActivity extends OrmLiteBaseActivity<DatabaseHelp
     private RelativeLayout layoutSNSShare;
     private Button btnSNSShare;
     private Button btnWeixinShare;
+    //private Button btnLargeMap;
 
     private BMapApplication bMapApp = null;
 
@@ -91,10 +92,12 @@ public class RunHistoryFinishedActivity extends OrmLiteBaseActivity<DatabaseHelp
         btnSNSShare = (Button) findViewById(R.id.historyFinishedBtnSNSShare);
         btnWeixinShare = (Button) findViewById(R.id.historyFinishedBtnWeixinShare);
         layoutSNSShare = (RelativeLayout) findViewById(R.id.historyFinishedShareBg);
+       // btnLargeMap = (Button) findViewById(R.id.historyFinishedBtnLargeMap);
 
         mMapView.regMapViewListener(BMapApplication.getInstance().mBMapManager, mMapListener);
         showHistory(runUuid);
         initPage();
+        btnShare.setVisibility(View.GONE);
     }
 
     MKMapViewListener mMapListener = new MKMapViewListener() {
@@ -123,12 +126,9 @@ public class RunHistoryFinishedActivity extends OrmLiteBaseActivity<DatabaseHelp
              *  可在此保存截图至存储设备
              */
             imgMap.setVisibility(View.VISIBLE);
-            mMapView.setVisibility(View.GONE);
             BitmapDrawable bd = new BitmapDrawable(bitmap);
             imgMap.setBackgroundDrawable(bd);
-            Message msg = new Message();
-            msg.what = 2;
-            handler.sendMessage(msg);
+            btnShare.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -153,25 +153,12 @@ public class RunHistoryFinishedActivity extends OrmLiteBaseActivity<DatabaseHelp
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == 1) {
-                timer.cancel();
-                mMapController.zoomToSpan(mapInfo.getSpanLat(),mapInfo.getSpanLon());
+                mMapController.zoomToSpan(mapInfo.getSpanLat(), mapInfo.getSpanLon());
                 mMapController.animateTo(mapInfo.getCenterPoint());
             }
-            else if(msg.what == 2){
-                btnReturn.setAlpha(0);
-                btnShare.setAlpha(0);
-                imagePath = GetandSaveCurrentImage();
-                imgMap.setVisibility(View.GONE);
-                mMapView.setVisibility(View.VISIBLE);
-                btnReturn.setAlpha(1);
-                btnShare.setAlpha(1);
-                layoutSNSShare.setVisibility(View.VISIBLE);
-                layoutSNSShare.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        layoutSNSShare.setVisibility(View.GONE);
-                    }
-                });
+            if(msg.what == 2){
+                timer.cancel();
+                mMapView.getCurrentMap();
             }
         }
     };
@@ -180,18 +167,27 @@ public class RunHistoryFinishedActivity extends OrmLiteBaseActivity<DatabaseHelp
         timer = new Timer();
 
         TimerTask timerTask = new TimerTask() {
+            int time = 0;
             @Override
             public void run() {
                 Log.d(this.getClass().getName(), "begin time task check");
-                int time = 0;
                 // 定义一个消息传过去
-                Message msg = new Message();
-                msg.what = 1;
-                handler.sendMessage(msg);
+                if (time == 0) {
+                    Message msg = new Message();
+                    msg.what = 1;
+                    handler.sendMessage(msg);
+
+                }
+                else if(mMapController.isMapLoadFinish()){
+                    Message msg = new Message();
+                    msg.what = 2;
+                    handler.sendMessage(msg);
+                }
+                time++;
             }
         };
 
-        timer.schedule(timerTask, 1000, 1000);
+        timer.schedule(timerTask, 1000, 2000);
     }
 
     private void showHistory(String runUuid) {
@@ -205,7 +201,6 @@ public class RunHistoryFinishedActivity extends OrmLiteBaseActivity<DatabaseHelp
 
         mMapController = mMapView.getController();
 
-        //mMapView.getController().setZoom(16);
         mMapView.getController().enableClick(true);
         //向地图添加构造好的RouteOverlay
         mMapView.getOverlays().add(routeOverlay);
@@ -245,6 +240,7 @@ public class RunHistoryFinishedActivity extends OrmLiteBaseActivity<DatabaseHelp
     private View.OnClickListener shareSNSShare = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            layoutSNSShare.setVisibility(View.GONE);
             Intent intent = new Intent(RunHistoryFinishedActivity.this, ShareSNSActivity.class);
             intent.putExtra("imagePath", imagePath);
             intent.putExtra("runUuid", runUuid);
@@ -255,7 +251,20 @@ public class RunHistoryFinishedActivity extends OrmLiteBaseActivity<DatabaseHelp
     private View.OnClickListener shareListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            mMapView.getCurrentMap();
+            btnReturn.setAlpha(0);
+            btnShare.setAlpha(0);
+            mMapView.setVisibility(View.GONE);
+            imagePath = GetandSaveCurrentImage();
+            mMapView.setVisibility(View.VISIBLE);
+            btnReturn.setAlpha(1);
+            btnShare.setAlpha(1);
+            layoutSNSShare.setVisibility(View.VISIBLE);
+            layoutSNSShare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    layoutSNSShare.setVisibility(View.GONE);
+                }
+            });
         }
     };
 
