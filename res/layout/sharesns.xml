@@ -51,10 +51,4 @@
             android:background="@drawable/renren"
             android:layout_toRightOf="@+id/sharesnsBtnTencent" android:layout_alignTop="@+id/sharesnsTxtShareTo"
             android:layout_marginLeft="10dp" android:alpha="0.7"/>
-    <Button
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:id="@+id/sharesnsBtnWeixin"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="6dp" android:layout_marginLeft="130dp" android:background="@drawable/qq_friend"/>
 </RelativeLayout>

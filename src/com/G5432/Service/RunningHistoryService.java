@@ -113,7 +113,7 @@ public class RunningHistoryService {
         try {
             QueryBuilder<RunningHistory, String> runningHistoryQueryBuilder = runningHistoryDao.queryBuilder();
             Where where = runningHistoryQueryBuilder.where();
-            where.and(where.or(where.eq("userId", userId), where.eq("userId", -1)), where.eq("commitTime", null));
+            where.and(where.or(where.eq("userId", userId), where.eq("userId", -1)), where.isNull("commitTime"));
             runningHistoryList = runningHistoryQueryBuilder.query();
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

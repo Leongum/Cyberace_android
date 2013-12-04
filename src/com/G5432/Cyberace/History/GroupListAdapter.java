@@ -1,6 +1,7 @@
 package com.G5432.Cyberace.History;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +43,7 @@ public class GroupListAdapter extends SimpleAdapter {
     @Override
     public android.view.View getView(int position, android.view.View convertView, android.view.ViewGroup parent) {
         View view = convertView;
-        Map<String, Object> currentData = (HashMap<String, Object>) getItem(position);
+        final Map<String, Object>  currentData = (HashMap<String, Object>) getItem(position);
         Boolean titleTag = (Boolean) currentData.get("titleTag");
         if (titleTag) {
             view = LayoutInflater.from(context).inflate(R.layout.historylistgrouptitle, null);
@@ -54,6 +55,14 @@ public class GroupListAdapter extends SimpleAdapter {
             txtDistance.setText((String) currentData.get("distance"));
             TextView txtTime = (TextView) view.findViewById(R.id.historydetailTxtTime);
             txtTime.setText((String) currentData.get("time"));
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, RunHistoryFinishedActivity.class);
+                    intent.putExtra("runUuid", currentData.get("runUuid").toString());
+                    context.startActivity(intent);
+                }
+            });
             if ((Integer) currentData.get("validate") == -1) {
                 txtDistance.setTextColor(Color.parseColor("#4d4d4d"));
                 txtTime.setTextColor(Color.parseColor("#4d4d4d"));

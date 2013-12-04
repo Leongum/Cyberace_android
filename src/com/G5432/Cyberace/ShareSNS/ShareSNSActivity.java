@@ -21,6 +21,8 @@ import cn.sharesdk.wechat.moments.WechatMoments;
 import com.G5432.Cyberace.Main.MainActivity;
 import com.G5432.Cyberace.R;
 import com.G5432.DBUtils.DatabaseHelper;
+import com.G5432.Entity.RunningHistory;
+import com.G5432.Service.RunningHistoryService;
 import com.G5432.Service.SystemService;
 import com.G5432.Utils.CommonUtil;
 import com.G5432.Utils.Constant;
@@ -47,15 +49,20 @@ public class ShareSNSActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private Button btnShareSina;
     private Button btnShareTencent;
     private Button btnShareRenren;
-    private Button btnShareWeiXin;
     private EditText txtContent;
     private List<String> platforms = new ArrayList<String>();
     private SystemService systemService;
-
+    private RunningHistoryService runningHistoryService= null;
+    RunningHistory runningHistory = null;
+    String imagePath = "";
+    String runUuid = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle extras = getIntent().getExtras();
+        imagePath = extras.getString("imagePath");
+        runUuid = extras.getString("runUuid");
         setContentView(R.layout.sharesns);
         ShareSDK.initSDK(this);
         btnReturn = (Button) findViewById(R.id.sharesnsBtnReturn);
@@ -63,9 +70,11 @@ public class ShareSNSActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         btnShareSina = (Button) findViewById(R.id.sharesnsBtnSina);
         btnShareTencent = (Button) findViewById(R.id.sharesnsBtnTencent);
         btnShareRenren = (Button) findViewById(R.id.sharesnsBtnRenren);
-        btnShareWeiXin = (Button) findViewById(R.id.sharesnsBtnWeixin);
         txtContent = (EditText) findViewById(R.id.sharesnsTxtContent);
         systemService = new SystemService(getHelper());
+        runningHistoryService = new RunningHistoryService(getHelper());
+        runningHistory = runningHistoryService.fetchRunHistoryByRunId(runUuid);
+
         initPage();
     }
 
@@ -74,19 +83,6 @@ public class ShareSNSActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             @Override
             public void onClick(View view) {
                 onBackPressed();
-            }
-        });
-
-        btnShareWeiXin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Platform plat = ShareSDK.getPlatform(getApplication(), WechatMoments.NAME);
-                Wechat.ShareParams sp = new Wechat.ShareParams();
-                sp.title = "呵呵";
-                sp.text = "哈哈";
-                sp.shareType = Platform.SHARE_IMAGE;
-                sp.imagePath = GetandSaveCurrentImage();
-                plat.share(sp);
             }
         });
 
@@ -135,7 +131,10 @@ public class ShareSNSActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                     return;
                 }
                 String shareContent = systemService.getSystemMessage(Constant.SHARE_DEFAULT_CONTENT);
-                String imagePath = GetandSaveCurrentImage();
+                shareContent = shareContent.replaceFirst("%@",CommonUtil.transDistanceToStandardFormat(runningHistory.getDistance())).replaceFirst("%@",CommonUtil.transSecondToStandardFormat(runningHistory.getDuration())).replaceFirst("%@",String.format("%.1f kca",runningHistory.getSpendCarlorie()));
+                if(txtContent.getText()!= null && txtContent.getText().toString().trim()!= "") {
+                    shareContent = "『"+txtContent.getText().toString()+"』 " + shareContent;
+                }
                 for (String platformName : platforms) {
                     Platform platform = ShareSDK.getPlatform(getApplication(), platformName);
                     if (platform.getName().equalsIgnoreCase(SinaWeibo.NAME)) {
@@ -236,45 +235,7 @@ public class ShareSNSActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     };
 
 
-    private String GetandSaveCurrentImage() {
-        //构建Bitmap
-        WindowManager windowManager = getWindowManager();
-        Display display = windowManager.getDefaultDisplay();
-        int w = display.getWidth();
-        int h = display.getHeight();
-        Bitmap Bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        //获取屏幕
-        View decorview = this.getWindow().getDecorView();
-        decorview.setDrawingCacheEnabled(true);
-        Bmp = decorview.getDrawingCache();
-        //图片存储路径
-        String SavePath = getApplicationContext().getFilesDir().getAbsolutePath() + "/ScreenImages";
-        //保存Bitmap
-        try {
-            File path = new File(SavePath);
-            //文件
-            String filePath = SavePath + "/share_temp.png";
-            File file = new File(filePath);
-            if (!path.exists()) {
-                path.mkdirs();
-            }
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            FileOutputStream fos = null;
-            fos = new FileOutputStream(file);
-            if (null != fos) {
-                Bmp.compress(Bitmap.CompressFormat.PNG, 90, fos);
-                fos.flush();
-                fos.close();
-            }
-            return filePath;
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
 
     @Override
     public void onBackPressed() {

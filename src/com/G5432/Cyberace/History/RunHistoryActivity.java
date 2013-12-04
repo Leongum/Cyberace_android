@@ -74,6 +74,8 @@ public class RunHistoryActivity extends OrmLiteBaseActivity<DatabaseHelper> impl
 
     private Map<String, String> totalMap;
 
+    protected MotionEvent mLastOnDownEvent = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -349,6 +351,7 @@ public class RunHistoryActivity extends OrmLiteBaseActivity<DatabaseHelper> impl
 
     @Override
     public boolean onDown(MotionEvent motionEvent) {
+        mLastOnDownEvent = motionEvent;
         return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -374,12 +377,16 @@ public class RunHistoryActivity extends OrmLiteBaseActivity<DatabaseHelper> impl
 
     @Override
     public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent2, float v, float v2) {
-        if (motionEvent.getX() - motionEvent2.getX() > 80) {
+        if (motionEvent==null)
+            motionEvent = mLastOnDownEvent;
+        if (motionEvent==null || motionEvent2==null)
+            return false;
+        if (motionEvent.getX() - motionEvent2.getX() > 60) {
             this.viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_left_in));
             this.viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.push_left_out));
             this.viewFlipper.showNext();
             return true;
-        } else if (motionEvent.getX() - motionEvent2.getX() < -80) {
+        } else if (motionEvent.getX() - motionEvent2.getX() < - 60) {
             this.viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_right_in));
             this.viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.push_right_out));
             this.viewFlipper.showPrevious();

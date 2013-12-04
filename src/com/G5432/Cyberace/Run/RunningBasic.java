@@ -37,15 +37,15 @@ public class RunningBasic extends Activity {
     android.os.Handler handler = new android.os.Handler() {
         @Override
         public void handleMessage(Message msg) {
-            TextView textView = (TextView) findViewById(R.id.gAccReading);
-            textView.setText(msg.obj.toString());
+            //TextView textView = (TextView) findViewById(R.id.gAccReading);
+            //textView.setText(msg.obj.toString());
         }
     };
 
 
     protected void onCreate(android.os.Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.running_normal);
+        //setContentView(R.layout.running_normal);
         accSensorService = new AccSensorService(this);
         orientationSensorService = new OrientationSensorService(this);
         accSensorService.start();

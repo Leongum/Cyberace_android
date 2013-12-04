@@ -38,11 +38,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, UserBase.class);
             TableUtils.createTable(connectionSource, UserInfo.class);
             TableUtils.createTable(connectionSource, VersionControl.class);
-            TableUtils.clearTable(connectionSource, Plan.class);
-            TableUtils.clearTable(connectionSource, PlanCollect.class);
-            TableUtils.clearTable(connectionSource, PlanNextMission.class);
-            TableUtils.clearTable(connectionSource, PlanRunHistory.class);
-            TableUtils.clearTable(connectionSource, PlanUserFollow.class);
+            TableUtils.createTable(connectionSource, Plan.class);
+            TableUtils.createTable(connectionSource, PlanCollect.class);
+            TableUtils.createTable(connectionSource, PlanNextMission.class);
+            TableUtils.createTable(connectionSource, PlanRunHistory.class);
+            TableUtils.createTable(connectionSource, PlanUserFollow.class);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Unable to create databases", e);
         }

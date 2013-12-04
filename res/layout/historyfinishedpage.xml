@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@drawable/main_bg">
+    <com.baidu.mapapi.map.MapView android:id="@+id/historyFinishedMap"
+                                  android:layout_width="250dp"
+                                  android:layout_height="240dp"
+                                  android:clickable="true" android:layout_alignParentLeft="true"
+                                  android:layout_marginLeft="35dp" android:layout_alignParentTop="true"
+                                  android:layout_marginTop="70dp"/>
+    <ImageView
+            android:layout_width="250dp"
+            android:layout_height="240dp"
+            android:id="@+id/historyFinishedImgMap" android:layout_marginLeft="35dp" android:layout_marginTop="70dp"
+            android:visibility="gone"/>
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:background="@drawable/history_detail_bg">
+        <Button
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:id="@+id/historyFinishedBtnShare" android:layout_alignParentLeft="false"
+                android:layout_alignParentTop="true" android:layout_alignParentRight="true"
+                android:layout_marginTop="6dp" android:layout_marginRight="10dp"
+                android:background="@drawable/share_btn"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2013-01-01"
+                android:id="@+id/historyFinishedTxtData"
+                android:layout_centerHorizontal="true" android:layout_below="@+id/historyFinishedMap"
+                android:layout_marginTop="320dp" android:textSize="12dp"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="时间"
+                android:id="@+id/historyFinishedTime" android:layout_alignParentLeft="true" android:layout_below="@+id/historyFinishedTxtData"
+                android:layout_marginLeft="80dp" android:layout_marginTop="10dp" android:textSize="12dp"
+                android:singleLine="false"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="距离"
+                  android:id="@+id/historyFinishedDistance"
+                  android:textSize="12dp"
+                  android:singleLine="false" android:layout_alignLeft="@+id/historyFinishedTime"
+                  android:layout_below="@+id/historyFinishedTime" android:layout_marginTop="7dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="速度"
+                  android:id="@+id/historyFinishedSpeed" android:textSize="12dp" android:singleLine="false"
+                  android:layout_alignLeft="@+id/historyFinishedTime" android:layout_below="@+id/historyFinishedDistance"
+                  android:layout_marginTop="7dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="消耗"
+                  android:id="@+id/historyFinishedCar" android:textSize="12dp" android:singleLine="false"
+                  android:layout_alignLeft="@+id/historyFinishedTime" android:layout_below="@+id/historyFinishedSpeed"
+                  android:layout_marginTop="7dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="评级"
+                  android:id="@+id/historyFinishedGrade" android:textSize="12dp" android:singleLine="false"
+                  android:layout_alignLeft="@+id/historyFinishedTime" android:layout_below="@+id/historyFinishedCar"
+                  android:layout_marginTop="7dp"/>
+        <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="1&quot;20'"
+                android:id="@+id/historyFinishedTxtTime" android:layout_toRightOf="@+id/historyFinishedTime"
+                android:layout_alignTop="@+id/historyFinishedTime" android:textSize="12dp" android:layout_marginLeft="20dp"
+                android:textColor="#47a442" android:gravity="center_horizontal"/>
+        <TextView android:layout_width="100dp" android:layout_height="wrap_content" android:text="10.4"
+                  android:id="@+id/historyFinishedTxtDistance"
+                  android:textSize="12dp"
+                  android:textColor="#47a442" android:gravity="center_horizontal"
+                  android:layout_alignLeft="@+id/historyFinishedTxtTime" android:layout_alignTop="@+id/historyFinishedDistance"/>
+        <TextView android:layout_width="100dp" android:layout_height="wrap_content" android:text="12"
+                  android:id="@+id/historyFinishedTxtSpeed" android:textSize="12dp" android:textColor="#47a442"
+                  android:gravity="center_horizontal"
+                  android:layout_alignLeft="@+id/historyFinishedTxtTime" android:layout_alignTop="@+id/historyFinishedSpeed"/>
+        <TextView android:layout_width="100dp" android:layout_height="wrap_content" android:text="500"
+                  android:id="@+id/historyFinishedTxtCar" android:textSize="12dp" android:textColor="#47a442"
+                  android:gravity="center_horizontal"
+                  android:layout_alignLeft="@+id/historyFinishedTxtTime" android:layout_alignTop="@+id/historyFinishedCar"/>
+        <TextView android:layout_width="100dp" android:layout_height="wrap_content" android:text="80"
+                  android:id="@+id/historyFinishedTxtGrade" android:textSize="12dp" android:textColor="#47a442"
+                  android:gravity="center_horizontal"
+                  android:layout_alignLeft="@+id/historyFinishedTxtTime" android:layout_alignTop="@+id/historyFinishedGrade"/>
+        <Button android:layout_width="55dp" android:layout_height="55dp" android:id="@+id/historyFinishedBtnReturn"
+                android:background="@drawable/back_bg" android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true" android:layout_marginLeft="10dp" android:layout_marginTop="6dp"/>
+        <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/button" android:layout_alignParentLeft="false"
+                android:layout_alignParentTop="true" android:layout_marginTop="75dp"
+                android:layout_alignParentRight="true" android:layout_marginRight="30dp"
+                android:background="@drawable/expand"/>
+    </RelativeLayout>
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:background="@drawable/share_pop_bg"
+            android:id="@+id/historyFinishedShareBg" android:visibility="visible">
+        <Button
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:id="@+id/historyFinishedBtnSNSShare"
+                android:background="@drawable/onebuttonshare_bg" android:layout_centerHorizontal="true"
+                android:layout_below="@+id/textView1" android:layout_marginTop="20dp"/>
+        <Button
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:id="@+id/historyFinishedBtnWeixinShare"
+                android:layout_centerHorizontal="true" android:layout_below="@+id/historyFinishedBtnSNSShare"
+                android:layout_marginTop="25dp" android:background="@drawable/qq_friend"/>
+        <TextView
+                android:layout_width="100dp"
+                android:layout_height="15dp"
+                android:text="赛跑乐"
+                android:id="@+id/textView" android:layout_centerHorizontal="true" android:layout_alignParentTop="true"
+                android:layout_marginTop="100dp" android:gravity="center_vertical|center_horizontal"
+                android:textSize="11dp" android:textColor="#ffffff"/>
+        <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="分享到"
+                android:id="@+id/textView1" android:layout_centerHorizontal="true"
+                android:layout_below="@+id/textView" android:textColor="#ffffff" android:gravity="center_vertical|center_horizontal"
+                android:layout_marginTop="30dp" android:textSize="12dp"/>
+    </RelativeLayout>
+</RelativeLayout>

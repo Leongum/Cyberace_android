@@ -3,15 +3,19 @@ package com.G5432.Cyberace.Main;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import cn.sharesdk.framework.ShareSDK;
+import com.G5432.Utils.BMapApplication;
 import com.G5432.Cyberace.History.RunHistoryActivity;
 import com.G5432.Cyberace.R;
 import com.G5432.Cyberace.Run.ChallengeMainActivity;
+import com.G5432.Cyberace.Run.RunInfoActivity;
 import com.G5432.Cyberace.Setting.SettingActivity;
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.UserBase;
@@ -28,6 +32,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.MessageFormat;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created with IntelliJ IDEA.
@@ -45,10 +51,8 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private Button btnHistory;
     private Button btnSetting;
 
-    public LocationClient mLocationClient = null;
-    public GeofenceClient mGeofenceClient;
     public MyLocationListener myListener = new MyLocationListener();
-    private boolean mIsStart;
+    private BMapApplication bMapApp = null;
 
     private String cityName;
     private String districtName;
@@ -66,6 +70,13 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //init location params
+        bMapApp = (BMapApplication)this.getApplication();
+        bMapApp.mLocationClient.registerLocationListener(myListener);
+        bMapApp.setWeatherLocationOption();
+        bMapApp.mLocationClient.start();
+        bMapApp.mLocationClient.requestLocation();
+
         setContentView(R.layout.main);
         ShareSDK.initSDK(this);
         btnLogin = (Button) findViewById(R.id.mianBtnLogin);
@@ -74,34 +85,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         btnChallengeRun = (Button) findViewById(R.id.mianBtnChallengeRun);
         btnHistory = (Button) findViewById(R.id.mianBtnHistory);
         btnSetting = (Button) findViewById(R.id.mianBtnSetting);
-        initLocation();
         initPage();
-    }
-
-    private void initLocation() {
-        mLocationClient = new LocationClient(this);
-        /**——————————————————————————————————————————————————————————————————
-         * 这里的AK和应用签名包名绑定，如果使用在自己的工程中需要替换为自己申请的Key
-         * ——————————————————————————————————————————————————————————————————
-         */
-        mLocationClient.setAK("8877eb0e93c16e552be304c6333002eb");
-        mLocationClient.registerLocationListener(myListener);
-        mGeofenceClient = new GeofenceClient(this);
-        setLocationOption();
-        mLocationClient.start();
-        mLocationClient.requestLocation();
-    }
-
-    //设置相关参数
-    private void setLocationOption() {
-        LocationClientOption option = new LocationClientOption();
-        option.setOpenGps(true);                //打开gps
-        option.setAddrType("all");
-        option.setScanSpan(3000);
-        option.setPriority(LocationClientOption.NetWorkFirst);        //不设置，默认是gps优先
-        option.setPoiNumber(0);
-        option.disableCache(true);
-        mLocationClient.setLocOption(option);
     }
 
     /**
@@ -113,10 +97,11 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             if (location == null)
                 return;
             if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
+                startTimerChecker();
                 cityName = location.getCity();
                 districtName = location.getDistrict();
                 if (cityName != null || districtName != null) {
-                    if (mLocationClient.isStarted()) mLocationClient.stop();
+                    if (bMapApp.mLocationClient.isStarted()) bMapApp.mLocationClient.stop();
                     HttpClientHelper httpClientHelper = new HttpClientHelper();
                     String url = MessageFormat.format(Constant.WEATHER_URL, CommonUtil.getCityCode(cityName, districtName));
                     httpClientHelper.get(CommonUtil.getUrl(url), null, new AsyncHttpResponseHandler() {
@@ -173,7 +158,6 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                         }
                     });
                 }
-                //CommonUtil.showMessages(getApplicationContext(), cityName + " " + districtName);
             }
 
         }
@@ -183,6 +167,67 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         }
     }
 
+    private Timer timer;
+
+    // 定义Handler
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 1) {
+                timer.cancel();
+                if (temp != Integer.MIN_VALUE && temp != Integer.MAX_VALUE) {
+                    int index = -1;
+                    if (temp < 38 && pm25 < 300) {
+                        index = (int) ((100 - pm25 / 3) * 0.6 + (100 - Math.abs(temp - 22) * 5) * 0.4);
+                    } else {
+                        index = 0;
+                    }
+                    weatherInformation = MessageFormat.format("{0}  {1}℃  {2}{3}  PM2.5: {4}{5}  总: {6}", districtName, temp, wd, ws, pm25, pm25Quality, index);
+                    if (index > 75) {
+                        Drawable drawableBg = getResources().getDrawable(R.drawable.main_trafficlight_green);
+                        btnTraffic.setBackgroundDrawable(drawableBg);
+                    } else if (temp < 0 || temp > 38 || pm25 > 250 || index < 50) {
+                        Drawable drawableBg = getResources().getDrawable(R.drawable.main_trafficlight_red);
+                        btnTraffic.setBackgroundDrawable(drawableBg);
+                    } else if (index <= 75 && index >= 50) {
+                        Drawable drawableBg = getResources().getDrawable(R.drawable.main_trafficlight_yellow);
+                        btnTraffic.setBackgroundDrawable(drawableBg);
+                    }
+                }
+            }
+        }
+    };
+
+    private void startTimerChecker() {
+        timer = new Timer();
+
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                Log.d(this.getClass().getName(), "begin time task check");
+                int time = 0;
+
+                // 定义一个消息传过去
+                Message msg = new Message();
+                if (weatherStatus == -1) {
+                    msg.what = -1;
+                }
+                if (temp != Integer.MIN_VALUE && temp != Integer.MAX_VALUE) {
+                    msg.what = 1;
+                } else {
+                    msg.what = -1;
+                }
+                if(time == 10){
+                    msg.what = 1;
+                }
+                time ++;
+                handler.sendMessage(msg);
+            }
+        };
+
+        timer.schedule(timerTask, 3000, 1000);
+    }
 
     private void initPage() {
 
@@ -209,7 +254,6 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             });
         }
 
-        mIsStart = false;
         btnTraffic.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -244,9 +288,8 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         btnRun.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(MainActivity.this, ShareSNSActivity.class);
-                //startActivity(intent);
-                ToastUtil.showMessage(getApplicationContext(), "btnRun");
+                Intent intent = new Intent(MainActivity.this, RunInfoActivity.class);
+                startActivity(intent);
             }
         });
 
