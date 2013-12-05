@@ -73,6 +73,9 @@
         <activity android:name=".History.RunHistoryFinishedActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 
+        <activity android:name=".History.RunHistoryLargeMapActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+
         <activity android:name=".ShareSNS.ShareSNSActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 

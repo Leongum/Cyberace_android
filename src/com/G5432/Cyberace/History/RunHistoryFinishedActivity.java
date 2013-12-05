@@ -2,7 +2,6 @@ package com.G5432.Cyberace.History;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,7 +16,6 @@ import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.moments.WechatMoments;
 import com.G5432.Cyberace.R;
-import com.G5432.Cyberace.Setting.BodySettingActivity;
 import com.G5432.Cyberace.ShareSNS.ShareSNSActivity;
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.BMapInfo;
@@ -25,14 +23,11 @@ import com.G5432.Entity.RunningHistory;
 import com.G5432.Service.RunningHistoryService;
 import com.G5432.Utils.BMapApplication;
 import com.G5432.Utils.CommonUtil;
-import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.map.*;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -58,7 +53,7 @@ public class RunHistoryFinishedActivity extends OrmLiteBaseActivity<DatabaseHelp
     private RelativeLayout layoutSNSShare;
     private Button btnSNSShare;
     private Button btnWeixinShare;
-    //private Button btnLargeMap;
+    private Button btnLargeMap;
 
     private BMapApplication bMapApp = null;
 
@@ -92,7 +87,7 @@ public class RunHistoryFinishedActivity extends OrmLiteBaseActivity<DatabaseHelp
         btnSNSShare = (Button) findViewById(R.id.historyFinishedBtnSNSShare);
         btnWeixinShare = (Button) findViewById(R.id.historyFinishedBtnWeixinShare);
         layoutSNSShare = (RelativeLayout) findViewById(R.id.historyFinishedShareBg);
-       // btnLargeMap = (Button) findViewById(R.id.historyFinishedBtnLargeMap);
+        btnLargeMap = (Button) findViewById(R.id.historyFinishedBtnLargeMap);
 
         mMapView.regMapViewListener(BMapApplication.getInstance().mBMapManager, mMapListener);
         showHistory(runUuid);
@@ -233,6 +228,15 @@ public class RunHistoryFinishedActivity extends OrmLiteBaseActivity<DatabaseHelp
                 sp.shareType = Platform.SHARE_IMAGE;
                 sp.imagePath = imagePath;
                 plat.share(sp);
+            }
+        });
+
+        btnLargeMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RunHistoryFinishedActivity.this, RunHistoryLargeMapActivity.class);
+                intent.putExtra("runUuid", runUuid);
+                startActivity(intent);
             }
         });
     }
