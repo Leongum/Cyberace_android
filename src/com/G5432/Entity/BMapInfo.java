@@ -28,6 +28,7 @@ public class BMapInfo {
         this.route = route;
     }
 
+
     public int getSpanLat() {
         return spanLat;
     }

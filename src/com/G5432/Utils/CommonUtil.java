@@ -164,9 +164,6 @@ public class CommonUtil {
         bMapInfo.setCenterPoint(centerPoint);
         bMapInfo.setSpanLat((int)(Math.abs(maxLat - minLat) * 1.2));
         bMapInfo.setSpanLon((int)(Math.abs(maxLon - minLon) * 1.2));
-
-        //bMapInfo.setSpanLon(maxLat - minLat+3);
-        //bMapInfo.setSpanLat(maxLon - minLon+3);
         return bMapInfo;
     }
 }

@@ -1,21 +1,16 @@
 package com.G5432.Cyberace.Run;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import com.G5432.Cyberace.Main.MainActivity;
+import android.widget.TextView;
 import com.G5432.Cyberace.R;
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.BMapInfo;
-import com.G5432.Entity.RunningHistory;
-import com.G5432.Service.RunningHistoryService;
 import com.G5432.Utils.BMapApplication;
-import com.G5432.Utils.CommonUtil;
-import com.G5432.Utils.UserUtil;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.mapapi.BMapManager;
@@ -24,8 +19,8 @@ import com.baidu.mapapi.search.MKRoute;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -36,7 +31,12 @@ import java.util.TimerTask;
  */
 public class RunInfoActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
-    private Button btnReturn;
+    private Button btnStart;
+    private Button btnCancel;
+    private TextView txtTime;
+    private TextView txtSpeed;
+    private TextView txtDistance;
+
 
     private BMapApplication bMapApp = null;
 
@@ -53,99 +53,92 @@ public class RunInfoActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     private MapController mMapController = null;
 
-    boolean isRequest = false;//是否手动触发请求定位
-    boolean isFirstLoc = true;//是否首次定位
-
     private BMapInfo mapInfo;
 
-    private RunningHistoryService runningHistoryService= null;
+    private RouteOverlay routeOverlay;
 
-    private RunningHistory testRunningHistory = null;
+    private MKRoute mkRoute = new MKRoute();
+
+    private GeoPoint start = null;
+    private GeoPoint end = null;
+    private GeoPoint lastPoint = null;
+    private List<GeoPoint>  pointsLists = new ArrayList<GeoPoint>();
+
+    private boolean isStart = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         //init location params
-        bMapApp = (BMapApplication)this.getApplication();
+        bMapApp = (BMapApplication) this.getApplication();
         bMapApp.mLocationClient.registerLocationListener(myListener);
-        //bMapApp.setMapLocationOption();
-        //bMapApp.mLocationClient.start();
-        //bMapApp.mLocationClient.requestLocation();
+        bMapApp.setMapLocationOption();
+        bMapApp.mLocationClient.start();
+        bMapApp.mLocationClient.requestLocation();
 
         setContentView(R.layout.runinfopage);
-        mMapView=(MapView)findViewById(R.id.bmapsView);
-        runningHistoryService = new RunningHistoryService(getHelper());
+        btnStart = (Button) findViewById(R.id.runInfoBtnStart);
+        btnCancel = (Button) findViewById(R.id.runInfoBtnCancel);
+        txtTime = (TextView) findViewById(R.id.runInfoTxtTime);
+        txtDistance = (TextView) findViewById(R.id.runInfoTxtDistance);
+        txtSpeed = (TextView) findViewById(R.id.runInfoTxtSpeed);
 
-        testRunningHistory = runningHistoryService.fetchRunHistoryByRunId("46C54DCC-87A5-462F-AB55-A431BDD8B333");
-        mapInfo = CommonUtil.getRoutesFromString(testRunningHistory.getMissionRoute());
-
-        RouteOverlay routeOverlay = new RouteOverlay(RunInfoActivity.this, mMapView);
-        routeOverlay.setData(mapInfo.getRoute());
-
+        mMapView = (MapView) findViewById(R.id.runInfoMapMap);
+        routeOverlay = new RouteOverlay(RunInfoActivity.this, mMapView);
+        routeOverlay.setEnMarker(null);
+        routeOverlay.setStMarker(null);
+        locData = new LocationData();
         mMapController = mMapView.getController();
-
-        //mMapView.getController().setZoom(16);
+        mMapView.getController().setZoom(16);
         mMapView.getController().enableClick(true);
-        //向地图添加构造好的RouteOverlay
+        mMapView.setBuiltInZoomControls(true);
         mMapView.getOverlays().add(routeOverlay);
-
-        //执行刷新使生效
+        //定位图层初始化
+        myLocationOverlay = new locationOverlay(mMapView);
+        //设置定位数据
+        myLocationOverlay.setData(locData);
+        //添加定位图层
+        mMapView.getOverlays().add(myLocationOverlay);
+        myLocationOverlay.enableCompass();
+        //修改定位数据后刷新图层生效
         mMapView.refresh();
-        startTimerChecker();
 
+        //start button init
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isStart){
+                    btnStart.setText("继续");
+                    bMapApp.mLocationClient.stop();
+                }
+            }
+        });
+        btnStart.setClickable(false);
 
-
-//        mMapView=(MapView)findViewById(R.id.bmapsView);
-//        locData = new LocationData();
-//        mMapController = mMapView.getController();
-//        mMapView.getController().setZoom(16);
-//        mMapView.getController().enableClick(true);
-//        mMapView.setBuiltInZoomControls(true);
-//
-//        //定位图层初始化
-//        myLocationOverlay = new locationOverlay(mMapView);
-//        //设置定位数据
-//        myLocationOverlay.setData(locData);
-//        //添加定位图层
-//        mMapView.getOverlays().add(myLocationOverlay);
-//        myLocationOverlay.enableCompass();
-//        //修改定位数据后刷新图层生效
-//        mMapView.refresh();
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+        });
     }
 
-    private Timer timer;
+    //private Timer timer;
 
     // 定义Handler
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what == 1) {
-                timer.cancel();
-                mMapController.zoomToSpan(mapInfo.getSpanLat(),mapInfo.getSpanLon());
-                mMapController.animateTo(mapInfo.getCenterPoint());
+            if(msg.what == 1) {
+                mMapView.getOverlays().remove(routeOverlay);
+                routeOverlay.setData(mkRoute);
+                mMapView.getOverlays().add(routeOverlay);
+                mMapView.refresh();
             }
         }
     };
-
-    private void startTimerChecker() {
-        timer = new Timer();
-
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                Log.d(this.getClass().getName(), "begin time task check");
-                int time = 0;
-                // 定义一个消息传过去
-                Message msg = new Message();
-                msg.what = 1;
-                handler.sendMessage(msg);
-            }
-        };
-
-        timer.schedule(timerTask, 3000, 2000);
-    }
 
     /**
      * 定位SDK监听函数
@@ -155,44 +148,59 @@ public class RunInfoActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         @Override
         public void onReceiveLocation(BDLocation location) {
             if (location == null)
-                return ;
+                return;
 
-//            locData.latitude = location.getLatitude();
-//            locData.longitude = location.getLongitude();
-//            //如果不显示定位精度圈，将accuracy赋值为0即可
-//            locData.accuracy = location.getRadius();
-//            // 此处可以设置 locData的方向信息, 如果定位 SDK 未返回方向信息，用户可以自己实现罗盘功能添加方向信息。
-//            locData.direction = location.getDerect();
-//            //更新定位数据
-//            myLocationOverlay.setData(locData);
-//            //更新图层数据执行刷新后生效
-//            //mMapView.refresh();
-//            //是手动触发请求或首次定位时，移动到定位点
-//            if (isRequest || isFirstLoc){
-//                //移动地图到定位点
-//                Log.d("LocationOverlay", "receive location, animate to it");
-//                mMapController.animateTo(new GeoPoint((int)(locData.latitude* 1e6), (int)(locData.longitude *  1e6)));
-//                isRequest = false;
-//                myLocationOverlay.setLocationMode(MyLocationOverlay.LocationMode.FOLLOWING);
-//            }
-//            //首次定位完成
-//            isFirstLoc = false;
+            locData.latitude = location.getLatitude();
+            locData.longitude = location.getLongitude();
+            //如果不显示定位精度圈，将accuracy赋值为0即可
+            locData.accuracy = location.getRadius();
+            // 此处可以设置 locData的方向信息, 如果定位 SDK 未返回方向信息，用户可以自己实现罗盘功能添加方向信息。
+            locData.direction = location.getDerect();
+            //更新定位数据
+            myLocationOverlay.setData(locData);
+            //更新图层数据执行刷新后生效
+            //mMapView.refresh();
+            //是手动触发请求或首次定位时，移动到定位点
+            //移动地图到定位点
+            GeoPoint geoPoint = new GeoPoint((int) (locData.latitude * 1e6), (int) (locData.longitude * 1e6));
+            if (start == null) {
+                start = geoPoint;
+            }
+            if(lastPoint == null || (lastPoint.getLongitudeE6() != geoPoint.getLongitudeE6() && lastPoint.getLatitudeE6() != geoPoint.getLatitudeE6())){
+                Log.d("LocationOverlay", "receive location, animate to it");
+                mMapController.animateTo(new GeoPoint((int) (locData.latitude * 1e6), (int) (locData.longitude * 1e6)));
+                myLocationOverlay.setLocationMode(MyLocationOverlay.LocationMode.FOLLOWING);
+                mMapView.refresh();
+            }
+            end = geoPoint;
+            if(lastPoint != null && lastPoint.getLongitudeE6() != geoPoint.getLongitudeE6() && lastPoint.getLatitudeE6() != geoPoint.getLatitudeE6()){
+                pointsLists.add(geoPoint);
+                GeoPoint[] pl = new GeoPoint[pointsLists.size()];
+                pointsLists.toArray(pl);
+                //mkRoute = new MKRoute();
+                mkRoute.customizeRoute(start, end, pl);
+                Message msg = new Message();
+                msg.what = 1;
+                handler.sendMessage(msg);
+            }
+            lastPoint = geoPoint;
         }
 
         public void onReceivePoi(BDLocation poiLocation) {
-            if (poiLocation == null){
-                return ;
+            if (poiLocation == null) {
+                return;
             }
         }
     }
 
     //继承MyLocationOverlay重写dispatchTap实现点击处理
-    public class locationOverlay extends MyLocationOverlay{
+    public class locationOverlay extends MyLocationOverlay {
 
         public locationOverlay(MapView mapView) {
             super(mapView);
             // TODO Auto-generated constructor stub
         }
+
         @Override
         protected boolean dispatchTap() {
             // TODO Auto-generated method stub
@@ -203,26 +211,28 @@ public class RunInfoActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         mMapView.destroy();
-        if(mBMapMan!=null){
+        if (mBMapMan != null) {
             mBMapMan.destroy();
-            mBMapMan=null;
+            mBMapMan = null;
         }
         super.onDestroy();
     }
+
     @Override
-    protected void onPause(){
+    protected void onPause() {
         mMapView.onPause();
-        if(mBMapMan!=null){
+        if (mBMapMan != null) {
             mBMapMan.stop();
         }
         super.onPause();
     }
+
     @Override
-    protected void onResume(){
+    protected void onResume() {
         mMapView.onResume();
-        if(mBMapMan!=null){
+        if (mBMapMan != null) {
             mBMapMan.start();
         }
         super.onResume();

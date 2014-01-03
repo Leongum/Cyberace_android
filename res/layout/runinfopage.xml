@@ -3,8 +3,39 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" android:background="@drawable/main_bg">
-    <com.baidu.mapapi.map.MapView android:id="@+id/bmapsView"
-                                  android:layout_width="fill_parent"
-                                  android:layout_height="fill_parent"
-                                  android:clickable="true" />
+    <com.baidu.mapapi.map.MapView android:id="@+id/runInfoMapMap"
+                                  android:layout_width="245dp"
+                                  android:layout_height="205dp"
+                                  android:clickable="true" android:layout_marginLeft="40dp"
+                                  android:layout_marginTop="70dp"/>
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:background="@drawable/running_bg">
+        <Button
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:id="@+id/runInfoBtnCancel" android:layout_alignParentLeft="true" android:layout_marginLeft="50dp"
+                android:layout_alignParentTop="true" android:layout_marginTop="395dp" android:text="取消"/>
+        <Button android:layout_width="100dp" android:layout_height="40dp" android:id="@+id/runInfoBtnStart"
+                android:text="开始" android:layout_toRightOf="@+id/runInfoBtnCancel" android:layout_alignTop="@+id/runInfoBtnCancel"
+                android:layout_marginLeft="20dp"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0‘0”"
+                android:id="@+id/runInfoTxtTime" android:layout_alignParentLeft="true" android:layout_marginLeft="150dp"
+                android:layout_alignParentTop="true" android:layout_marginTop="290dp"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.0km"
+                android:id="@+id/runInfoTxtDistance" android:layout_toRightOf="@+id/runInfoBtnCancel"
+                android:layout_below="@+id/runInfoTxtTime" android:layout_marginTop="10dp" android:singleLine="false"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.0km/h"
+                android:id="@+id/runInfoTxtSpeed" android:layout_toRightOf="@+id/runInfoBtnCancel"
+                android:layout_below="@+id/runInfoTxtDistance" android:layout_marginTop="10dp"/>
+    </RelativeLayout>
 </RelativeLayout>
