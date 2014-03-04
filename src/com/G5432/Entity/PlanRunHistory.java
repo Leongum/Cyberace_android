@@ -1,5 +1,6 @@
 package com.G5432.Entity;
 
+import com.google.gson.annotations.Expose;
 import com.j256.ormlite.field.DatabaseField;
 
 import java.util.Date;
@@ -14,33 +15,53 @@ import java.util.List;
  */
 public class PlanRunHistory {
 
+    @Expose
     @DatabaseField
     private Integer planId;
+    @Expose(serialize = false)
+    private String plandName;
+    @Expose
     @DatabaseField(id = true)
     private String planRunUuid;
+    @Expose
     @DatabaseField
     private Integer nextMissionId;
+    @Expose
     @DatabaseField
     private Integer userId;
+    @Expose(serialize = false)
+    private String nickName;
+    @Expose(serialize = false)
+    private String userSex;
+    @Expose
     @DatabaseField
     private Date startTime;
+    @Expose
     @DatabaseField
     private Date endTime;
+    @Expose
     @DatabaseField
     private Integer rate;
+    @Expose
     @DatabaseField
     private String rateComment;
+    @Expose
     @DatabaseField
     private Integer remainingMissions;
+    @Expose
     @DatabaseField
     private Integer totalMissions;
+    @Expose
     @DatabaseField
     private Integer historyStatus; //0 execute 1 finished  -1 cancled
+    @Expose
     @DatabaseField
     private Date  lastUpdateTime;
+    @Expose
     @DatabaseField
     private Integer operate;
 
+    @Expose
     private List<RunningHistory> runningHistoryList;
 
     public PlanRunHistory(){
@@ -157,5 +178,29 @@ public class PlanRunHistory {
 
     public void setRunningHistoryList(List<RunningHistory> runningHistoryList) {
         this.runningHistoryList = runningHistoryList;
+    }
+
+    public String getPlandName() {
+        return plandName;
+    }
+
+    public void setPlandName(String plandName) {
+        this.plandName = plandName;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getUserSex() {
+        return userSex;
+    }
+
+    public void setUserSex(String userSex) {
+        this.userSex = userSex;
     }
 }

@@ -57,7 +57,7 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private TextView txtNickName;
     private TextView txtEmail;
     private SystemService systemService;
-    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").excludeFieldsWithoutExposeAnnotation().create();
     private RelativeLayout layoutSNSs;
     private Button btnQQ;
     private Button btnWeibo;

@@ -1,5 +1,6 @@
 package com.G5432.Entity;
 
+import com.google.gson.annotations.Expose;
 import com.j256.ormlite.field.DatabaseField;
 
 /**
@@ -10,16 +11,16 @@ import com.j256.ormlite.field.DatabaseField;
  * To change this template use File | Settings | File Templates.
  */
 public class MissionPlacePackage {
-
+    @Expose
     @DatabaseField
     private Integer packageId;
-
+    @Expose
     @DatabaseField
     private String placeName;
-
+    @Expose
     @DatabaseField
     private String placePoint;
-
+    @Expose
     @DatabaseField
     private String sequence;
 

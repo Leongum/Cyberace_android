@@ -25,7 +25,7 @@ public class Constant {
 
     public static final String WEATHER_URL = "http://www.weather.com.cn/data/sk/{0}.html";
 
-    //define version 1.2 plan new api
+    //define version 2.0 plan new api
     public static final String USER_FOLLOWERS_DETAIL_URL = SERVICE_HOST + "/account/follower/{0}?pageNo={1}";
     public static final String PLAN_INFO_URL = SERVICE_HOST + "/plans/plan/{0}?lastUpdateTime={1}";
     public static final String HOT_PLAN_URL = SERVICE_HOST + "/plans/list?pageNo={0}";

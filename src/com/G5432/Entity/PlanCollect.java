@@ -1,5 +1,6 @@
 package com.G5432.Entity;
 
+import com.google.gson.annotations.Expose;
 import com.j256.ormlite.field.DatabaseField;
 
 import java.util.Date;
@@ -13,19 +14,34 @@ import java.util.Date;
  */
 public class PlanCollect {
 
+    @DatabaseField(id = true, useGetSet = true)
+    private String genId;
+    @Expose
     @DatabaseField
     private Integer userId;
+    @Expose
     @DatabaseField
     private Integer planId;
+    @Expose
     @DatabaseField
     private Date collectTime;
+    @Expose
     @DatabaseField
     private Integer collectStatus; //0 collected 1 deleted.
+    @Expose
     @DatabaseField
     private Integer updated;
 
-    public PlanCollect(){
+    public PlanCollect() {
 
+    }
+
+    public String getGenId() {
+        return userId + "-" + planId;
+    }
+
+    public void setGenId(String genId) {
+        this.genId = genId;
     }
 
     public Integer getUserId() {

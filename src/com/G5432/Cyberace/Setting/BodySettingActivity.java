@@ -47,7 +47,7 @@ public class BodySettingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private String sex = "男";
     private float height = 175;
     private float weight = 65;
-    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").excludeFieldsWithoutExposeAnnotation().create();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

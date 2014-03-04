@@ -32,7 +32,7 @@ import java.util.TimerTask;
  */
 public class LoadingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
-    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").excludeFieldsWithoutExposeAnnotation().create();
 
 
     private Timer timer;

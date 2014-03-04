@@ -28,7 +28,7 @@ public class UserUtil {
     public static Boolean historySynced = true;
     public static Boolean userSynced = true;
 
-    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").excludeFieldsWithoutExposeAnnotation().create();
 
     public static Integer getUserId() {
         return sharedPreferences.getInt("userId", -1);

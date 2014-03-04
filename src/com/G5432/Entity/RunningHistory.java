@@ -1,5 +1,6 @@
 package com.G5432.Entity;
 
+import com.google.gson.annotations.Expose;
 import com.j256.ormlite.field.DatabaseField;
 import java.util.Date;
 
@@ -12,84 +13,85 @@ import java.util.Date;
  */
 public class RunningHistory {
 
+    @Expose
     @DatabaseField
     private Integer userId;
-
+    @Expose
     @DatabaseField(id = true)
     private String runUuid;
-
+    @Expose
     @DatabaseField
     private Integer missionId;
-
+    @Expose
     @DatabaseField
     private Integer missionTypeId;
-
+    @Expose
     @DatabaseField
     private String missionRoute;
-
+    @Expose
     @DatabaseField
     private String waveForm;
-
+    @Expose
     @DatabaseField
     private Date missionStartTime;
-
+    @Expose
     @DatabaseField
     private Date missionEndTime;
-
+    @Expose
     @DatabaseField
     private Date missionDate;
-
+    @Expose
     @DatabaseField
     private Double spendCarlorie;
-
+    @Expose
     @DatabaseField
     private Integer duration;
-
+    @Expose
     @DatabaseField
     private Double avgSpeed;
-
+    @Expose
     @DatabaseField
     private Integer steps;
-
+    @Expose
     @DatabaseField
     private Double distance;
-
+    @Expose
     @DatabaseField
     private String offerUsers;
-
+    @Expose
     @DatabaseField
     private Integer missionGrade;
-
+    @Expose
     @DatabaseField
     private Double scores;
-
+    @Expose
     @DatabaseField
     private Double experience;
-
+    @Expose
     @DatabaseField
     private Double extraExperience;
-
+    @Expose
     @DatabaseField
     private String comment;
-
+    @Expose
     @DatabaseField
     private Date commitTime;
-
+    @Expose
     @DatabaseField
     private String uuid;
-
+    @Expose
     @DatabaseField
     private Integer grade;
-
+    @Expose
     @DatabaseField
     private Integer valid;
-
+    @Expose
     @DatabaseField
     private String planRunUuid;
-
+    @Expose
     @DatabaseField
     private Integer sequence;
-
+    @Expose
     @DatabaseField
     private String speedList;
 

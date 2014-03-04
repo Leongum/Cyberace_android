@@ -28,7 +28,7 @@ public class BackendSyncRequest {
 
     private DatabaseHelper databaseHelper = null;
 
-    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").excludeFieldsWithoutExposeAnnotation().create();
 
     public BackendSyncRequest(DatabaseHelper helper) {
         this.databaseHelper = helper;
@@ -141,6 +141,47 @@ public class BackendSyncRequest {
             });
         } else {
             UserUtil.userSynced = true;
+        }
+    }
+
+    public void upLoadUserCollect() {
+        final PlanService planService = new PlanService(databaseHelper);
+        List<PlanCollect> planCollectList = planService.fetchUnsyncedPlanCollect(UserUtil.getUserId());
+        if (planCollectList != null && planCollectList.size() > 0) {
+            String url = CommonUtil.getUrl(MessageFormat.format(Constant.PUT_USER_COLLECT_PLAN_URL, UserUtil.getUserId()));
+            httpClientHelper.post(url, null, gson.toJson(planCollectList), new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, String response) {
+                    Log.d(this.getClass().getName(), response);
+                    planService.updateUnsyncedPlanCollect(UserUtil.getUserId());
+                }
+
+                @Override
+                public void onFailure(Throwable error, String content) {
+                    Log.e(this.getClass().getName(), error.getMessage());
+                }
+            });
+        }
+    }
+
+
+    public void upLoadUserFollow() {
+        final PlanService planService = new PlanService(databaseHelper);
+        List<PlanUserFollow> planUserFollowList = planService.fetchUnsyncedPlanUserFollow(UserUtil.getUserId());
+        if (planUserFollowList != null && planUserFollowList.size() > 0) {
+            String url = CommonUtil.getUrl(MessageFormat.format(Constant.PUT_USER_FOLLOWER_LIST_URL, UserUtil.getUserId()));
+            httpClientHelper.post(url, null, gson.toJson(planUserFollowList), new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, String response) {
+                    Log.d(this.getClass().getName(), response);
+                    planService.updateUnsyncedPlanUserFollow(UserUtil.getUserId());
+                }
+
+                @Override
+                public void onFailure(Throwable error, String content) {
+                    Log.e(this.getClass().getName(), error.getMessage());
+                }
+            });
         }
     }
 

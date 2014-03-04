@@ -1,5 +1,6 @@
 package com.G5432.Entity;
 
+import com.google.gson.annotations.Expose;
 import com.j256.ormlite.field.DatabaseField;
 
 import java.util.Date;
@@ -14,77 +15,78 @@ import java.util.List;
  */
 public class Mission {
 
+    @Expose
     @DatabaseField(id = true)
     private Integer missionId;
-
+    @Expose
     @DatabaseField
     private Integer missionTypeId;
-
+    @Expose
     @DatabaseField
     private String missionName;
-
+    @Expose
     @DatabaseField
     private String missionContent;
-
+    @Expose
     @DatabaseField
     private Double scores;
-
+    @Expose
     @DatabaseField
     private Double experience;
-
+    @Expose
     @DatabaseField
     private Integer missionFlag;
-
+    @Expose
     @DatabaseField
     private Double levelLimited;
-
+    @Expose
     @DatabaseField
     private Integer missionTime;
-
+    @Expose
     @DatabaseField
     private Double missionDistance;
-
+    @Expose
     @DatabaseField
     private Double cycleTime;
-
+    @Expose
     @DatabaseField
     private String missionFrom;
-
+    @Expose
     @DatabaseField
     private String missionTo;
-
+    @Expose
     @DatabaseField
     private Integer missionPlacePackageId;
 
     //private String missionPlacePackages;
 
     private List<MissionPlacePackage> missionPlacePackages;
-
+    @Expose
     @DatabaseField
     private Integer challengeId;
 
     //private String missionChallenges;
 
     private List<MissionChallenge> missionChallenges;
-
+    @Expose
     @DatabaseField
     private Integer missionSteps;
-
+    @Expose
     @DatabaseField
     private Double missionSpeed;
-
+    @Expose
     @DatabaseField
     private Date lastUpdateTime;
-
+    @Expose
     @DatabaseField
     private String subMissionList;
-
+    @Expose
     @DatabaseField
     private Integer missionPackageId;
-
+    @Expose
     @DatabaseField
     private Integer sequence;
-
+    @Expose
     @DatabaseField
     private Integer planId;
 

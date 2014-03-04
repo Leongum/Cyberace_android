@@ -29,7 +29,7 @@ public class FeedbackActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private Button btnReturn;
     private Button btnSubmit;
     private EditText txtContent;
-    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").excludeFieldsWithoutExposeAnnotation().create();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -1,5 +1,6 @@
 package com.G5432.Entity;
 
+import com.google.gson.annotations.Expose;
 import com.j256.ormlite.field.DatabaseField;
 
 import java.util.Date;
@@ -13,15 +14,16 @@ import java.util.Date;
  */
 public class SystemMessage {
 
+    @Expose
     @DatabaseField(id = true)
     private Integer messageId;
-
+    @Expose
     @DatabaseField
     private String message;
-
+    @Expose
     @DatabaseField
     private String rule;
-
+    @Expose
     @DatabaseField
     private Date lastUpdateTime;
 

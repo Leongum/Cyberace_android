@@ -1,5 +1,7 @@
 package com.G5432.Entity;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * Created with IntelliJ IDEA.
  * User: p
@@ -8,11 +10,11 @@ package com.G5432.Entity;
  * To change this template use File | Settings | File Templates.
  */
 public class Feedback {
-
+    @Expose
     private String suggestion;
-
+    @Expose
     private String contact;
-
+    @Expose
     private Integer userId;
 
     public String getSuggestion() {

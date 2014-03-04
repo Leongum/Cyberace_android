@@ -1,5 +1,6 @@
 package com.G5432.Entity;
 
+import com.google.gson.annotations.Expose;
 import com.j256.ormlite.field.DatabaseField;
 
 import java.util.Date;
@@ -12,25 +13,25 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 public class VersionControl {
-
+    @Expose
     @DatabaseField(id = true)
     private String platform;
-
+    @Expose
     @DatabaseField
     private Integer version;
-
+    @Expose
     @DatabaseField
     private Integer subVersion;
-
+    @Expose
     @DatabaseField
     private String description;
-
+    @Expose
     @DatabaseField
     private Date systemTime;
-
+    @Expose
     @DatabaseField
     private Date missionLastUpdateTime;
-
+    @Expose
     @DatabaseField
     private Date messageLastUpdateTime;
 

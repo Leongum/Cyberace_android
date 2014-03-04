@@ -1,5 +1,6 @@
 package com.G5432.Entity;
 
+import com.google.gson.annotations.Expose;
 import com.j256.ormlite.field.DatabaseField;
 
 import java.util.Date;
@@ -13,40 +14,56 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class Plan {
-
+    @Expose
     @DatabaseField(id = true)
     private Integer planId;
+    @Expose
     @DatabaseField
     private String planName;
+    @Expose
     @DatabaseField
     private String planDescription;
+    @Expose
     @DatabaseField
     private Integer planType; // 0 - easy 1 - complex
+    @Expose
     @DatabaseField
     private String missionIds;
+    @Expose
     @DatabaseField
     private Integer totalMissions;
+    @Expose
     @DatabaseField
     private Integer planShareUserId;
+    @Expose
     @DatabaseField
     private String planShareUserName;
+    @Expose
     @DatabaseField
     private Integer sharedPlan; // 0 system 1 shared
+    @Expose
     @DatabaseField
     private Integer cycleTime;
+    @Expose
     @DatabaseField
     private Integer duration;
+    @Expose
     @DatabaseField
     private Integer durationType; // 1 week 2 day
+    @Expose
     @DatabaseField
     private Integer planStatus; //0 enabled 1 deleted
+    @Expose
     @DatabaseField
     private Integer durationLast;
+    @Expose
     @DatabaseField
     private Integer planFlag;
+    @Expose
     @DatabaseField
     private Date lastUpdateTime;
 
+    @Expose
     private List<Mission> missionList;
 
     public Plan() {

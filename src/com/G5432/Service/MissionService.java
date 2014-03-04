@@ -123,4 +123,21 @@ public class MissionService {
         }
         return mission;
     }
+
+    public List<Mission> fetchMissionsByPlanId(Integer planId) {
+        List<Mission> missionsList = null;
+
+        try {
+            QueryBuilder<Mission, Integer> missionQueryBuilder = missionDao.queryBuilder();
+            missionQueryBuilder.where().eq("planId", planId);
+            missionQueryBuilder.orderBy("sequence", true);
+            missionsList = missionQueryBuilder.query();
+            for (Mission mission : missionsList) {
+                mission = fetchMissionDetails(mission);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        return missionsList;
+    }
 }

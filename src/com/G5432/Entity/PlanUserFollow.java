@@ -1,5 +1,6 @@
 package com.G5432.Entity;
 
+import com.google.gson.annotations.Expose;
 import com.j256.ormlite.field.DatabaseField;
 
 import java.util.Date;
@@ -13,19 +14,34 @@ import java.util.Date;
  */
 public class PlanUserFollow {
 
+    @DatabaseField(id = true, useGetSet = true)
+    private String genId;
+    @Expose
     @DatabaseField
     private Integer userId;
+    @Expose
     @DatabaseField
     private Integer followUserId;
+    @Expose
     @DatabaseField
     private Integer status;
+    @Expose
     @DatabaseField
     private Date addTime;
+    @Expose
     @DatabaseField
     private Integer updated;
 
     public PlanUserFollow(){
 
+    }
+
+    public String getGenId() {
+        return userId + "-" + followUserId;
+    }
+
+    public void setGenId(String genId) {
+        this.genId = genId;
     }
 
     public Integer getUserId() {

@@ -1,5 +1,6 @@
 package com.G5432.Entity;
 
+import com.google.gson.annotations.Expose;
 import com.j256.ormlite.field.DatabaseField;
 
 /**
@@ -10,22 +11,22 @@ import com.j256.ormlite.field.DatabaseField;
  * To change this template use File | Settings | File Templates.
  */
 public class UserBase {
-
+    @Expose
     @DatabaseField(id = true)
     private Integer userId;
-
+    @Expose
     @DatabaseField
     private String userEmail;
-
+    @Expose
     @DatabaseField
     private String password;
-
+    @Expose
     @DatabaseField
     private String nickName;
-
+    @Expose
     @DatabaseField
     private String sex;
-
+    @Expose
     @DatabaseField
     private String uuid;
 

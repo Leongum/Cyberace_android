@@ -1,5 +1,6 @@
 package com.G5432.Entity;
 
+import com.google.gson.annotations.Expose;
 import com.j256.ormlite.field.DatabaseField;
 
 /**
@@ -10,28 +11,28 @@ import com.j256.ormlite.field.DatabaseField;
  * To change this template use File | Settings | File Templates.
  */
 public class MissionChallenge {
-
+    @Expose
     @DatabaseField
     private Integer challengeId;
-
+    @Expose
     @DatabaseField
     private String grade;
-
+    @Expose
     @DatabaseField
     private Integer time;
-
+    @Expose
     @DatabaseField
     private Double distance;
-
+    @Expose
     @DatabaseField
     private Integer sequence;
-
+    @Expose
     @DatabaseField
     private String note;
-
+    @Expose
     @DatabaseField
     private String sex;
-
+    @Expose
     @DatabaseField
     private String rule;
 

@@ -2,6 +2,7 @@ package com.G5432.Service;
 
 import com.G5432.DBUtils.DatabaseHelper;
 import com.G5432.Entity.*;
+import com.G5432.Entity.Enum.MissionGradeEnum;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -171,4 +172,16 @@ public class RunningHistoryService {
         }
     }
 
+   public List<RunningHistory> fetchRunHistoryByPlanRunUuid(String planRunUuid){
+       List<RunningHistory> runningHistoryList = null;
+       try {
+           QueryBuilder<RunningHistory, String> runningHistoryQueryBuilder = runningHistoryDao.queryBuilder();
+           runningHistoryQueryBuilder.where().eq("planRunUuid", planRunUuid).and().ne("missionGrade", MissionGradeEnum.F.ordinal()).and().eq("valid", 1);
+           runningHistoryQueryBuilder.orderBy("sequence", true);
+           runningHistoryList = runningHistoryQueryBuilder.query();
+       } catch (SQLException e) {
+           e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+       }
+       return runningHistoryList;
+   }
 }

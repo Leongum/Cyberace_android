@@ -1,5 +1,6 @@
 package com.G5432.Entity;
 
+import com.google.gson.annotations.Expose;
 import com.j256.ormlite.field.DatabaseField;
 
 /**
@@ -10,55 +11,55 @@ import com.j256.ormlite.field.DatabaseField;
  * To change this template use File | Settings | File Templates.
  */
 public class UserInfo {
-
+    @Expose
     @DatabaseField(id = true)
     private Integer userId;
-
+    @Expose
     @DatabaseField
     private Double level;
-
+    @Expose
     @DatabaseField
     private Double scores;
-
+    @Expose
     @DatabaseField
     private Double experience;
-
+    @Expose
     @DatabaseField
     private Double maxPower;
-
+    @Expose
     @DatabaseField
     private Double remainingPower;
-
+    @Expose
     @DatabaseField
     private Double endurance;
-
+    @Expose
     @DatabaseField
     private Double spirit;
-
+    @Expose
     @DatabaseField
     private Double rapidly;
-
+    @Expose
     @DatabaseField
     private Double recoverSpeed;
-
+    @Expose
     @DatabaseField
     private Double weight;
-
+    @Expose
     @DatabaseField
     private Double height;
-
+    @Expose
     @DatabaseField
     private Integer age;
-
+    @Expose
     @DatabaseField
     private double totalDistance;
-
+    @Expose
     @DatabaseField
     private double avgSpeed;
-
+    @Expose
     @DatabaseField
     private double spendCarlorie;
-
+    @Expose
     @DatabaseField
     private Integer totalRunTimes;
 
